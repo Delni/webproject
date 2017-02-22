@@ -13,6 +13,7 @@
 
   <body>
     <div id="page">
+      <?php include '/templates/menuTemplate.php' ?>
       <span class="input input--nao">
 					<input class="input__field input__field--nao" type="text" id="input-1" />
 					<label class="input__label input__label--nao" for="input-1">
