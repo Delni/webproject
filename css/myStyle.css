@@ -1,8 +1,12 @@
 @font-face{
 		font-family: 'Vanished';
-		src: url("Vanished.ttf");
+		src: url("fonts/Vanished.ttf");
 }
 
+@font-face{
+		font-family: 'Comfortaa';
+		src: url("fonts/Comfortaa-Regular.ttf");
+}
 
 
 /*****************************************************************************/
@@ -13,7 +17,7 @@ body{
   background-size: cover;
 }
 
-h1{
+h1.accueil{
 	font-size: 5em;
 	font-family: 'Vanished';
 	text-shadow: 15px 15px 20px #0f2553;
@@ -21,12 +25,16 @@ h1{
 	padding-bottom: 1em;
 }
 
-form{
+h2, form{
   color: #f2f1d8;
 }
 
 form input{
 	color: #313145;
+}
+
+p{
+ font-family: 'Comfortaa';
 }
 
 #page{
@@ -45,12 +53,12 @@ form input{
 
 .container{
   text-align: center;
-  width: 99%;
+  width: 100%;
   position: absolute;;
   top : 30%;
 }
 
-.btn-default{
+.btn-accueil{
   background-color: #3c74e6;
   height: 50px;
   width: 200px;
@@ -63,7 +71,7 @@ form input{
   transition: all ease-out 500ms;
 }
 
-.btn-default:hover{
+.btn-accueil:hover{
 	background-color: #3c74e6;
 	color: #f2f1d8;
   box-shadow: 5px 5px 5px #0f2553;
@@ -71,8 +79,105 @@ form input{
 }
 
 
+.btn-submit{
+  background-color: #3c74e6;
+  color: #f2f1d8;
+  margin: 5px;
+  font-size: 1.1em;
+  transition: all ease-out 500ms;
+}
 
+.btn-submit:hover{
+	background-color: #3c74e6;
+	color: #f2f1d8;
+  box-shadow: 5px 5px 5px #0f2553;
+  font-size: 1.2em;
+}
 
+.user-icon__mask{
+	position: absolute;
+	top: 42px;
+	margin: 5%;
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	box-shadow: 5px 5px 10px 10px black inset;
+	z-index: 1000;
+}
+.user-icon{
+	position: absolute;
+	top: 42px;
+	margin: 5%;
+	padding-top: 1%;
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	text-align: center;
+	font-size: 8em;
+	color: #f2f1d8;
+	overflow: hidden;
+	z-index: 0;
+}
+
+.user-pseudo{
+	margin-left: 275px;
+	margin-top: 5%;
+	margin-bottom: -1%;
+	display: inline-block;
+	font-size: 4.5em;
+	color: #f2f1d8;
+}
+.user-pseudo a{
+	text-decoration: none;
+	color: #f2f1d8;
+}
+
+.user-pseudo a:hover{
+	text-decoration: none;
+	color: #b9b78d;
+}
+
+.user-pseudo__subtitle{
+	margin-left: 275px;
+	margin-bottom: 1.5%;
+	font-size: 1em;
+	color: #c3c3c3;
+}
+
+.jumbotron{
+	width: 90%;
+	margin: auto;
+	border-radius: 10px;
+	background: url("img/Accueil_blurred.png") no-repeat fixed;
+	background-size: cover;
+	color: #f2f1d8;
+}
+
+.active{
+	background-color:rgba(117, 117, 117,0.5);
+}
+
+.tab-pane h1{
+	font-family: 'Comfortaa';
+}
+
+.hand{
+	position:absolute;
+	text-align: center;
+	bottom: 0px;
+	height: 120px;
+	overflow: hidden;
+	margin-left: 5%;
+}
+
+.card{
+	display: inline-block;
+	width: 7%;
+	height: 400%;
+	margin-right:1.25%;
+	margin-left:1.25%;
+	border: 2px #f2f1d8 dotted;
+}
 /******************************************************************************/
 /*                    EXTERNAL CSS FROM CODROPS TUTORIALS                     */
 /******************************************************************************/
@@ -138,57 +243,80 @@ form input{
 	fill: none;
 }
 
-/* Nao */
-.input--nao {
-	overflow: hidden;
-	padding-top: 1em;
-}
-
-.input__field--nao {
-	padding: 0.5em 0em 0.25em;
+/* Yoko */
+.input__field--yoko {
+	z-index: 10;
 	width: 100%;
 	background: transparent;
-	color: #f2f1d8;
+	color: #f5f5f5;
+	opacity: 0;
 	font-size: 1.25em;
+	-webkit-transition: opacity 0.3s;
+	transition: opacity 0.3s;
 }
 
-.input__label--nao {
-	position: absolute;
-	top: 0.5em;
-	font-size: 1em;
-	left: 0;
-	display: block;
+.input__label--yoko {
+	position: relative;
 	width: 100%;
-	text-align: left;
-	padding: 0em;
-	pointer-events: none;
-	-webkit-transform-origin: 0 0;
-	transform-origin: 0 0;
-	-webkit-transition: -webkit-transform 0.2s 0.15s, color 1s;
-	transition: transform 0.2s 0.15s, color 1s;
-	-webkit-transition-timing-function: ease-out;
-	transition-timing-function: ease-out;
-}
-
-.graphic--nao {
-	stroke: #f2f1d8;
-	pointer-events: none;
-	-webkit-transition: -webkit-transform 0.7s, stroke 0.7s;
-	transition: transform 0.7s, stroke 0.7s;
-	-webkit-transition-timing-function: cubic-bezier(0, 0.25, 0.5, 1);
-	transition-timing-function: cubic-bezier(0, 0.25, 0.5, 1);
-}
-
-.input__field--nao:focus + .input__label--nao,
-.input--filled .input__label--nao {
 	color: #f2f1d8;
-	-webkit-transform: translate3d(0, -1.25em, 0) scale3d(0.75, 0.75, 1);
-	transform: translate3d(0, -1.25em, 0) scale3d(0.75, 0.75, 1);
+	font-size: 1em;
+	text-align: left;
 }
 
-.input__field--nao:focus ~ .graphic--nao,
-.input--filled .graphic--nao {
-	stroke: #f2f1d8;
-	-webkit-transform: translate3d(-66.6%, 0, 0);
-	transform: translate3d(-66.6%, 0, 0);
+.input__label--yoko::before {
+	content: '';
+	position: absolute;
+	bottom: 100%;
+	left: 0;
+	width: 100%;
+	height: 4em;
+	background-color: rgba(0,0,0,0.5);
+	-webkit-transform: perspective(1000px) rotate3d(1, 0, 0, 90deg);
+	transform: perspective(1000px) rotate3d(1, 0, 0, 90deg);
+	-webkit-transform-origin: 50% 100%;
+	transform-origin: 50% 100%;
+	-webkit-transition: -webkit-transform 0.3s;
+	transition: transform 0.3s;
+}
+
+.input__label--yoko::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 0.25em;
+	background: #ad473c;
+	-webkit-transform-origin: 50% 0%;
+	transform-origin: 50% 0%;
+	-webkit-transition: -webkit-transform 0.3s;
+	transition: transform 0.3s;
+}
+
+.input__label-content--yoko {
+	padding: 0.75em 0;
+}
+
+.input__field--yoko:focus,
+.input--filled .input__field--yoko {
+	opacity: 1;
+	-webkit-transition-delay: 0.3s;
+	transition-delay: 0.3s;
+}
+
+.input__field--yoko:focus + .input__label--yoko::before,
+.input--filled .input__label--yoko::before {
+	-webkit-transform: perspective(1000px) rotate3d(1, 0, 0, 0deg);
+	transform: perspective(1000px) rotate3d(1, 0, 0, 0deg);
+}
+
+.input__field--yoko:focus + .input__label--yoko,
+.input--filled .input__label--yoko {
+	pointer-events: none;
+}
+
+.input__field--yoko:focus + .input__label--yoko::after,
+.input--filled .input__label--yoko::after {
+	-webkit-transform: perspective(1000px) rotate3d(1, 0, 0, -90deg);
+	transform: perspective(1000px) rotate3d(1, 0, 0, -90deg);
 }

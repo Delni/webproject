@@ -1,37 +1,96 @@
 <div class="container" id="inscription">
-  <div class="container">
+  <div style="margin-top: 5%">
     <h2>Inscription</h2>
     <?php
     if(isset($inscErrorText))
     echo '<span class="error">' . $inscErrorText . '</span>';
     ?>
-    <form  action="index.php" method="post">
-      <table>
-        <tr>
-          <th>Login* :</th>
-          <td><input type="text" name="inscLogin"/></td>
-        </tr>
-        <tr>
-          <th>Mot de passe* :</th>
-          <td><input type="password" name="inscPassword"/></td>
-        </tr>
-        <tr>
-          <th>Mail :</th>
-          <td><input type="text" name="mail"/></td>
-        </tr>
-        <tr>
-          <th>Nom :</th>
-          <td><input type="text" name="nom"/></td>
-        </tr>
-        <tr>
-          <th>Prenom :</th>
-          <td><input type="text" name="prenom"/></td>
-        </tr>
-        <tr>
-          <th />
-          <td><input type="submit" value="Creer mon compte..." /></td>
-        </tr>
-      </table>
-    </form>
+    <form action="index.php" method="post">
+      <div>
+        <span class="input input--yoko">
+          <input class="input__field input__field--yoko" type="text" name="inscLogin" id="input-1" />
+          <label class="input__label input__label--yoko" for="input-1">
+            <span class="input__label-content input__label-content--yoko"><i class="fa fa-user-circle"></i> Login</span>
+          </label>
+        </span>
+      </div>
+      <div>
+        <span class="input input--yoko">
+          <input class="input__field input__field--yoko" type="password" name="inscPassword" id="input-2" />
+          <label class="input__label input__label--yoko" for="input-2">
+            <span class="input__label-content input__label-content--yoko"><i class="fa fa-unlock-alt"></i> Mot de passe</span>
+          </label>
+        </span>
+        <span class="input input--yoko">
+          <input class="input__field input__field--yoko" type="password" name="inscPasswordConfirm" id="input-3" />
+          <label class="input__label input__label--yoko" for="input-2">
+            <span class="input__label-content input__label-content--yoko"><i class="fa fa-unlock-alt"></i> Confirmez le mot de passe</span>
+          </label>
+        </span>
+      </div>
+      <div >
+        <span class="input input--yoko">
+          <input class="input__field input__field--yoko" type="text" name="inscFirstName" id="input-4" />
+          <label class="input__label input__label--yoko" for="input-1">
+            <span class="input__label-content input__label-content--yoko"><i class="fa fa-vcard-o"></i> Prénom</span>
+          </label>
+        </span>
+        <span class="input input--yoko">
+          <input class="input__field input__field--yoko" type="text" name="inscName" id="input-5" />
+          <label class="input__label input__label--yoko" for="input-2">
+            <span class="input__label-content input__label-content--yoko"><i class="fa fa-vcard"></i> Nom</span>
+          </label>
+        </span>
+      </div>
+      <div>
+        <span class="input input--yoko">
+          <input class="input__field input__field--yoko" type="text" name="inscMail" id="input-6" />
+          <label class="input__label input__label--yoko" for="input-2">
+            <span class="input__label-content input__label-content--yoko"><i class="fa fa-envelope"></i> E-mail</span>
+          </label>
+        </span>
+      </div>
+      <div>
+        <input class="btn btn-submit" type="submit" value="Créer mon compte..." />
+      </div>
+  </form>
+
+
   </div>
 </div>
+<script src="js/classie.js"></script>
+<script>
+  (function() {
+    // trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
+    if (!String.prototype.trim) {
+      (function() {
+        // Make sure we trim BOM and NBSP
+        var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+        String.prototype.trim = function() {
+          return this.replace(rtrim, '');
+        };
+      })();
+    }
+
+    [].slice.call( document.querySelectorAll( 'input.input__field' ) ).forEach( function( inputEl ) {
+      // in case the input is already filled..
+      if( inputEl.value.trim() !== '' ) {
+        classie.add( inputEl.parentNode, 'input--filled' );
+      }
+
+      // events:
+      inputEl.addEventListener( 'focus', onInputFocus );
+      inputEl.addEventListener( 'blur', onInputBlur );
+    } );
+
+    function onInputFocus( ev ) {
+      classie.add( ev.target.parentNode, 'input--filled' );
+    }
+
+    function onInputBlur( ev ) {
+      if( ev.target.value.trim() === '' ) {
+        classie.remove( ev.target.parentNode, 'input--filled' );
+      }
+    }
+  })();
+</script>
