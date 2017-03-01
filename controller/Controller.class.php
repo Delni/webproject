@@ -1,6 +1,6 @@
 <?php
   abstract class Controller extends MyObject {
-    private $local_request;
+    protected $local_request;
 
     public function __construct($request) {
       $this->local_request = $request;

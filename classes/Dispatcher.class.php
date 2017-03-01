@@ -1,13 +1,19 @@
 <?php
   class Dispatcher extends MyObject {
+    protected static $uniqueInstance = NULL;
 
-    public function __construct() { }
+    public static function getCurrentDispatcher(){
+      if(is_null(self::$uniqueInstance)){
+        static::$uniqueInstance = new static();
+      }
+      return static::$uniqueInstance;
+  }
 
     public static function dispatch($request){
-      $controller = $request->getControllerName();
-      $controllerClass = ucfirst($controller) . 'Controller';
+      $controllerName = $request->getControllerName();
+      $controllerClass = ucfirst($controllerName) . 'Controller';
       if(!class_exists($controllerClass))
-        throw new Exception("$controller does not exist");
+        throw new Exception("$controllerName does not exist");
       return new $controllerClass($request);
     }
   }

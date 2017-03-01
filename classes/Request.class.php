@@ -3,7 +3,6 @@
     protected static $uniqueInstance = NULL;
 
     // Construct with Singleton design pattern
-    private function __construct() {}
 
     public static function getCurrentRequest(){
         if(is_null(self::$uniqueInstance)){
@@ -31,8 +30,19 @@
         return 'defaultAction';
       }
     }
+
+    public function read($str){
+      if(isset($_GET[$str])){
+        return $_GET[$str];
+      } elseif (isset($_POST[$str])){
+        return $_POST[$str];
+      }
+    }
+
+    public function write($key,$value){
+      $_GET[$key]=$value;
+    }
   }
 
-// $__REQUEST = new Request();
 
 ?>
