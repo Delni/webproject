@@ -1,17 +1,21 @@
+/*****************************************************************************/
+/*                              CUSTOM FONTS                                 */
+/*****************************************************************************/
+
 @font-face{
 		font-family: 'Vanished';
-		src: url("fonts/Vanished.ttf");
+		src: url("../fonts/Vanished.ttf");
 }
 
 @font-face{
 		font-family: 'Comfortaa';
-		src: url("fonts/Comfortaa-Regular.ttf");
+		src: url("../fonts/Comfortaa-Regular.ttf");
 }
 
+/*****************************************************************************/
+/*                           BASICS DEFINITIONS                              */
+/*****************************************************************************/
 
-/*****************************************************************************/
-/*                          ACCUEIL (INDEX.PHP)                              */
-/*****************************************************************************/
 body{
 	background: url("img/Accueil.png") no-repeat fixed;
   background-size: cover;
@@ -51,6 +55,26 @@ p{
 	left: 0px;
 }
 
+.jumbotron{
+	width: 90%;
+	margin: auto;
+	border-radius: 10px;
+	background: url("img/Accueil_blurred.png") no-repeat fixed;
+	background-size: cover;
+	color: #f2f1d8;
+}
+
+.active{
+	background-color:rgba(117, 117, 117,0.5);
+}
+
+.tab-pane h1{
+	font-family: 'Comfortaa';
+}
+
+/*****************************************************************************/
+/*                          ACCUEIL (INDEX.PHP)                              */
+/*****************************************************************************/
 .container{
   text-align: center;
   width: 100%;
@@ -78,6 +102,9 @@ p{
   font-size: 1.2em;
 }
 
+/*****************************************************************************/
+/*                        FORMULAIRE INSCRIPTION                             */
+/*****************************************************************************/
 
 .btn-submit{
   background-color: #3c74e6;
@@ -93,6 +120,10 @@ p{
   box-shadow: 5px 5px 5px #0f2553;
   font-size: 1.2em;
 }
+
+/*****************************************************************************/
+/*                             USER TEMPLATE                                 */
+/*****************************************************************************/
 
 .user-icon__mask{
 	position: absolute;
@@ -144,44 +175,73 @@ p{
 	color: #c3c3c3;
 }
 
-.jumbotron{
-	width: 90%;
-	margin: auto;
-	border-radius: 10px;
-	background: url("img/Accueil_blurred.png") no-repeat fixed;
-	background-size: cover;
-	color: #f2f1d8;
-}
-
-.active{
-	background-color:rgba(117, 117, 117,0.5);
-}
-
-.tab-pane h1{
-	font-family: 'Comfortaa';
-}
+/*****************************************************************************/
+/*                         PLAYGROUND TEMPLATE                               */
+/*****************************************************************************/
 
 .hand{
-	position:absolute;
+	position:fixed;
 	text-align: center;
 	bottom: 0px;
 	height: 120px;
 	overflow: hidden;
 	margin-left: 5%;
+	padding-top:2.5%;
 }
 
 .card{
+	position: relative;
 	display: inline-block;
-	width: 7%;
-	height: 400%;
+	border-radius: 7.5px;
+	overflow: hidden;
+	width: 95px;
+	height: 137px;
 	margin-right:1.25%;
 	margin-left:1.25%;
-	border: 2px #f2f1d8 dotted;
+	border: 2px #f2f1d8 dashed;
 }
+
+.card__content{
+	width:100%;
+	height:100%;
+	background: url('img/cards.jpg');
+	background-size: 950%;
+}
+
+.card__on__table{
+	display: block;
+	border: none;
+	box-shadow: -2px -2px 10px 1px black;
+	width: 91px;
+	background-color: rgba(50, 50, 50, 0.5);
+	margin-bottom: -75px;
+}
+
+.playground{
+	padding-left: 1%;
+}
+
+.column {
+	margin-left: 1%;
+	display: inline-block;
+}
+
+.column .card__on__table:last-child{
+	margin-bottom: 0px;
+}
+
+.panel-round{
+	display: inline-block;
+	background-color: rgba(130, 130, 130, 0.5);
+	width: 100%;
+	height: 100%
+}
+
+
 /******************************************************************************/
 /*                    EXTERNAL CSS FROM CODROPS TUTORIALS                     */
 /******************************************************************************/
-/*https://tympanus.net/codrops/2015/01/08/inspiration-text-input-effects/*/
+/*   https://tympanus.net/codrops/2015/01/08/inspiration-text-input-effects/  */
 .input {
 	position: relative;
 	z-index: 1;

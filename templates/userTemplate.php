@@ -16,11 +16,11 @@
       <li role="presentation"><a href="#parties">Parties En Cours</a></li>
     </ul>
     <div class="tab-pane active" id="stats">
-      <h1>Statistiques :</h1>
+      <h1>Statistiques </h1>
       <p>Ratio : <br>Victoires : <br>Défaites :</p>
     </div>
     <div class="tab-pane" id="hist">
-      <h1>Historique :</h1>
+      <h1>Historique </h1>
       <table class="table">
         <thead>
           <tr>
@@ -47,7 +47,7 @@
      </table>
     </div>
     <div class="tab-pane" id="parties">
-      <h1>Parties en cours :</h1>
+      <h1>Parties en cours </h1>
       <table class="table">
         <thead>
           <tr>
