@@ -194,11 +194,11 @@ p{
 	display: inline-block;
 	border-radius: 7.5px;
 	overflow: hidden;
-	width: 95px;
+	width: 91px;
 	height: 137px;
 	margin-right:1.25%;
 	margin-left:1.25%;
-	border: 2px #f2f1d8 dashed;
+	box-shadow: 5px 5px 10px 5px black inset;
 }
 
 .card__content{
