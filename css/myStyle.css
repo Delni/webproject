@@ -68,14 +68,12 @@ p{
 	color: #f2f1d8;
 }
 
-.active{
-	background-color:rgba(117, 117, 117,0.5);
-}
 
 .tab-pane h1{
 	font-family: 'Comfortaa';
 }
 
+<<<<<<< HEAD
 .dropdown-menu{
 	background-color: rgb(43, 45, 54);
 }
@@ -86,6 +84,10 @@ p{
 
 .dropdown-menu li a:hover{
 	border-radius: 2px;
+=======
+.tab-pane{
+	padding-left: 2%;
+>>>>>>> AdaptatingTemplate
 }
 
 /*****************************************************************************/
