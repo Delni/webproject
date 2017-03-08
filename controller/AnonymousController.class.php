@@ -9,6 +9,8 @@
     public function execute() {
       if(isset($_POST["inscLogin"])){
          $this->validateInscription($this->local_request);
+      } elseif (isset($_POST["conLogin"])) {
+        $this->validateConnection($this->local_request);
       } else {
           parent::execute();
       }
@@ -21,6 +23,11 @@
 
     public function inscription($request){
       $view = new InscriptionView($this);
+      $view->render($this);
+    }
+
+    public function connection($request){
+      $view = new ConnectionView($this);
       $view->render($this);
     }
 
@@ -43,10 +50,31 @@
         } else {
           $newRequest = new Request();
           $newRequest->write('controller','user');
-          $newRequest->write('user',$user->id());
+          $newRequest->write('user',$user->get_id());
           $contoller = Dispatcher::getCurrentDispatcher()->dispatch($newRequest);
           $contoller->execute();
         }
+      }
+    }
+
+    public function validateConnection($args) {
+      $login = $args->read('conLogin');
+      $password= $args->read('conPassword');
+      if(User::isLoginUsed($login)){
+        // That means that the login exist in the table.
+        $user= new User($login);
+        $user->set_id($login);
+        if($user->getX('MDP')==$password){
+          $newRequest = new Request();
+          $newRequest->write('controller','user');
+          $newRequest->write('user',$user->get_id());
+          $contoller = Dispatcher::getCurrentDispatcher()->dispatch($newRequest);
+          $contoller->execute();
+        } else {
+          //TODO : Error handling : no matching password
+        }
+      } else {
+        //TODO : Error handling : no matching login
       }
     }
   }

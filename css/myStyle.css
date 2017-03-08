@@ -33,6 +33,10 @@ h2, form{
   color: #f2f1d8;
 }
 
+h2 {
+	font-family: 'Comfortaa';
+}
+
 form input{
 	color: #313145;
 }
@@ -46,7 +50,7 @@ p{
 	overflow: hidden;
 }
 
-#inscription{
+#inscription, #connection{
 	background: url("img/Accueil_blurred.png") no-repeat fixed;
 	background-size: cover;
 	height: 100%;

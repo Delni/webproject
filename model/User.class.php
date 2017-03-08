@@ -3,7 +3,7 @@
     protected $local_login;
 
     public function __construct($login) {
-      $local_login=$login;
+      $this->local_login=$login;
     }
 
     public static function isLoginUsed($login){
@@ -29,13 +29,16 @@
     }
 
     public function getX($var){
-      $sql_req='SELECT '. $var . ' FROM joueur WHERE PSEUDO=\'' . $local_login . '\'';
+      $sql_req='SELECT '. $var . ' FROM joueur WHERE PSEUDO=\'' . $this->local_login . '\'';
       $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
       $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
-      return $data;
+      return $data->$var;
     }
 
-    public function id(){
+    public function set_id($str){
+      $this->local_login=$str;
+    }
+    public function get_id(){
       return $this->local_login;
     }
 
