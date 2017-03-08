@@ -63,7 +63,7 @@
       if(User::isLoginUsed($login)){
         // That means that the login exist in the table.
         $user= new User($login);
-        $user->set_id($login);
+        //$user->set_id($login);
         if($user->getX('MDP')==$password){
           $newRequest = new Request();
           $newRequest->write('controller','user');

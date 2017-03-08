@@ -68,12 +68,13 @@ p{
 	color: #f2f1d8;
 }
 
-.active{
-	background-color:rgba(117, 117, 117,0.5);
-}
 
 .tab-pane h1{
 	font-family: 'Comfortaa';
+}
+
+.tab-pane{
+	padding-left: 2%;
 }
 
 /*****************************************************************************/

@@ -4,10 +4,10 @@
       <i class="fa fa-user-o"></i>
   </div>
   <div class="user-pseudo">
-    <p>Bonjour Delni ! <a href="#"><i class="fa fa-pencil"></i></a></p>
+    <p>Bonjour <?php echo $this->user->get_id(); ?> ! <a href="#"><i class="fa fa-pencil"></i></a></p>
   </div>
   <div class="user-pseudo__subtitle">
-    <p>Nicolas Delauney <img src="css/img/flags/flags_iso/24/fr.png" alt="fra"></p>
+    <p><?php echo $this->user->getX('PRENOM')." ".$this->user->getX('NOM'); ?> <?php $this->get_flag(); ?></p>
   </div>
   <div class="jumbotron">
     <ul class="nav nav-tabs nav-justified">
