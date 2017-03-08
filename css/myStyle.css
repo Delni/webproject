@@ -73,7 +73,6 @@ p{
 	font-family: 'Comfortaa';
 }
 
-<<<<<<< HEAD
 .dropdown-menu{
 	background-color: rgb(43, 45, 54);
 }
@@ -84,10 +83,10 @@ p{
 
 .dropdown-menu li a:hover{
 	border-radius: 2px;
-=======
+}
+
 .tab-pane{
 	padding-left: 2%;
->>>>>>> AdaptatingTemplate
 }
 
 /*****************************************************************************/
