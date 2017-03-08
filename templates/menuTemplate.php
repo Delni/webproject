@@ -31,11 +31,11 @@
         <li role="presentation" class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+            <li><a href="#"><i class="fa fa-user-circle-o fa-fw"></i> Mon Profil</a></li>
+            <li><a href="#"><i class="fa fa-cog fa-fw"></i> Mes données</a></li>
+            <li><a href="#"><i class="fa fa-gamepad fa-fw"></i> Mes parties</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <li><a href="index.php"><i class="fa fa-power-off fa-fw"></i> Déconnexion</a></li>
           </ul>
         </li>
         <li><a href="#" ><i class="fa fa-question-circle"></i></a></li>

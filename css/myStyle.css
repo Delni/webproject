@@ -76,6 +76,18 @@ p{
 	font-family: 'Comfortaa';
 }
 
+.dropdown-menu{
+	background-color: rgb(43, 45, 54);
+}
+
+.dropdown-menu li a{
+	color:#f2f1d8;
+}
+
+.dropdown-menu li a:hover{
+	border-radius: 2px;
+}
+
 /*****************************************************************************/
 /*                          ACCUEIL (INDEX.PHP)                              */
 /*****************************************************************************/
