@@ -10,6 +10,8 @@ Email varchar(50),
 Date_Creation DATE,
 Pays varchar(50),
 IdP varchar(250),
+Perdues int,
+Gagnees int,
 PRIMARY KEY (Pseudo)
 );
 
