@@ -4,7 +4,7 @@
       <i class="fa fa-user-o"></i>
   </div>
   <div class="user-pseudo">
-    <p>Bonjour <?php echo $this->user->get_id(); ?> ! <a href="#"><i class="fa fa-pencil"></i></a></p>
+    <p>Bonjour <?php echo $this->user->get_id(); ?> ! <a href="index.php?action=editProfile"><i class="fa fa-pencil"></i></a></p>
   </div>
   <div class="user-pseudo__subtitle">
     <p><?php echo $this->user->getX('PRENOM')." ".$this->user->getX('NOM'); ?> <?php $this->get_flag(); ?></p>
@@ -18,7 +18,8 @@
     <div class="tab-content">
       <div class="tab-pane active" id="stats">
         <h1>Statistiques </h1>
-        <p>Ratio : <?php echo $this->user->getRatio(); ?><br>
+        <p>
+          Ratio : <?php echo $this->user->getRatio(); ?><br>
           Victoires : <?php echo $this->user->getX('GAGNEES'); ?> <br>
           Défaites : <?php echo $this->user->getX('PERDUES'); ?></p>
       </div>

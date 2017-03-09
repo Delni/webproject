@@ -1,6 +1,6 @@
 <?php
   class View extends MyObject {
-    private $controller;
+    protected $controller;
     protected $args=array();
 
     public function __construct($controller) {

@@ -11,5 +11,10 @@
     public function get_user(){
       return $this->user;
     }
+
+    public function editProfile($request){
+      echo "Edite ".$this->user->get_id();
+
+    }
   }
  ?>

@@ -42,6 +42,10 @@
     public function write($key,$value){
       $_GET[$key]=$value;
     }
+
+    public function writePOST($key,$value){
+      $_POST[$key]=$value;
+    }
   }
 
 

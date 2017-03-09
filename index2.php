@@ -13,9 +13,7 @@
 
   <body>
     <div id="page">
-      <?php include '/templates/menuTemplate.php' ?>
-      <!-- <?php include '/templates/userTemplate.php' ?> -->
-      <?php include '/templates/playgroundTemplate.php' ?>
+      <?php include '/templates/editProfileTemplate.php' ?>
     </div>
     <script type="text/javascript" src="assets/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="assets/bootstrap-3.3.7/js/bootstrap.js"></script>

@@ -14,14 +14,14 @@
     }
 
     public static function create($login, $password,$mail,$nom,$prenom){
-      $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO `joueur` (`PSEUDO`,`MDP`, `NOM`, `PRENOM`, `MAIL`, `DATE_CREATION`,`PERDUES`,`GAGNEES`) VALUES (:login,:psw:,:name,:fname,:mail,:today,0,0)');
+      $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO `joueur` (`PSEUDO`,`MDP`, `NOM`, `PRENOM`, `EMAIL`, `DATE_CREATION`,`PERDUES`,`GAGNEES`) VALUES (:login,:psw,:name,:fname,:mail,:today,0,0)');
       $sql_req->bindParam(':login',$login);
-      $today=date("Y-m-d");
-      $sql_req->bindParam(':today',$today);
+      $sql_req->bindParam(':psw',$password);
       $sql_req->bindParam(':name',$nom);
       $sql_req->bindParam(':fname',$prenom);
       $sql_req->bindParam(':mail',$mail);
-      $sql_req->bindParam(':psw',$password);
+      $today=date("Y-m-d");
+      $sql_req->bindParam(':today',$today);
       //Execute full request
       $sql_req->execute();
       //return User object
@@ -45,7 +45,7 @@
     public function getRatio(){
       $victoires=(int) $this->getX('GAGNEES');
       $defaites=(int) $this->getX('PERDUES');
-      $bouclage=true;
+      $bouclage=($victoires==0 || $defaites==0)?false:true;
       while ($bouclage){
         $bouclage = false;
         if ($victoires%9 == 0 && $defaites%9==0 && !$bouclage){
