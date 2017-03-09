@@ -68,7 +68,6 @@ p{
 	color: #f2f1d8;
 }
 
-
 .tab-pane h1{
 	font-family: 'Comfortaa';
 }
@@ -87,6 +86,7 @@ p{
 
 .tab-pane{
 	padding-left: 2%;
+	padding-right: 2%;
 }
 
 /*****************************************************************************/

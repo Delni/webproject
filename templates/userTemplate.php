@@ -11,9 +11,9 @@
   </div>
   <div class="jumbotron">
     <ul class="nav nav-tabs nav-justified">
-      <li role="presentation" class="active"><a href="#stats">Statistiques</a></li>
-      <li role="presentation"><a href="#hist">Historique des parties</a></li>
-      <li role="presentation"><a href="#parties">Parties En Cours</a></li>
+      <li role="presentation" class="active"><a href="#stats" data-toggle="tab">Statistiques</a></li>
+      <li role="presentation"><a href="#hist" data-toggle="tab">Historique des parties</a></li>
+      <li role="presentation"><a href="#parties" data-toggle="tab">Parties En Cours</a></li>
     </ul>
     <div class="tab-content">
       <div class="tab-pane active" id="stats">
