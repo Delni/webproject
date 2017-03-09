@@ -14,7 +14,7 @@
     }
 
     public static function create($login, $password,$mail,$nom,$prenom){
-      $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO `joueur` (`PSEUDO`,`DATE_CREATION`, `NOM`, `PRENOM`, `MAIL`, `MDP`) VALUES (:login,:today,:name,:fname,:mail,:psw)');
+      $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO `joueur` (`PSEUDO`,`MDP`, `NOM`, `PRENOM`, `MAIL`, `DATE_CREATION`,`PERDUES`,`GAGNEES`) VALUES (:login,:psw:,:name,:fname,:mail,:today,0,0)');
       $sql_req->bindParam(':login',$login);
       $today=date("Y-m-d");
       $sql_req->bindParam(':today',$today);
@@ -40,6 +40,56 @@
     }
     public function get_id(){
       return $this->local_login;
+    }
+
+    public function getRatio(){
+      $victoires=(int) $this->getX('GAGNEES');
+      $defaites=(int) $this->getX('PERDUES');
+      $bouclage=true;
+      while ($bouclage){
+        $bouclage = false;
+        if ($victoires%9 == 0 && $defaites%9==0 && !$bouclage){
+          $victoires=$victoires/9;
+          $defaites=$defaites/9;
+          $bouclage = true;
+        }
+        elseif ($victoires%8 == 0 && $defaites%8==0 && !$bouclage) {
+          $victoires=$victoires/8;
+          $defaites=$defaites/8;
+          $bouclage = true;
+        }
+        elseif ($victoires%7 == 0 && $defaites%7==0 && !$bouclage) {
+          $victoires=$victoires/7;
+          $defaites=$defaites/7;
+          $bouclage = true;
+        }
+        elseif ($victoires%6 == 0 && $defaites%6==0 && !$bouclage) {
+          $victoires=$victoires/6;
+          $defaites=$defaites/6;
+          $bouclage = true;
+        }
+        elseif ($victoires%5 == 0 && $defaites%5==0 && !$bouclage) {
+          $victoires=$victoires/5;
+          $defaites=$defaites/5;
+          $bouclage = true;
+        }
+        elseif ($victoires%4 == 0 && $defaites%4==0 && !$bouclage) {
+          $victoires=$victoires/4;
+          $defaites=$defaites/4;
+          $bouclage = true;
+        }
+        elseif ($victoires%3 == 0 && $defaites%3==0 && !$bouclage) {
+          $victoires=$victoires/3;
+          $defaites=$defaites/3;
+          $bouclage = true;
+        }
+        elseif ($victoires%2 == 0 && $defaites%2==0 && !$bouclage) {
+          $victoires=$victoires/2;
+          $defaites=$defaites/2;
+          $bouclage = true;
+        }
+      }
+      return $victoires." : ".$defaites;
     }
 
   }

@@ -18,7 +18,9 @@
     <div class="tab-content">
       <div class="tab-pane active" id="stats">
         <h1>Statistiques </h1>
-        <p>Ratio : <br>Victoires : <br>Défaites :</p>
+        <p>Ratio : <?php echo $this->user->getRatio(); ?><br>
+          Victoires : <?php echo $this->user->getX('GAGNEES'); ?> <br>
+          Défaites : <?php echo $this->user->getX('PERDUES'); ?></p>
       </div>
       <div class="tab-pane" id="hist">
         <h1>Historique </h1>
