@@ -3,7 +3,6 @@
     protected $user;
 
     public function defaultAction($request) {
-      $this->user=new User($request->read('user'));
       $view = new UserView($this);
       $view->render($this);
     }
@@ -14,7 +13,10 @@
 
     public function editProfile($request){
       echo "Edite ".$this->user->get_id();
+    }
 
+    public function logout($request){
+      SessionStop();
+      header('Location: index.php');
     }
   }
- ?>

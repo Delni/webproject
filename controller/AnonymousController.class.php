@@ -48,6 +48,8 @@
           $view->setArg('inscErrorText', 'Cannot complete inscription');
           $view->render($this);
         } else {
+          SessionStart();
+          $_SESSION['user']=$user;
           $newRequest = new Request();
           $newRequest->write('controller','user');
           $newRequest->write('user',$user->get_id());
@@ -65,6 +67,8 @@
         $user= new User($login);
         //$user->set_id($login);
         if($user->getX('MDP')==$password){
+          SessionStart();
+          $_SESSION['user']=$user;
           $newRequest = new Request();
           $newRequest->write('controller','user');
           $newRequest->write('user',$user->get_id());
