@@ -10,30 +10,8 @@
   $base_url = explode('/',$_SERVER['PHP_SELF']);
   array_pop($base_url);
   define ('__BASE_URL', implode('/',$base_url) );
-
-  $session_status = false;
-  function SessionStart(){
-    if( $GLOBALS['session_status'] != true ){
-      session_start();
-      $GLOBALS['session_status'] = true;
-    }
-  }
-
-  function SessionStop(){
-    if( $GLOBALS['session_status'] != false ){
-      session_unset();
-      session_destroy();
-      session_write_close();
-      setcookie("PHPSESSID");
-      $GLOBALS['session_status'] = false;
-    }
-  }
-
-  // Load all application config
-<<<<<<< HEAD
   $session_status=false;
-=======
->>>>>>> External_help
+  // Load all application config
   require_once(__ROOT_DIR . "/config/config.php");
 
   // Load the Loader class to automatically load classes when needed
