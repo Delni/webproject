@@ -16,9 +16,9 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">
+      <span class="navbar-brand">
         <img class="menu__img" src="css/img/favicon.png" alt="Logo">
-      </a>
+      </span>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -27,6 +27,7 @@
         <li class="active"><a href="#">Accueil <span class="sr-only">(current)</span></a></li>
         <li><a href="#jeux">Jeux</a></li>
         <li><a href="#">Créer une partie</a></li>
+        <li><a href="#" data-toggle="modal" data-target="#PopupHelp">Règles du jeu</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li role="presentation" class="dropdown">
@@ -39,7 +40,7 @@
             <li><a href="index.php"><i class="fa fa-power-off fa-fw"></i> Déconnexion</a></li>
           </ul>
         </li>
-        <li><a href="#" data-toggle="modal" data-target="#PopupHelp"><i class="fa fa-question-circle"></i></a></li>
+        <li><a href="#" data-toggle="modal" data-target="#PopupCredits"><i class="fa fa-question-circle"></i></a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -51,7 +52,7 @@
         <button type="button" class="close" data-dismiss="modal">
         <span aria-hidden="true">&times;</span>
         <span class="sr-only">Fermer</span></button>
-        <h4 class="modal-title" id="myModalLabel">Un peu d'aide...</h4>
+        <h3 class="modal-title" id="myModalLabel">Un peu d'aide...</h3>
       </div>
       <div class="modal-body">
         <h3>Kézako ?</h3>
@@ -78,6 +79,43 @@
           Pour plus d'information, <a target="_blank" href="https://fr.wikipedia.org/wiki/6_qui_prend_!">cliquez ici</a> pour vous diriger vers la page wikipédia du 6nimmt!<br>
         </div>
         <p></p>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="PopupCredits" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Fermer</span></button>
+        <h3 class="modal-title" id="myModalLabel">Crédits</h3>
+      </div>
+      <div class="modal-body">
+        Application Web développée dans le cadre d'un projet transverse d'<abbr title="Ingénierie des Systèmes d'Information et de Communication">ISIC</abbr>
+        en deuxième année à l'IMT Mines Télécom Lille Douai.<br><br>
+        <div class="panel panel-info">
+          <div class="panel-heading">Développeurs</div>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>Adrien Handjani</td>
+                <td><span class="label label-info">Back-End</span></td>
+                <td><span class="label label-primary">SGBD</span></td>
+              </tr>
+              <tr>
+                <td>Nicolas Delauney</td>
+                <td><span class="label label-info">Back-End</span></td>
+                <td><span class="label label-primary">SGBD</span></td>
+                <td><span class="label label-success">Front-End</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
       </div>
     </div>

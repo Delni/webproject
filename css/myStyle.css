@@ -59,8 +59,16 @@ p{
 	left: 0px;
 }
 
+#create{
+	position: fixed;
+	right: 7.5%;
+	top: 55%
+}
+
 .jumbotron{
 	width: 90%;
+	max-height:460px;
+	overflow: auto;
 	margin: auto;
 	border-radius: 10px;
 	background: url("img/Accueil_blurred.png") no-repeat fixed;
@@ -87,10 +95,6 @@ p{
 .tab-pane{
 	padding-left: 2%;
 	padding-right: 2%;
-}
-
-.modal-content{
-	background-color: #f2f1d8;
 }
 
 /*****************************************************************************/

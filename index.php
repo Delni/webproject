@@ -12,7 +12,8 @@
   define ('__BASE_URL', implode('/',$base_url) );
 
   // Load all application config
-  //require_once(__ROOT_DIR . "/config/config.php");
+  $session_status=false;
+  require_once(__ROOT_DIR . "/config/config.php");
 
   // Load the Loader class to automatically load classes when needed
   require_once(__ROOT_DIR . '/classes/AutoLoader.class.php');
