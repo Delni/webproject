@@ -46,8 +46,6 @@
     $controller = Dispatcher::dispatch($request);
     // Execute the requested action
     $controller->execute();
-    //TODO : remove before lauch
-    print_r($_SESSION);
   } catch (Exception $e) {
     echo 'Error : ' . $e->getMessage() . "\n";
   }

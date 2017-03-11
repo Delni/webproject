@@ -4,7 +4,7 @@
 
     public function render($controller){
       $this->user = new User('tmp');
-      $this->user = $_SESSION['user'];
+      $this->user = unserialize($_SESSION['user']);
       include __ROOT_DIR.'/templates/headTemplate.php';
       include __ROOT_DIR.'/templates/menuTemplate.php';
       include __ROOT_DIR.'/templates/userTemplate.php';

@@ -49,7 +49,7 @@
           $view->render($this);
         } else {
           SessionStart();
-          $_SESSION['user']=$user;
+          $_SESSION['user']=serialize($user);
           $newRequest = new Request();
           $newRequest->write('controller','user');
           $newRequest->write('user',$user->get_id());
@@ -68,7 +68,7 @@
         //$user->set_id($login);
         if($user->getX('MDP')==$password){
           SessionStart();
-          $_SESSION['user']=$user;
+          $_SESSION['user']=serialize($user);
           $newRequest = new Request();
           $newRequest->write('controller','user');
           $newRequest->write('user',$user->get_id());
