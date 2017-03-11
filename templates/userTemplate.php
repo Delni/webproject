@@ -4,12 +4,12 @@
       <i class="fa fa-user-o"></i>
   </div>
   <div class="user-pseudo">
-    <p>Bonjour <?php echo $this->user->get_id(); ?> ! <a href="index.php?action=editProfile"><i class="fa fa-pencil"></i></a></p>
+    <p>Bonjour <?php echo $this->user->get_id(); ?> ! <a class="hasinfo" href="index.php?action=editProfile"><i class="fa fa-pencil"></i><span class="infobulle">Editer votre profil</span></a></p>
   </div>
   <div class="user-pseudo__subtitle">
     <p><?php echo $this->user->getX('PRENOM')." ".$this->user->getX('NOM'); ?> <?php $this->get_flag(); ?></p>
   </div>
-  <div class="jumbotron">
+  <div class="jumbotron" style="padding-top: 0%;">
     <ul class="nav nav-tabs nav-justified">
       <li role="presentation" class="active"><a href="#parties" data-toggle="tab">Parties En Cours</a></li>
       <li role="presentation"><a href="#hist" data-toggle="tab">Historique des parties</a></li>
@@ -17,7 +17,10 @@
     </ul>
     <div class="tab-content">
       <div class="tab-pane active" id="parties">
-        <h1>Parties en cours </h1>
+        <h1>
+          Parties en cours
+          <a class="btn btn-primary btn-lg pull-right" id="create">Créer une partie</a>
+        </h1>
         <table class="table">
           <thead>
             <tr>
@@ -25,7 +28,7 @@
              <th>Nom Partie</th>
              <th>Créateur</th>
              <th>Joueurs</th>
-             <th>Action</th>
+             <th class="text-right">Action</th>
            </tr>
          </thead>
          <tbody>
@@ -34,18 +37,17 @@
              <td>Test</td>
              <td>BlazDark</td>
              <td>2/10</td>
-             <td><a class="btn btn-success">Rejoindre</a></td>
+             <td><a class="btn btn-success pull-right">Rejoindre</a></td>
            </tr>
            <tr>
              <th scope="row">1</th>
              <td>Test</td>
              <td>BlazDark</td>
              <td>2/10</td>
-             <td><a class="btn btn-success" disabled>Rejoindre</a></td>
+             <td><a class="btn btn-success pull-right" disabled>Rejoindre</a></td>
            </tr>
          </tbody>
        </table>
-       <a class="btn btn-primary btn-lg" id="create">Créer une partie</a>
      </div>
 
      <div class="tab-pane" id="hist">
