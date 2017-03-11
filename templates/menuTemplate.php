@@ -37,7 +37,7 @@
             <li><a href="#"><i class="fa fa-cog fa-fw"></i> Mes données</a></li>
             <li><a href="#"><i class="fa fa-gamepad fa-fw"></i> Mes parties</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="index.php"><i class="fa fa-power-off fa-fw"></i> Déconnexion</a></li>
+            <li><a href="index.php?action=logou"><i class="fa fa-power-off fa-fw"></i> Déconnexion</a></li>
           </ul>
         </li>
         <li><a href="#" data-toggle="modal" data-target="#PopupCredits"><i class="fa fa-question-circle"></i></a></li>

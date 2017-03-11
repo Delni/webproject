@@ -3,7 +3,8 @@
     protected $user;
 
     public function render($controller){
-      $this->user=$controller->get_user();
+      $this->user = new User('tmp');
+      $this->user = unserialize($_SESSION['user']);
       include __ROOT_DIR.'/templates/headTemplate.php';
       include __ROOT_DIR.'/templates/menuTemplate.php';
       include __ROOT_DIR.'/templates/userTemplate.php';
