@@ -11,10 +11,18 @@
     }
 
     public function editProfile($request){
-      echo "Edite ".unserialize($_SESSION['user'])->get_id();
+      $view = new EditeView($this);
+      $view->render($this);
     }
 
     public function logout($request){
+      SessionStop();
+      header('Location: index.php');
+    }
+
+    public function totalWipeOut($reques){
+      $sql_req="DELETE FROM `joueur` WHERE `joueur`.`Pseudo` = '". unserialize($_SESSION['user'])->get_id() ."'";
+      DatabasePDO::getCurrentPDO()->query($sql_req);
       SessionStop();
       header('Location: index.php');
     }

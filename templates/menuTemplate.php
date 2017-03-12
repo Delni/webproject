@@ -33,14 +33,14 @@
         <li role="presentation" class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $this->user->get_id(); ?> <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#"><i class="fa fa-user-circle-o fa-fw"></i> Mon Profil</a></li>
-            <li><a href="#"><i class="fa fa-cog fa-fw"></i> Mes données</a></li>
-            <li><a href="#"><i class="fa fa-gamepad fa-fw"></i> Mes parties</a></li>
+            <li><a href="index.php"><i class="fa fa-user-circle-o fa-fw"></i> Mon Profil</a></li>
+            <li><a href="index.php?action=editProfile"><i class="fa fa-cog fa-fw"></i> Mes données</a></li>
+            <li><a href="index.php?action=parties"><i class="fa fa-gamepad fa-fw"></i> Mes parties</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="index.php?action=logout"><i class="fa fa-power-off fa-fw"></i> Déconnexion</a></li>
           </ul>
         </li>
-        <li><a href="#" data-toggle="modal" data-target="#PopupCredits"><i class="fa fa-question-circle"></i></a></li>
+        <li><a href="#" data-toggle="modal" data-target="#PopupCredits"><i class="fa fa-info-circle"></i></a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

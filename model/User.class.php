@@ -35,6 +35,13 @@
       return $data->$var;
     }
 
+    public function getAllInfo(){
+      $sql_req='SELECT * FROM joueur WHERE PSEUDO=\'' . $this->local_login . '\'';
+      $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
+      $data = $res_sql->fetchAll(DatabasePDO::FETCH_OBJ);
+      return $data;
+    }
+
     public function set_id($str){
       $this->local_login=$str;
     }

@@ -102,6 +102,7 @@ p{
 
 .dropdown-menu{
 	background-color: rgb(43, 45, 54);
+	z-index: 9999;
 }
 
 .dropdown-menu li a{
@@ -123,7 +124,7 @@ p{
 .container{
   text-align: center;
   width: 100%;
-  position: absolute;;
+  position: absolute;
   top : 30%;
 }
 
@@ -223,11 +224,39 @@ p{
 /*****************************************************************************/
 /*                            EDIT  PROFILE                                  */
 /*****************************************************************************/
+.edit{
+	background: url("img/Accueil_blurred.png") no-repeat fixed;
+	/*opacity: 0.85;*/
+	background-size: cover;
+	text-align: center;
+	border: none;
+	position: absolute;
+	top: 15%;
+	border-radius: 10px;
+	z-index: -1;
+	max-height: 575px;
+	overflow: auto;
+}
+
 .edit input, .edit select{
 		background-color: rgba(0, 0, 0, 0.7);
 		border:none;
-		border-radius: 5px;
+		color: #f2f1d8;
 }
+
+.edit h2{
+	margin-bottom: 2.5%;
+}
+
+.deleteForm{
+	background-color: rgba(0, 0, 0, 0.5);
+	opacity: 0.75;
+	box-shadow: 2.5px 2.5px 5px 5px black inset;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	border-radius:10px;
+}
+
 /*****************************************************************************/
 /*                         PLAYGROUND TEMPLATE                               */
 /*****************************************************************************/
