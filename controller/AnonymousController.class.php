@@ -34,7 +34,7 @@
     public function validateInscription($args) {
       $login = $args->read('inscLogin');
       if(User::isLoginUsed($login)) {
-        $view = new View($this,'inscription');
+        $view = new InscriptionView($this);
         $view->setArg('inscErrorText','This login is already used');
         $view->render($this);
       } else {
@@ -75,9 +75,15 @@
           $contoller = Dispatcher::getCurrentDispatcher()->dispatch($newRequest);
           $contoller->execute();
         } else {
+          $view = new ConnectionView($this);
+          $view->setArg('conErrorText','Your login and your password didn\'t match.');
+          $view->render($this);
           //TODO : Error handling : no matching password
         }
       } else {
+        $view = new ConnectionView($this);
+        $view->setArg('conErrorText','Unknown login');
+        $view->render($this);
         //TODO : Error handling : no matching login
       }
     }

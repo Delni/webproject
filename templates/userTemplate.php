@@ -80,9 +80,18 @@
       <div class="tab-pane" id="stats">
         <h1>Statistiques </h1>
         <p>
-          Ratio : <?php echo $this->user->getRatio(); ?><br>
-          Victoires : <?php echo $this->user->getX('GAGNEES'); ?> <br>
-          Défaites : <?php echo $this->user->getX('PERDUES'); ?></p>
+          <div class="row">
+            <p class="col-sm-2 underline">Ratio :</p>
+            <p class="col-sm-2"><?php echo $this->user->getRatio(); ?></p>
+          </div>
+          <div class="row">
+            <p class="col-sm-2 underline">Victoires :</p>
+            <p class="col-sm-2"><?php echo $this->user->getX('GAGNEES'); ?></p>
+          </div>
+          <div class="row">
+            <p class="col-sm-2 underline">Défaites :</p>
+            <p class="col-sm-2"><?php echo $this->user->getX('PERDUES'); ?></p>
+          </div>
       </div>
     </div>
 

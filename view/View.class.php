@@ -12,8 +12,8 @@
       include __ROOT_DIR.'/templates/footTemplate.php';
     }
 
-    public static function setArg($key,$value){
-      $args[$key] = $value;
+    public function setArg($key,$value){
+      $this->args[$key] = $value;
     }
   }
  ?>

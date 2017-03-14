@@ -2,7 +2,7 @@
   <div class="container">
     <h2>Connexion</h2>
     <form action="index.php" method="post">
-      <div>
+      <div class="row">
         <span class="input input--yoko">
           <input class="input__field input__field--yoko" type="text" name="conLogin" id="input-1" />
           <label class="input__label input__label--yoko" for="input-1">
@@ -16,12 +16,11 @@
           </label>
         </span>
       </div>
-      <div>
+      <?php $this->error_handler_popup('warning','conErrorText'); ?>
+      <div class="row">
         <input class="btn btn-submit" type="submit" value="Se connecter" />
       </div>
   </form>
-
-
   </div>
 </div>
 <script src="js/classie.js"></script>

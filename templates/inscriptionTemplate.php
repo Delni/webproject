@@ -1,11 +1,8 @@
 <div class="container" id="inscription">
-  <div style="margin-top: 5%">
+  <div style="margin-top: 2.5%">
     <h2>Inscription</h2>
-    <?php
-    if(isset($inscErrorText))
-    echo '<span class="error">' . $inscErrorText . '</span>';
-    ?>
-    <form action="index.php" method="post">
+    <?php $this->error_handler_popup('warning','inscErrorText'); ?>
+    <form class="row" action="index.php" method="post">
       <div>
         <span class="input input--yoko">
           <input class="input__field input__field--yoko" type="text" name="inscLogin" id="input-1" />
