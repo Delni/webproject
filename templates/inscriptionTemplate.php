@@ -5,7 +5,7 @@
     <form class="row" action="index.php" method="post">
       <div>
         <span class="input input--yoko">
-          <input class="input__field input__field--yoko" type="text" name="inscLogin" id="input-1" />
+          <input class="input__field input__field--yoko" type="text" name="inscLogin" id="input-1" required/>
           <label class="input__label input__label--yoko" for="input-1">
             <span class="input__label-content input__label-content--yoko"><i class="fa fa-user-circle"></i> Login</span>
           </label>
@@ -13,7 +13,7 @@
       </div>
       <div>
         <span class="input input--yoko">
-          <input class="input__field input__field--yoko" type="password" name="inscPassword" id="input-2" />
+          <input class="input__field input__field--yoko" type="password" name="inscPassword" id="input-2" required/>
           <label class="input__label input__label--yoko" for="input-2">
             <span class="input__label-content input__label-content--yoko"><i class="fa fa-unlock-alt"></i> Mot de passe</span>
           </label>
@@ -41,7 +41,7 @@
       </div>
       <div>
         <span class="input input--yoko">
-          <input class="input__field input__field--yoko" type="text" name="inscMail" id="input-6" />
+          <input class="input__field input__field--yoko" type="text" name="inscMail" id="input-6" required/>
           <label class="input__label input__label--yoko" for="input-2">
             <span class="input__label-content input__label-content--yoko"><i class="fa fa-envelope"></i> E-mail</span>
           </label>

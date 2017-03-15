@@ -3,7 +3,7 @@
     protected static $uniqueInstance = NULL;
     protected static $dbname = '6nimmt';
     protected static $user = 'root';
-    protected static $pass = '';
+    protected static $pass = 'root';
 
     // Singleton design pattern
     public static function getCurrentPDO(){

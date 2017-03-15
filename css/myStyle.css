@@ -152,6 +152,28 @@ p{
 	opacity: 0.75;
 }
 
+.nav-tabs.nav-justified > li{
+	background: url("img/Accueil_blurred_base.png") no-repeat fixed;
+	background-size: cover;
+}
+
+.nav-tabs.nav-justified > .active >a{
+	background: url("img/Accueil_blurred.png") no-repeat fixed;
+	background-size: cover;
+	color:#f2f1d8;
+}
+.nav-tabs.nav-justified > li a{
+	color:#f2f1d8;
+}
+
+.nav-tabs.nav-justified > li a:hover{
+	background-color: rgb(65, 65, 65);
+}
+
+.nav-tabs.nav-justified > li a:focus{
+	color:#f2f1d8;
+}
+
 /*****************************************************************************/
 /*                                ACCUEIL                                    */
 /*****************************************************************************/

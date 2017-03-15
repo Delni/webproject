@@ -28,6 +28,29 @@
       return new static($login);
     }
 
+    public static function createGame($nom_plat,$mdp_prive,$login){
+      $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO plateau(Nom, Createur, Prive) VALUES (:nom_plat,:createur,:mdp_prive)');
+      $sql_req->bindParam(':nom_plat',$nom_plat);
+      $sql_req->bindParam(':createur',$login);
+      $sql_req->bindParam(':mdp_prive',$mdp_prive);
+      $sql_req->execute();
+      // Get the last id :
+      $sql_req='SELECT Id_plat FROM plateau ORDER BY Id_plat DESC';
+      $res_sql=DataBasePDO::getCurrentPDO()->query($sql_req);
+      $res = $res_sql->fetch(DataBasePDO::FETCH_OBJ);
+      $id_plat=$res->Id_plat;
+      //Add createur into joueur
+      $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO jouer(Id_Plat,Pseudo) VALUES (:id_plat,:login)');
+      $sql_req->bindParam(':id_plat',$id_plat);
+      $sql_req->bindParam(':login',$login);
+      $sql_req->execute();
+      //Create Piles from this ID
+      $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO pile(Id_plat) VALUES (:id_plat),(:id_plat),(:id_plat),(:id_plat)');
+      $sql_req->bindParam(':id_plat',$id_plat);
+      $sql_req->execute();
+
+    }
+
     public function getX($var){
       $sql_req='SELECT '. $var . ' FROM joueur WHERE PSEUDO=\'' . $this->local_login . '\'';
       $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
