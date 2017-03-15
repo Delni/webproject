@@ -49,7 +49,7 @@ CONSTRAINT Fk_Createur FOREIGN KEY (Createur) REFERENCES Joueur(Pseudo)
 CREATE TABLE Jouer(
  Id_Plat int,
  Pseudo varchar(50),
- Score int,
+ Score int DEFAULT 0,
  PRIMARY KEY(Id_Plat, Pseudo),
  CONSTRAINT Fk_Id_Plat FOREIGN KEY (Id_Plat) REFERENCES Plateau(Id_Plat),
  CONSTRAINT Fk_Pseudo FOREIGN KEY (Pseudo) REFERENCES Joueur(Pseudo)
