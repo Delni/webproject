@@ -24,9 +24,9 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-left">
-        <li class="active"><a href="#">Accueil <span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="index.php">Accueil <span class="sr-only">(current)</span></a></li>
         <li><a href="#jeux">Jeux</a></li>
-        <li><a href="#">Créer une partie</a></li>
+        <li><a href="index.php?action=creation">Créer une partie</a></li>
         <li><a href="#" data-toggle="modal" data-target="#PopupHelp">Règles du jeu</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -95,7 +95,7 @@
       </div>
       <div class="modal-body">
         Application Web développée dans le cadre d'un projet transverse d'<abbr title="Ingénierie des Systèmes d'Information et de Communication">ISIC</abbr>
-        en deuxième année à l'IMT Mines Télécom Lille Douai.<br><br>
+        en deuxième année à l'IMT Lille Douai.<br><br>
         <div class="panel panel-info">
           <div class="panel-heading">Développeurs</div>
           <table class="table">
@@ -113,6 +113,39 @@
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">Powered by...</div>
+          <div class="row">
+            <span class="col-sm-offset-1 col-sm-1"><i class="fa fa-font-awesome"></i></span>
+            <span class="col-sm-3">Font Awesome </span>
+            <span class="col-sm-1"><a target="_blank" href="http://fontawesome.io/"><i class="fa fa-external-link"></i></a></span>
+          </div>
+          <div class="row">
+            <span class="col-sm-offset-1 col-sm-1"><i class="fa fa-github"></i></span>
+            <span class="col-sm-3">GitHub </span>
+            <span class="col-sm-1"><a target="_blank" href="http://github.com/"><i class="fa fa-external-link"></i></a></span>
+          </div>
+          <div class="row">
+            <span class="col-sm-offset-1 col-sm-1"><i class="fa fa-html5"></i></span>
+            <span class="col-sm-3">HTML5</span>
+            <span class="col-sm-1"><a target="_blank" href="https://www.w3schools.com/html/default.asp"><i class="fa fa-external-link"></i></a></span>
+          </div>
+          <div class="row">
+            <span class="col-sm-offset-1 col-sm-1"><i class="fa fa-css3"></i></span>
+            <span class="col-sm-3">CSS3</span>
+            <span class="col-sm-1"><a target="_blank" href="https://www.w3schools.com/css/default.asp"><i class="fa fa-external-link"></i></a></span>
+          </div>
+          <div class="row">
+            <span class="col-sm-offset-1 col-sm-1"><i class="fa fa-bold"></i></span>
+            <span class="col-sm-3">Bootstrap</span>
+            <span class="col-sm-1"><a target="_blank" href="https://getbootstrap.com"><i class="fa fa-external-link"></i></a></span>
+          </div>
+          <div class="row">
+            <span class="col-sm-offset-1 col-sm-1"><i class="fa fa-server"></i></span>
+            <span class="col-sm-3">PHP7</span>
+            <span class="col-sm-1"><a target="_blank" href="https://www.w3schools.com/php/default.asp"><i class="fa fa-external-link"></i></a></span>
+          </div>
         </div>
       </div>
       <div class="modal-footer">

@@ -1,13 +1,15 @@
 <div>
-  <span class="user-icon__mask"></span>
-  <div class="user-icon">
+  <div class="head_user">
+    <span class="user-icon__mask"></span>
+    <div class="user-icon">
       <i class="fa fa-user-o"></i>
-  </div>
-  <div class="user-pseudo">
-    <p>Bonjour <?php echo $this->user->get_id(); ?> ! <a class="hasinfo" href="index.php?action=editProfile"><i class="fa fa-pencil"></i><span class="infobulle">Editer votre profil</span></a></p>
-  </div>
-  <div class="user-pseudo__subtitle">
-    <p><?php echo $this->user->getX('PRENOM')." ".$this->user->getX('NOM'); ?> <?php $this->get_flag(); ?></p>
+    </div>
+    <div class="user-pseudo">
+      <p>Bonjour <?php echo $this->user->get_id(); ?> ! <a class="hasinfo" href="index.php?action=editProfile"><i class="fa fa-pencil"></i><span class="infobulle">Editer votre profil</span></a></p>
+    </div>
+    <div class="user-pseudo__subtitle">
+      <p><?php echo $this->user->getX('PRENOM')." ".$this->user->getX('NOM'); ?> <?php $this->get_flag(); ?></p>
+    </div>
   </div>
   <div class="jumbotron" style="padding-top: 0%;">
     <ul class="nav nav-tabs nav-justified">
@@ -19,7 +21,7 @@
       <div class="tab-pane active" id="parties">
         <h1>
           Parties en cours
-          <a class="btn btn-primary btn-lg pull-right" id="create">Créer une partie</a>
+          <a href="index.php?action=creation" class="btn btn-primary btn-lg pull-right" id="create">Créer une partie</a>
         </h1>
         <table class="table">
           <thead>

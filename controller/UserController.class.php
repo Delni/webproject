@@ -20,6 +20,11 @@
       header('Location: index.php');
     }
 
+    public function creation($request){
+      $view = new CreationView($this);
+      $view->render($this);
+    }
+
     public function totalWipeOut($reques){
       $sql_req="DELETE FROM `joueur` WHERE `joueur`.`Pseudo` = '". unserialize($_SESSION['user'])->get_id() ."'";
       DatabasePDO::getCurrentPDO()->query($sql_req);

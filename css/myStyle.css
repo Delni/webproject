@@ -8,10 +8,10 @@
 /*    3) CSS for custom parts                                                */
 /*			 a. Accueil                     Lines  155  -  183                   */
 /*			 b. Formulaire d'inscription    Lines  185  -  202                   */
-/*       c. User Template               Lines  204  -  256                   */
-/*       d. Edit Profile Template       Lines  258  -  293                   */
-/*       e. Playground Template         Lines  295  -  355                   */
-/*    4) CSS from other sources         Lines  357  +                        */
+/*       c. User Template               Lines  204  -  260                   */
+/*       d. Edit Profile Template       Lines  262  -  297                   */
+/*       e. Playground Template         Lines  299  -  359                   */
+/*    4) CSS from other sources         Lines  361  +                        */
 /*                                                                           */
 /* Parts as organised by : tags > id > class                                 */
 /*****************************************************************************/
@@ -68,7 +68,7 @@ p{
 }
 
 #page{
-	height: 100%;
+	min-height: 190px;
 	overflow: hidden;
 }
 
@@ -253,6 +253,10 @@ p{
 	margin-bottom: 1.5%;
 	font-size: 1em;
 	color: #c3c3c3;
+}
+
+.head_user{
+	margin-bottom: 2.5%;
 }
 
 /*****************************************************************************/
