@@ -38,25 +38,17 @@ CREATE TABLE Etre_dans(
 
 CREATE TABLE Plateau (
 Id_Plat int NOT NULL AUTO_INCREMENT,
-Id_Pile1 int,
-Id_Pile2 int,
-Id_Pile3 int,
-Id_Pile4 int,
 Nom varchar(50),
 Createur varchar(50),
 Prive varchar(50),
-estCommence boolean,
+estCommence boolean DEFAULT false,
 PRIMARY KEY (Id_Plat),
-CONSTRAINT Fk_Createur FOREIGN KEY (Createur) REFERENCES Joueur(Pseudo),
-CONSTRAINT Fk_Id_Pile1 FOREIGN KEY (Id_Pile1) REFERENCES Pile(Id_Pile),
-CONSTRAINT Fk_Id_Pile2 FOREIGN KEY (Id_Pile2) REFERENCES Pile(Id_Pile),
-CONSTRAINT Fk_Id_Pile3 FOREIGN KEY (Id_Pile3) REFERENCES Pile(Id_Pile),
-CONSTRAINT Fk_Id_Pile4 FOREIGN KEY (Id_Pile4) REFERENCES Pile(Id_Pile)
+CONSTRAINT Fk_Createur FOREIGN KEY (Createur) REFERENCES Joueur(Pseudo)
 );
 
 CREATE TABLE Jouer(
- Id_Plat int NOT NULL AUTO_INCREMENT,
- Pseudo varchar(25),
+ Id_Plat int,
+ Pseudo varchar(50),
  Score int,
  PRIMARY KEY(Id_Plat, Pseudo),
  CONSTRAINT Fk_Id_Plat FOREIGN KEY (Id_Plat) REFERENCES Plateau(Id_Plat),

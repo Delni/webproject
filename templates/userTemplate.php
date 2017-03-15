@@ -21,14 +21,19 @@
       <div class="tab-pane active" id="parties">
         <h1>
           Parties en cours
+          <!-- TODO
+          Don't forget to create the player field in Jouer ! -->
           <a href="index.php?action=creation" class="btn btn-primary btn-lg pull-right" id="create">Créer une partie</a>
         </h1>
         <table class="table">
           <thead>
             <tr>
              <th>#</th>
-             <!-- SQL request : SELECT Nom, Createur, Pseudo as name FROM Plateau, Jouer WHERE Id_Plateu IN (SELECT Id_Plateau FROM JOUER WHERE Pseudo = name);
-             Then create php variable "data" and display them thx to a while data != NULL -->
+             <!-- TODO
+             SQL request : SELECT Nom, Createur FROM Plateau WHERE Id_Plat IN (SELECT Id_Plat FROM JOUER WHERE Pseudo = 'USER.Pseudo');
+             This request works, if you add the creator name ofc...
+             Then create php variable "data" and display them thx to a while data != NULL
+            -->
              <th>Nom Partie</th>
              <th>Créateur</th>
              <th>Joueurs</th>
@@ -41,7 +46,10 @@
              <td>Test</td>
              <td>BlazDark</td>
              <td>2/10</td>
-             <!--Need to modify link : a href="index.php?action=rejoindre
+             <!-- TODO
+             Need to modify link : a href="index.php?action=rejoindre"
+             Thus need to create a new action for "rejoindre"
+             And to keep  the id_plateau in a variable... -->
              <td><a class="btn btn-success pull-right">Rejoindre</a></td>
            </tr>
            <tr>

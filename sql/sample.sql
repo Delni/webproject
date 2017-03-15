@@ -136,3 +136,14 @@ INSERT INTO Carte VALUES (102, 1);
 INSERT INTO Carte VALUES (103, 1);
 INSERT INTO Carte VALUES (104, 1);
 
+INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des Devs', 'BlazDark', 'LesBoss', false);
+INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des Blondes', 'Blondie', 'Codouches', false);
+INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des 4', 'BlazDark', 'LeMini2', true);
+INSERT INTO Jouer VALUES (1,'BlazDark',42);
+INSERT INTO Jouer VALUES (1,'Delni',55);
+INSERT INTO Jouer VALUES (2, 'Blondie',4);
+INSERT INTO Jouer VALUES (2, 'DelaLune', 13);
+INSERT INTO Jouer VALUES (3, 'BlazDark', 27);
+INSERT INTO Jouer VALUES (3,'Delni',40);
+INSERT INTO Jouer VALUES (3,'Blondie', 0);
+INSERT INTO Jouer VALUES (3,'DelaLune',0);
