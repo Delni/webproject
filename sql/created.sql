@@ -17,25 +17,26 @@ PRIMARY KEY (Pseudo)
 
 CREATE TABLE Carte (
 Id_Carte int,
-Poids int, 
+Poids int,
 PRIMARY KEY (Id_Carte)
 );
 
 CREATE TABLE Pile (
 Id_Pile int,
-Id_Plat int, 
+Id_Plat int,
 PRIMARY KEY (Id_Pile)
 );
 
 CREATE TABLE Plateau (
-Id_Plat int, 
-Id_Pile1 int, 
+Id_Plat int NOT NULL AUTO_INCREMENT,
+Id_Pile1 int,
 Id_Pile2 int,
 Id_Pile3 int,
 Id_Pile4 int,
 Nom varchar(50),
 Createur varchar(50),
 Prive int,
+estCommence boolean,
 PRIMARY KEY (Id_Plat),
 CONSTRAINT Fk_Createur FOREIGN KEY (Createur) REFERENCES Joueur(Pseudo),
 CONSTRAINT Fk_Id_Pile1 FOREIGN KEY (Id_Pile1) REFERENCES Pile(Id_Pile),
@@ -44,15 +45,52 @@ CONSTRAINT Fk_Id_Pile3 FOREIGN KEY (Id_Pile3) REFERENCES Pile(Id_Pile),
 CONSTRAINT Fk_Id_Pile4 FOREIGN KEY (Id_Pile4) REFERENCES Pile(Id_Pile)
 );
 
+CREATE TABLE Jouer(
+ Id_Plat int NOT NULL AUTO_INCREMENT,
+ Pseudo varchar(25),
+ PRIMARY KEY(Id_Plat, Pseudo),
+ CONSTRAINT Fk_Id_Plat FOREIGN KEY (Id_Plat) REFERENCES Plateau(Id_Plat),
+ CONSTRAINT Fk_Pseudo FOREIGN KEY (Pseudo) REFERENCES Joueur(Pseudo)
+);
+
 CREATE TABLE Main (
-Id_Main int,
+Id_Main int NOT NULL AUTO_INCREMENT,
 Pseudo varchar(50),
-Id_Plat int, 
+Id_Plat int,
+Id_Carte1 int,
+Id_Carte2 int,
+Id_Carte3 int,
+Id_Carte4 int,
+Id_Carte5 int,
+Id_Carte6 int,
+Id_Carte7 int,
+Id_Carte8 int,
+Id_Carte9 int,
+Id_Carte10 int,
+Nb_Carte_main int,
 PRIMARY KEY (Id_Main),
+CONSTRAINT Fk_Id_Carte1 FOREIGN KEY (ID_Carte1) REFERENCES Carte(Id_Carte),
+CONSTRAINT Fk_Id_Carte2 FOREIGN KEY (ID_Carte2) REFERENCES Carte(Id_Carte),
+CONSTRAINT Fk_Id_Carte3 FOREIGN KEY (ID_Carte3) REFERENCES Carte(Id_Carte),
+CONSTRAINT Fk_Id_Carte4 FOREIGN KEY (ID_Carte4) REFERENCES Carte(Id_Carte),
+CONSTRAINT Fk_Id_Carte5 FOREIGN KEY (ID_Carte5) REFERENCES Carte(Id_Carte),
+CONSTRAINT Fk_Id_Carte6 FOREIGN KEY (ID_Carte6) REFERENCES Carte(Id_Carte),
+CONSTRAINT Fk_Id_Carte7 FOREIGN KEY (ID_Carte7) REFERENCES Carte(Id_Carte),
+CONSTRAINT Fk_Id_Carte8 FOREIGN KEY (ID_Carte8) REFERENCES Carte(Id_Carte),
+CONSTRAINT Fk_Id_Carte9 FOREIGN KEY (ID_Carte9) REFERENCES Carte(Id_Carte),
+CONSTRAINT Fk_Id_Carte10 FOREIGN KEY (ID_Carte10) REFERENCES Carte(Id_Carte),
 CONSTRAINT Fk_Id_Plat FOREIGN KEY (Id_Plat) REFERENCES Plateau(Id_Plat),
 CONSTRAINT Fk_Pseudo FOREIGN KEY (Pseudo) REFERENCES Joueur(Pseudo)
 );
 
+CREATE TABLE Score(
+  Id_Score int NOT NULL AUTO_INCREMENT,
+  Pseudo varchar(50),
+  Id_plat int,
+  Val_score int,
+  PRIMARY KEY (Id_Score),
+  CONSTRAINT Fk_Id_Plat FOREIGN KEY (Id_Plat) REFERENCES Plateau(Id_Plat),
+  CONSTRAINT Fk_Pseudo FOREIGN KEY (Pseudo) REFERENCES Joueur(Pseudo)
+);
+
 ALTER TABLE Pile ADD CONSTRAINT Fk_Id_Plat FOREIGN KEY (Id_Plat) REFERENCES Plateau(Id_Plat);
-
-
