@@ -20,7 +20,7 @@
 
       $controllerName = $request->getControllerName();
       $controllerClass = ucfirst($controllerName) . 'Controller';
-
+      
       // Mathias
       if($controllerClass == 'UserController'){
         if(!isset($_SESSION['user'])){

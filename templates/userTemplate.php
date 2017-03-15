@@ -27,6 +27,8 @@
           <thead>
             <tr>
              <th>#</th>
+             <!-- SQL request : SELECT Nom, Createur, Pseudo as name FROM Plateau, Jouer WHERE Id_Plateu IN (SELECT Id_Plateau FROM JOUER WHERE Pseudo = name);
+             Then create php variable "data" and display them thx to a while data != NULL -->
              <th>Nom Partie</th>
              <th>Créateur</th>
              <th>Joueurs</th>
@@ -39,6 +41,7 @@
              <td>Test</td>
              <td>BlazDark</td>
              <td>2/10</td>
+             <!--Need to modify link : a href="index.php?action=rejoindre
              <td><a class="btn btn-success pull-right">Rejoindre</a></td>
            </tr>
            <tr>
