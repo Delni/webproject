@@ -105,7 +105,7 @@
       <div class="modal-body">
         <div class="text-center">
           <img src="css/img/noLuc.gif" alt="No Luc">
-          <h3>Tu est <strong>vraiment</strong> certain que c'est ce que tu veux?</h3>
+          <h3>Tu es <strong>vraiment</strong> certain que c'est ce que tu veux?</h3>
         </div>
       </div>
       <div class="modal-footer">

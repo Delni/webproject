@@ -1,10 +1,8 @@
 <?php
   class EditeView extends View {
-    protected $user;
     protected $user_data;
 
     public function render($controller){
-      $this->user = unserialize($_SESSION['user']);
       $this->user_data=$this->user->getAllInfo();
       include __ROOT_DIR.'/templates/headTemplate.php';
       include __ROOT_DIR.'/templates/menuTemplate.php';

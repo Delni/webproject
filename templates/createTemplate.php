@@ -1,5 +1,6 @@
 <div class="well col-sm-offset-1 col-sm-10 edit">
   <h2>Créer une partie</h2>
+  <?php $this->error_handler_popup('danger','crErrorText'); ?>
   <form class="form-horizontal" action="index.php?action=createGame" method="post">
     <h3 class="text-left col-sm-offset-1">Créateur : <?php echo $this->user->get_id(); ?></h3>
     <div class="form-group row">
