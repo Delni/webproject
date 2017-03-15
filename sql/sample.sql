@@ -147,3 +147,6 @@ INSERT INTO Jouer VALUES (3, 'BlazDark', 27);
 INSERT INTO Jouer VALUES (3,'Delni',40);
 INSERT INTO Jouer VALUES (3,'Blondie', 0);
 INSERT INTO Jouer VALUES (3,'DelaLune',0);
+
+INSERT INTO Historique(Pseudo, Score, Nom) VALUES('Delni',12, 'LaPartieDeLEgalite');
+INSERT INTO Historique(Pseudo, Score, Nom) VALUES('BlazDark', 12, 'LaPartieDeLEgalite');

@@ -22,7 +22,7 @@ PRIMARY KEY (Id_Carte)
 );
 
 CREATE TABLE Pile (
-Id_Pile int,
+Id_Pile int NOT NULL AUTO_INCREMENT,
 Id_Plat int,
 PRIMARY KEY (Id_Pile)
 -- Foreign Key for Id_Plat is at the very end, cause Plateau has not been created yet!
@@ -49,10 +49,19 @@ CONSTRAINT Fk_Createur FOREIGN KEY (Createur) REFERENCES Joueur(Pseudo)
 CREATE TABLE Jouer(
  Id_Plat int,
  Pseudo varchar(50),
- Score int,
+ Score int DEFAULT 0,
  PRIMARY KEY(Id_Plat, Pseudo),
  CONSTRAINT Fk_Id_Plat FOREIGN KEY (Id_Plat) REFERENCES Plateau(Id_Plat),
  CONSTRAINT Fk_Pseudo FOREIGN KEY (Pseudo) REFERENCES Joueur(Pseudo)
+);
+
+CREATE TABLE Historique(
+  Id_Historique int NOT NULL AUTO_INCREMENT,
+  Pseudo varchar(50),
+  Score int,
+  Nom varchar(50),
+  PRIMARY KEY (Id_Historique),
+  CONSTRAINT Fk_Pseudo FOREIGN KEY (Pseudo) REFERENCES Joueur(Pseudo)
 );
 
 CREATE TABLE appartenir_(
