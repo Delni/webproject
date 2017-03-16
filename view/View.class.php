@@ -1,9 +1,12 @@
 <?php
   class View extends MyObject {
+    protected $user;
     protected $controller;
     protected $args=array();
 
     public function __construct($controller) {
+      if(isset($_SESSION['user']))
+        $this->user = unserialize($_SESSION['user']);
       $this->controller = $controller;
     }
 

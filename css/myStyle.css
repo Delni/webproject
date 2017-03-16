@@ -111,6 +111,11 @@ p{
 	text-decoration: underline;
 }
 
+.log{
+	padding-left: 17px;
+	font-size : 0.85em;
+}
+
 /*****************************************************************************/
 /*                        BOOTSTRAP REDEFINITIONS                            */
 /*****************************************************************************/
@@ -150,6 +155,28 @@ p{
 
 .alert{
 	opacity: 0.75;
+}
+
+.nav-tabs.nav-justified > li{
+	background: url("img/Accueil_blurred_base.png") no-repeat fixed;
+	background-size: cover;
+}
+
+.nav-tabs.nav-justified > .active >a{
+	background: url("img/Accueil_blurred.png") no-repeat fixed;
+	background-size: cover;
+	color:#f2f1d8;
+}
+.nav-tabs.nav-justified > li a{
+	color:#f2f1d8;
+}
+
+.nav-tabs.nav-justified > li a:hover{
+	background-color: rgb(65, 65, 65);
+}
+
+.nav-tabs.nav-justified > li a:focus{
+	color:#f2f1d8;
 }
 
 /*****************************************************************************/
@@ -355,7 +382,8 @@ p{
 	display: inline-block;
 	background-color: rgba(130, 130, 130, 0.5);
 	width: 100%;
-	height: 100%
+	height: 100%;
+	overflow: auto;
 }
 
 /******************************************************************************/
