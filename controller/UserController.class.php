@@ -58,4 +58,20 @@
       SessionStop();
       header('Location: index.php');
     }
+
+    public function updateProfile($request){
+      $nom=$request->read('name');
+      $prenom=$request->read('fname');
+      $mail=$request->read('email');
+      $pays=$request->read('pays');
+      User::updateProfile($nom,$prenom,$mail,$pays,unserialize($_SESSION['user'])->get_id());
+      Header('Location:index.php');
+    }
+
+    public function updatePassWord($request){
+      $lpassword=$request->read('lPass');
+      $npassword=$request->read('nPass');
+      unserialize($_SESSION['user'])->updatePassWord($lpassword, $npassword);
+      Header('Location:index.php');
+    }
   }

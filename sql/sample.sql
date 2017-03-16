@@ -22,7 +22,7 @@ INSERT INTO Joueur VALUES ('Delni', 'Maniac', 'Del', 'Nic', NULL, NULL, NULL, NU
 INSERT INTO Joueur VALUES ('BlazDark', 'Gamer4Life', 'Han', 'Adr', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('Lambassadrice', 'CougarTown', 'Amidala', 'Padmé', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('Jedu-Bid', 'Nooo', 'Skywalker', 'Luke', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('SoursElectrique', 'OndineMaChose', 'Kachu', 'Pi', NULL, NULL, NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('SourisElectrique', 'OndineMaChose', 'Kachu', 'Pi', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('LaLégendeVivante', 'Red', 'Red', 'Red', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('LEmodesCarte', 'AmedesCarte', 'Muto', 'Yugi', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('FilloteA', 'CheVaisEnvahirLaPologne!', 'Ker', 'Ali', NULL, NULL, NULL, NULL,0,0);
