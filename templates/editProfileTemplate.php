@@ -37,25 +37,25 @@
     </div>
     <div class="form-group">
       <div class="col-sm-offset-4 col-sm-4">
-        <input type="submit" class="btn btn-primary" value="Enregistrer les modifications"/>
+        <input type="submit" class="btn btn-input-primary" value="Enregistrer les modifications"/>
       </div>
     </div>
   </form>
   <h2>Modifier le mot de passe</h2>
-  <form class="form-horizontal" method="post">
+  <form class="form-horizontal" method="post" action="index.php?action=updatePassWord">
     <div class="form-group">
-      <label class="col-sm-2 control-label" for="cPass">Mot de passe</label>
+      <label class="col-sm-2 control-label" for="lPass">Mot de passe</label>
       <div class="col-sm-3">
-        <input type="password" class="form-control" name="cPass" placeholder="Mot de passe actuel">
+        <input type="password" class="form-control" name="lPass" placeholder="Mot de passe actuel">
       </div>
       <label class="col-sm-offset-1 col-sm-2 control-label" for="nPass">Nouveau mot de passe</label>
       <div class="col-sm-3">
-        <input type="password" class="form-control" name="cPass" placeholder="Entrer un nouveau mot de passe">
+        <input type="password" class="form-control" name="nPass" placeholder="Entrer un nouveau mot de passe">
       </div>
     </div>
     <div class="form-group">
       <div class="col-sm-offset-4 col-sm-4">
-        <a href="index.php?action=updateProfile" type="submit" class="btn btn-primary">Enregistrer les modifications</a>
+        <input type="submit" class="btn btn-input-primary" value="Enregistrer les modifications"/>
       </div>
     </div>
   </form>

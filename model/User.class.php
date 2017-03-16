@@ -70,6 +70,16 @@
       }
     }
 
+    public function updatePassWord($lastpw, $newpw){
+      if($this->getX('MdP')==$lastpw){
+        $sql_req=DatabasePDO::getCurrentPDO()->prepare('UPDATE joueur SET MdP = :mdp WHERE Pseudo="'.$this->get_id().'"');
+        $sql_req->bindParam(':mdp',$newpw);
+        $sql_req->execute();
+        return(true);
+      }
+      return(false);
+    }
+
     public function getX($var){
       $sql_req='SELECT '. $var . ' FROM joueur WHERE PSEUDO=\'' . $this->local_login . '\'';
       $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
