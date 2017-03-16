@@ -15,6 +15,14 @@ Gagnees int,
 PRIMARY KEY (Pseudo)
 );
 
+CREATE TABLE Log(
+  Id int AUTO_INCREMENT,
+  Id_Plat int,
+  Html varchar(255),
+  PRIMARY KEY (Id),
+  CONSTRAINT Fk_Id_Plat FOREIGN KEY (Id_Plat) REFERENCES Plateau(Id_Plat),
+)
+
 CREATE TABLE Carte (
 Id_Carte int,
 Poids int,
