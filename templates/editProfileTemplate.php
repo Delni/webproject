@@ -1,6 +1,6 @@
 <div class="well col-sm-offset-1 col-sm-10 edit">
   <h2>Informations personnelles</h2>
-  <form class="form-horizontal" method="post">
+  <form class="form-horizontal" method="post" action="index.php?action=updateProfile">
     <div class="form-group">
       <label class="col-sm-2 control-label" for="fname">Prénom</label>
       <div class="col-sm-3">
@@ -37,7 +37,7 @@
     </div>
     <div class="form-group">
       <div class="col-sm-offset-4 col-sm-4">
-        <a href="#" type="submit" class="btn btn-primary">Enregistrer les modifications</a>
+        <input type="submit" class="btn btn-primary" value="Enregistrer les modifications"/>
       </div>
     </div>
   </form>
@@ -55,7 +55,7 @@
     </div>
     <div class="form-group">
       <div class="col-sm-offset-4 col-sm-4">
-        <a href="#" type="submit" class="btn btn-primary">Enregistrer les modifications</a>
+        <a href="index.php?action=updateProfile" type="submit" class="btn btn-primary">Enregistrer les modifications</a>
       </div>
     </div>
   </form>

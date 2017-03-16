@@ -51,4 +51,13 @@
       SessionStop();
       header('Location: index.php');
     }
+
+    public function updateProfile($request){
+      $nom=$request->read('name');
+      $prenom=$request->read('fname');
+      $mail=$request->read('email');
+      $pays=$request->read('pays');
+      User::updateProfile($nom,$prenom,$mail,$pays,unserialize($_SESSION['user'])->get_id());
+      Header('Location:index.php');
+    }
   }

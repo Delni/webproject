@@ -48,7 +48,26 @@
       $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO pile(Id_plat) VALUES (:id_plat),(:id_plat),(:id_plat),(:id_plat)');
       $sql_req->bindParam(':id_plat',$id_plat);
       $sql_req->execute();
+    }
 
+    //TODO : add image into updating
+    public static function updateProfile($nom, $prenom,$mail, $pays, $id){
+      $sql_req=DatabasePDO::getCurrentPDO()->prepare('UPDATE joueur SET Nom = :nom WHERE Pseudo="'.$id.'"');
+      $sql_req->bindParam(':nom',$nom);
+      $sql_req->execute();
+      $sql_req=DatabasePDO::getCurrentPDO()->prepare('UPDATE joueur SET Prenom = :prenom WHERE Pseudo="'.$id.'"');
+      $sql_req->bindParam(':prenom',$prenom);
+      $sql_req->execute();
+      if($mail!= NULL){
+        $sql_req=DatabasePDO::getCurrentPDO()->prepare('UPDATE joueur SET Email = :mail WHERE Pseudo="'.$id.'"');
+        $sql_req->bindParam(':mail',$mail);
+        $sql_req->execute();
+      }
+      if($pays!= NULL){
+        $sql_req=DatabasePDO::getCurrentPDO()->prepare('UPDATE joueur SET Pays = :pays WHERE Pseudo="'.$id.'"');
+        $sql_req->bindParam(':pays',$pays);
+        $sql_req->execute();
+      }
     }
 
     public function getX($var){
