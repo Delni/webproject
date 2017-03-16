@@ -116,6 +116,18 @@ p{
 	font-size : 0.85em;
 }
 
+
+/* Conflit entre le btn-primary Bootstrap & la règle sur les inputs*/
+.edit input.btn-input-primary{
+	background-color: #337ab7;
+  border-color: #2e6da4;
+}
+.edit input.btn-input-primary:hover{
+	color: #fff;
+	background-color: #286090;
+	border-color: #122b40;
+}
+
 /*****************************************************************************/
 /*                        BOOTSTRAP REDEFINITIONS                            */
 /*****************************************************************************/

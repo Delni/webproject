@@ -34,7 +34,7 @@
     </div>
     <div class="form-group row">
       <div class="col-sm-offset-4 col-sm-4">
-        <input class="btn btn-primary" type="submit" value="Créer une partie" />
+        <input class="btn btn-input-primary" type="submit" value="Créer une partie" />
       </div>
     </div>
   </form>

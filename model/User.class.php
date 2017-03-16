@@ -48,7 +48,8 @@
       $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO pile(Id_plat) VALUES (:id_plat),(:id_plat),(:id_plat),(:id_plat)');
       $sql_req->bindParam(':id_plat',$id_plat);
       $sql_req->execute();
-
+      //return current game's ID
+      return $id_plat;
     }
 
     public function getX($var){
