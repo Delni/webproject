@@ -11,7 +11,7 @@
       <p><?php echo $this->user->getX('PRENOM')." ".$this->user->getX('NOM'); ?> <?php $this->get_flag(); ?></p>
     </div>
   </div>
-  <div class="jumbotron" style="padding-top: 0%;">
+  <div class="jumbotron user-board">
     <ul class="nav nav-tabs nav-justified">
       <li role="presentation" class="active"><a href="#parties" data-toggle="tab">Parties En Cours</a></li>
       <li role="presentation"><a href="#hist" data-toggle="tab">Historique des parties</a></li>
@@ -21,44 +21,23 @@
       <div class="tab-pane active" id="parties">
         <h1>
           Parties en cours
-          <!-- TODO
-          Don't forget to create the player field in Jouer ! -->
           <a href="index.php?action=creation" class="btn btn-primary btn-lg pull-right" id="create">Créer une partie</a>
         </h1>
         <table class="table">
           <thead>
             <tr>
-             <th>#</th>
-             <!-- TODO
-             SQL request : SELECT Nom, Createur FROM Plateau WHERE Id_Plat IN (SELECT Id_Plat FROM JOUER WHERE Pseudo = 'USER.Pseudo');
-             This request works, if you add the creator name ofc...
-             Then create php variable "data" and display them thx to a while data != NULL
-            -->
              <th>Nom Partie</th>
              <th>Créateur</th>
              <th>Joueurs</th>
              <th class="text-right">Action</th>
            </tr>
          </thead>
+         <!-- TODO
+         Need to modify link : a href="index.php?action=rejoindre"
+         Thus need to create a new action for "rejoindre"
+         And to keep  the id_plateau in a variable... -->
          <tbody>
-           <tr>
-             <th scope="row">1</th>
-             <td>Test</td>
-             <td>BlazDark</td>
-             <td>2/10</td>
-             <!-- TODO
-             Need to modify link : a href="index.php?action=rejoindre"
-             Thus need to create a new action for "rejoindre"
-             And to keep  the id_plateau in a variable... -->
-             <td><a class="btn btn-success pull-right">Rejoindre</a></td>
-           </tr>
-           <tr>
-             <th scope="row">1</th>
-             <td>Test</td>
-             <td>BlazDark</td>
-             <td>2/10</td>
-             <td><a class="btn btn-success pull-right" disabled>Rejoindre</a></td>
-           </tr>
+           <?php $this->getGameList($this->user->get_id()) ?>
          </tbody>
        </table>
      </div>
@@ -68,25 +47,14 @@
        <table class="table">
          <thead>
            <tr>
-             <th>#</th>
              <th>Nom Partie</th>
-             <th>Vainqueur</th>
+             <th>Créateur</th>
+             <!--TODO: col <th>Vainqueur</th> -->
              <th>Score</th>
            </tr>
          </thead>
          <tbody>
-           <tr>
-             <th scope="row">1</th>
-             <td>Mark</td>
-             <td>Otto</td>
-             <td>@mdo</td>
-           </tr>
-           <tr>
-             <th scope="row">2</th>
-             <td>Jacob</td>
-             <td>Thornton</td>
-             <td>@fat</td>
-           </tr>
+           <?php $this->getGameList($this->user->get_id(),true) ?>
          </tbody>
        </table>
      </div>

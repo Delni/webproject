@@ -24,8 +24,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-left">
-        <li class="active"><a href="index.php">Accueil <span class="sr-only">(current)</span></a></li>
-        <li><a href="#jeux">Jeux</a></li>
+        <li><a href="index.php">Dashboard</a></li>
+        <li><a href="index.php?action=showGame">Jeux</a></li>
         <li><a href="index.php?action=creation">Créer une partie</a></li>
         <li><a href="#" data-toggle="modal" data-target="#PopupHelp">Règles du jeu</a></li>
       </ul>

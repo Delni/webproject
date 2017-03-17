@@ -74,4 +74,9 @@
       unserialize($_SESSION['user'])->updatePassWord($lpassword, $npassword);
       Header('Location:index.php');
     }
+
+    public function showGame($request){
+      $view = new GameListView($this);
+      $view->render($this);
+    }
   }
