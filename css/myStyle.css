@@ -325,7 +325,7 @@ p{
 	overflow: auto;
 }
 
-.edit input, .edit select{
+.edit input, .edit select, .mdp-ctrl{
 		background-color: rgba(0, 0, 0, 0.7);
 		border:none;
 		color: #f2f1d8;

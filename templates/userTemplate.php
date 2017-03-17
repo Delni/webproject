@@ -29,7 +29,7 @@
              <th>Nom Partie</th>
              <th>Créateur</th>
              <th>Joueurs</th>
-             <th class="text-right">Action</th>
+             <th class="text-center">Action</th>
            </tr>
          </thead>
          <!-- TODO
@@ -37,7 +37,7 @@
          Thus need to create a new action for "rejoindre"
          And to keep  the id_plateau in a variable... -->
          <tbody>
-           <?php $this->getGameList($this->user->get_id()) ?>
+           <?php $this->getGameList($this->user->get_id()); ?>
          </tbody>
        </table>
      </div>
@@ -54,25 +54,25 @@
            </tr>
          </thead>
          <tbody>
-           <?php $this->getGameList($this->user->get_id(),true) ?>
+           <?php $this->getGameList($this->user->get_id(),true); ?>
          </tbody>
        </table>
      </div>
-      <div class="tab-pane" id="stats">
-        <h1>Statistiques </h1>
-        <p>
-          <div class="row">
-            <p class="col-sm-2 underline">Ratio :</p>
-            <p class="col-sm-2"><?php echo $this->user->getRatio(); ?></p>
-          </div>
-          <div class="row">
-            <p class="col-sm-2 underline">Victoires :</p>
-            <p class="col-sm-2"><?php echo $this->user->getX('GAGNEES'); ?></p>
-          </div>
-          <div class="row">
-            <p class="col-sm-2 underline">Défaites :</p>
-            <p class="col-sm-2"><?php echo $this->user->getX('PERDUES'); ?></p>
-          </div>
+     <div class="tab-pane" id="stats">
+       <h1>Statistiques </h1>
+       <p>
+        <div class="row">
+          <p class="col-sm-2 underline">Ratio :</p>
+          <p class="col-sm-2 text-center"><?php echo $this->user->getRatio(); ?></p>
+        </div>
+        <div class="row">
+          <p class="col-sm-2 underline">Victoires :</p>
+          <p class="col-sm-2 text-center"><?php echo $this->user->getX('GAGNEES'); ?></p>
+        </div>
+        <div class="row">
+          <p class="col-sm-2 underline">Défaites :</p>
+          <p class="col-sm-2 text-center"><?php echo $this->user->getX('PERDUES'); ?></p>
+        </div>
       </div>
     </div>
 
