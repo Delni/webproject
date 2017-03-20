@@ -13,6 +13,13 @@
       return !empty($data);
     }
 
+    public static function eMailexist($email){
+      $sql_req='SELECT Email FROM joueur WHERE Email=\'' . $email . '\'';
+      $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
+      $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
+      return !empty($data);
+    }
+
     public static function create($login, $password,$mail,$nom,$prenom){
       $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO `joueur` (`PSEUDO`,`MDP`, `NOM`, `PRENOM`, `EMAIL`, `DATE_CREATION`,`PERDUES`,`GAGNEES`) VALUES (:login,:psw,:name,:fname,:mail,:today,0,0)');
       $sql_req->bindParam(':login',$login);

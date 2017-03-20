@@ -131,6 +131,17 @@ p{
 .obligatoire{
 	color: #d24334;
 }
+
+.forget{
+	font-style: italic;
+	font-weight: lighter;
+	color: #f2f1d8;
+}
+
+.subtitle{
+	font-size:0.85em;
+	color: #f2f1d8;
+}
 /*****************************************************************************/
 /*                        BOOTSTRAP REDEFINITIONS                            */
 /*****************************************************************************/

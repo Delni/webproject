@@ -11,6 +11,8 @@
          $this->validateInscription($this->local_request);
       } elseif (isset($_POST["conLogin"])) {
         $this->validateConnection($this->local_request);
+      } elseif (isset($_POST["recoPsw"])) {
+        $this->validateRecovery($this->local_request);
       } else {
           parent::execute();
       }
@@ -28,6 +30,11 @@
 
     public function connection($request){
       $view = new ConnectionView($this);
+      $view->render($this);
+    }
+
+    public function getIDsBack($request){
+      $view = new RecoverView($request);
       $view->render($this);
     }
 
@@ -78,13 +85,27 @@
           $view = new ConnectionView($this);
           $view->setArg('conErrorText','Your login and your password didn\'t match.');
           $view->render($this);
-          //TODO : Error handling : no matching password
         }
       } else {
         $view = new ConnectionView($this);
         $view->setArg('conErrorText','Unknown login');
         $view->render($this);
         //TODO : Error handling : no matching login
+      }
+    }
+
+    public function validateRecovery($args){
+      $email=$args->read('recoPsw');
+      echo $email;
+      if(User::eMailexist($email)){
+        //TODO: send a e-mail
+        $view = new ConnectionView($this);
+        $view->setArg('RecoverText','Un e-mail avec vos identifiants a été envoyé !');
+        $view->render($this);
+      } else {
+        $view = new ConnectionView($this);
+        $view->setArg('conErrorText','E-mail inconnu');
+        $view->render($this);
       }
     }
   }

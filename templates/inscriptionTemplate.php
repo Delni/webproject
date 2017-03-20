@@ -1,7 +1,7 @@
 <div class="container" id="inscription">
   <div style="margin-top: 2.5%">
     <h2>Inscription</h2>
-    <p style="font-size:0.85em; color: #f2f1d8">Les champs suivis de <span class="obligatoire">*</span> sont obligatoires</p>
+    <p class="subtitle">Les champs suivis de <span class="obligatoire">*</span> sont obligatoires</p>
     <?php $this->error_handler_popup('warning','inscErrorText'); ?>
     <form class="row" action="index.php" method="post">
       <div>
@@ -42,7 +42,7 @@
       </div>
       <div>
         <span class="input input--yoko">
-          <input class="input__field input__field--yoko" type="text" name="inscMail" id="input-6" required/>
+          <input class="input__field input__field--yoko" type="email" name="inscMail" id="input-6" required/>
           <label class="input__label input__label--yoko" for="input-2">
             <span class="input__label-content input__label-content--yoko"><i class="fa fa-envelope"></i> E-mail <span class="obligatoire">*</span></span>
           </label>

@@ -1,28 +1,19 @@
 <div class="container" id="connection">
   <div class="container">
-    <h2>Connexion</h2>
-    <form action="index.php" method="post">
+    <h2>Envoyer vos identifiants par mail ?</h2>
+    <p class="subtitle">Si vous n'aviez pas renseigner une adresse mail, votre compte est perdu !</p>
+    <form action="index.php?action=validateRecovery" method="post">
       <div class="row">
         <span class="input input--yoko">
-          <input class="input__field input__field--yoko" type="text" name="conLogin" id="input-1" />
+          <input class="input__field input__field--yoko" type="email" name="recoPsw" id="input-1" required/>
           <label class="input__label input__label--yoko" for="input-1">
-            <span class="input__label-content input__label-content--yoko"><i class="fa fa-user-circle"></i> Login</span>
-          </label>
-        </span>
-        <span class="input input--yoko">
-          <input class="input__field input__field--yoko" type="password" name="conPassword" id="input-2" />
-          <label class="input__label input__label--yoko" for="input-2">
-            <span class="input__label-content input__label-content--yoko"><i class="fa fa-unlock-alt"></i> Mot de passe <a class="pull-right forget" href="index.php?action=getIDsBack">Mot de passe oublié?</a></span>
+            <span class="input__label-content input__label-content--yoko"><i class="fa fa-envelope"></i> Votre adresse mail</span>
           </label>
         </span>
       </div>
-      <?php $this->error_handler_popup('warning','conErrorText');
-        if(isset($this->args['RecoverText'])){
-          $this->error_handler_popup('success','RecoverText');
-        }
-      ?>
+      <?php $this->error_handler_popup('warning','conErrorText'); ?>
       <div class="row">
-        <input class="btn btn-submit" type="submit" value="Se connecter" />
+        <input class="btn btn-submit" type="submit" value="Envoyer les identifiants" />
         <a href="index.php" class="btn btn-warning">Retour</a>
       </div>
   </form>
