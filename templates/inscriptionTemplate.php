@@ -1,13 +1,14 @@
 <div class="container" id="inscription">
   <div style="margin-top: 2.5%">
     <h2>Inscription</h2>
+    <p style="font-size:0.85em; color: #f2f1d8">Les champs suivis de <span class="obligatoire">*</span> sont obligatoires</p>
     <?php $this->error_handler_popup('warning','inscErrorText'); ?>
     <form class="row" action="index.php" method="post">
       <div>
         <span class="input input--yoko">
           <input class="input__field input__field--yoko" type="text" name="inscLogin" id="input-1" required/>
           <label class="input__label input__label--yoko" for="input-1">
-            <span class="input__label-content input__label-content--yoko"><i class="fa fa-user-circle"></i> Login</span>
+            <span class="input__label-content input__label-content--yoko"><i class="fa fa-user-circle"></i> Login <span class="obligatoire">*</span> (Caractères interdits : ' " \ `)</span>
           </label>
         </span>
       </div>
@@ -15,7 +16,7 @@
         <span class="input input--yoko">
           <input class="input__field input__field--yoko" type="password" name="inscPassword" id="input-2" required/>
           <label class="input__label input__label--yoko" for="input-2">
-            <span class="input__label-content input__label-content--yoko"><i class="fa fa-unlock-alt"></i> Mot de passe</span>
+            <span class="input__label-content input__label-content--yoko"><i class="fa fa-unlock-alt"></i> Mot de passe <span class="obligatoire">*</span></span>
           </label>
         </span>
         <span class="input input--yoko">
@@ -43,12 +44,13 @@
         <span class="input input--yoko">
           <input class="input__field input__field--yoko" type="text" name="inscMail" id="input-6" required/>
           <label class="input__label input__label--yoko" for="input-2">
-            <span class="input__label-content input__label-content--yoko"><i class="fa fa-envelope"></i> E-mail</span>
+            <span class="input__label-content input__label-content--yoko"><i class="fa fa-envelope"></i> E-mail <span class="obligatoire">*</span></span>
           </label>
         </span>
       </div>
       <div>
         <input class="btn btn-submit" type="submit" value="Créer mon compte..." />
+        <a href="index.php" class="btn btn-warning">Retour</a>
       </div>
   </form>
 

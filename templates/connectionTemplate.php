@@ -19,6 +19,7 @@
       <?php $this->error_handler_popup('warning','conErrorText'); ?>
       <div class="row">
         <input class="btn btn-submit" type="submit" value="Se connecter" />
+        <a href="index.php" class="btn btn-warning">Retour</a>
       </div>
   </form>
   </div>
