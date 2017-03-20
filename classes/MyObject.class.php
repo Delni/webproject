@@ -1,7 +1,8 @@
 <?php
-  /*
+  /**
   * Root class of all my classes
-  */
+  * Handle general function, like log or error handler
+  **/
   class MyObject {
     public function error_handler_popup($alert_type,$alert_key){
       if(isset($this->args[$alert_key])){
