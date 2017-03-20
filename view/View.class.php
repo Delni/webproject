@@ -43,10 +43,11 @@
         $isPrivate=($data->prive==NULL)?'disabled="true"':'required';
         $fourth_col = ($hist)? '' : '
         <td>
-          <form class="form-horizontal" method="post" action="index.php#">
+          <form class="form-horizontal" method="post" action="index.php?action=joinGame">
             <div class="col-lg-12">
               <div class="input-group">
-                <input type="text" class="form-control mdp-ctrl" placeholder="'.$placeholder.'" '. $isPrivate .'>
+                <input type="password" id="psw_plat" name="psw_plat" class="form-control mdp-ctrl" placeholder="'.$placeholder.'" '. $isPrivate .'>
+                <input type="text" class="id_plat_input" name="id_plat" id="id_plat" value="'.$data->id_plat.'" />
                 <span class="input-group-btn">
                   <input type="submit" class="btn btn-success" value="Rejoindre">
                 </span>

@@ -13,6 +13,10 @@
       $this->id_plat=$id;
     }
 
+    public function getIdPlat(){
+      return $this->id_plat;
+    }
+
     public function print_log(){
       $sql_req='SELECT html FROM log WHERE id_plat="'.$this->id_plat.'"';
       $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);

@@ -79,4 +79,16 @@
       $view = new GameListView($this);
       $view->render($this);
     }
+
+    public function joinGame($request){
+      $id_plat=$request->read('id_plat');
+      if(isset($id_plat)){
+        //TODO : Game Model, to handle people connection
+        $view= new PlaygroundView($this);
+        $view->setIdPlat($id_plat);
+        $view->render($this);
+      } else {
+        var_dump($_POST);
+      }
+    }
   }
