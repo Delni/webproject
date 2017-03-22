@@ -7,84 +7,78 @@
     }
 
     public static function isLoginUsed($login){
-      $sql_req='SELECT PSEUDO FROM joueur WHERE PSEUDO=\'' . $login . '\'';
-      $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
-      $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
+      $data = static::exec_sql('USER_LOGIN_USED',array(':login' => $login));
       return !empty($data);
     }
 
     public static function eMailexist($email){
-      $sql_req='SELECT Email FROM joueur WHERE Email=\'' . $email . '\'';
-      $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
-      $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
+      $data=static::exec_sql('USER_EMAIL_EXIST',array(':email' => $email));
       return !empty($data);
     }
 
     public static function create($login, $password,$mail,$nom,$prenom){
       $sql_req=DataBasePDO::getCurrentPDO()->prepare("INSERT INTO `joueur` (`PSEUDO`,`MDP`, `NOM`, `PRENOM`, `EMAIL`, `DATE_CREATION`,`PERDUES`,`GAGNEES`) VALUES (:login,:psw,:name,:fname,:mail,:today,0,0)");
-      $login = strreplace("'","\'",$login);
-      $sql_req->bindParam(':login',$login);
-      $sql_req->bindParam(':psw',$password);
-      $sql_req->bindParam(':name',$nom);
-      $sql_req->bindParam(':fname',$prenom);
-      $sql_req->bindParam(':mail',$mail);
       $today=date("Y-m-d");
-      $sql_req->bindParam(':today',$today);
-      //Execute full request
-      $sql_req->execute();
+      $data = static::exec_sql('USER_CREATE_ACCOUNT', array(
+        ':login'=>$login,
+        ':psw'  =>$password,
+        ':name' =>$nom,
+        ':fname'=>$prenom,
+        ':mail' =>$mail,
+        ':today'=>$today));
       //return User object
       return new static($login);
     }
 
     public static function createGame($nom_plat,$mdp_prive,$login){
-      $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO plateau(Nom, Createur, Prive) VALUES (:nom_plat,:createur,:mdp_prive)');
-      $sql_req->bindParam(':nom_plat',$nom_plat);
-      $sql_req->bindParam(':createur',$login);
-      $sql_req->bindParam(':mdp_prive',$mdp_prive);
-      $sql_req->execute();
+      $data = static::exec_sql('USER_CREATE_GAME',array(
+        ':nom_plat' =>$nom_plat,
+        ':createur' =>$login,
+        ':mdp_prive'=>$mdp_prive));
       // Get the last id :
-      $sql_req='SELECT Id_plat FROM plateau ORDER BY Id_plat DESC';
-      $res_sql=DataBasePDO::getCurrentPDO()->query($sql_req);
-      $res = $res_sql->fetch(DataBasePDO::FETCH_OBJ);
-      $id_plat=$res->Id_plat;
+      $data = static::exec_sql('USER_GET_ID_PLATEAU',array());
+      $id_plat=$data->Id_plat;
       //Add createur into joueur
-      $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO jouer(Id_Plat,Pseudo) VALUES (:id_plat,:login)');
-      $sql_req->bindParam(':id_plat',$id_plat);
-      $sql_req->bindParam(':login',$login);
-      $sql_req->execute();
+      $data = static::exec_sql('USER_LINK_PLAYER_PLAYGROUND',array(
+        ':id_plat'=>$id_plat,
+        ':login'  =>$login));
       //Create Piles from this ID
-      $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO pile(Id_plat) VALUES (:id_plat),(:id_plat),(:id_plat),(:id_plat)');
-      $sql_req->bindParam(':id_plat',$id_plat);
-      $sql_req->execute();
+      $data=static::exec_sql('USER_LINK_PILE_PLAYGROUND',array(
+        ':id_plat' => $id_plat));
       //return current game's ID
       return $id_plat;
     }
 
     //TODO : add image into updating
     public static function updateProfile($nom, $prenom,$mail, $pays, $id){
-      $sql_req=DatabasePDO::getCurrentPDO()->prepare('UPDATE joueur SET Nom = :nom WHERE Pseudo="'.$id.'"');
-      $sql_req->bindParam(':nom',$nom);
-      $sql_req->execute();
-      $sql_req=DatabasePDO::getCurrentPDO()->prepare('UPDATE joueur SET Prenom = :prenom WHERE Pseudo="'.$id.'"');
-      $sql_req->bindParam(':prenom',$prenom);
-      $sql_req->execute();
+      $data=static::exec_sql('USER_UPDATE_NAME',array(
+        ':nom'=>$nom,
+        ':id' =>$id
+      ));
+      $data=static::exec_sql('USER_UPDATE_FNAME',array(
+        ':prenom'=>$prenom,
+        ':id' =>$id
+      ));
       if($mail!= NULL){
-        $sql_req=DatabasePDO::getCurrentPDO()->prepare('UPDATE joueur SET Email = :mail WHERE Pseudo="'.$id.'"');
-        $sql_req->bindParam(':mail',$mail);
-        $sql_req->execute();
+        $data=static::exec_sql('USER_UPDATE_EMAIL',array(
+          ':mail'=>$mail,
+          ':id' =>$id
+        ));
       }
       if($pays!= NULL){
-        $sql_req=DatabasePDO::getCurrentPDO()->prepare('UPDATE joueur SET Pays = :pays WHERE Pseudo="'.$id.'"');
-        $sql_req->bindParam(':pays',$pays);
-        $sql_req->execute();
+        $data=static::exec_sql('USER_UPDATE_COUNTRY',array(
+          ':pays'=>$pays,
+          ':id' =>$id
+        ));
       }
     }
 
     public function updatePassWord($lastpw, $newpw){
       if($this->getX('MdP')==$lastpw){
-        $sql_req=DatabasePDO::getCurrentPDO()->prepare('UPDATE joueur SET MdP = :mdp WHERE Pseudo="'.$this->get_id().'"');
-        $sql_req->bindParam(':mdp',$newpw);
-        $sql_req->execute();
+        $data=static::exec_sql('USER_UPDATE_COUNTRY',array(
+          ':mdp'=>$newpw,
+          ':id'  =>$this->get_id()
+        ));
         return(true);
       }
       return(false);
@@ -247,6 +241,10 @@
       return(null);
     }
   }
+<<<<<<< HEAD
 
 }
+=======
+  require_once('sql/User.sql.php');
+>>>>>>> 1ab0b4b8008a017fedecf73bc9c2505e622f2d58
  ?>
