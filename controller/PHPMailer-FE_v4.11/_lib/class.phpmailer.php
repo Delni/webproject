@@ -74,7 +74,7 @@ class PHPMailer {
    * Sets the From email address for the message.
    * @var string
    */
-  var $From              = 'adrien.handjani@yahoo.fr';
+  var $From              = 'root@localhost';
 
   /**
    * Sets the From name of the message.
@@ -468,7 +468,9 @@ class PHPMailer {
       if($i != 0) { $to .= ', '; }
       $to .= $this->AddrFormat($this->to[$i]);
     }
-    $toArr = explode(',', $to);
+
+    $toArr = split(',', $to);
+
     $params = sprintf("-oi -f %s", $this->Sender);
     if ($this->Sender != '' && strlen(ini_get('safe_mode')) < 1) {
       $old_from = ini_get('sendmail_from');
@@ -589,7 +591,7 @@ class PHPMailer {
     /* Retry while there is no connection */
     while($index < count($hosts) && $connection == false) {
       $hostinfo = array();
-      if(preg_match('/^(.+):([0-9]+)$/i', $hosts[$index], $hostinfo)) {
+      if(eregi('^(.+):([0-9]+)$', $hosts[$index], $hostinfo)) {
         $host = $hostinfo[1];
         $port = $hostinfo[2];
       } else {
@@ -1720,7 +1722,7 @@ class PHPMailer {
           $directory = dirname($url);
           ($directory == '.')?$directory='':'';
           $cid = 'cid:' . md5($filename);
-          $fileParts = explode("\.", $filename);
+          $fileParts = split("\.", $filename);
           $ext = $fileParts[1];
           $mimeType = $this->_mime_types($ext);
           if ( strlen($basedir) > 1 && substr($basedir,-1) != '/') { $basedir .= '/'; }

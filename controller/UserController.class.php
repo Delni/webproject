@@ -82,11 +82,19 @@
 
     public function joinGame($request){
       $id_plat=$request->read('id_plat');
+      $psw = $request->read('psw_plat');
+      $psw= (isset($psw)?$psw:'');
       if(isset($id_plat)){
         //TODO : Game Model, to handle people connection
-        $view= new PlaygroundView($this);
-        $view->setIdPlat($id_plat);
-        $view->render($this);
+        if(Game::psw_entrence($psw,$id_plat)){
+          $view= new PlaygroundView($this);
+          $view->setIdPlat($id_plat);
+          $view->render($this);
+        } else {
+          $view = new UserView($this);
+          $view->setArg('joinErrorText','Impossible de se connecter à la partie : mot de passe incorrect.');
+          $view->render($this);
+        }
       } else {
         var_dump($_POST);
       }
