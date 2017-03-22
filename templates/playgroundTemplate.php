@@ -70,7 +70,8 @@
   <div class="col-lg-offset-1 col-lg-4" style="height:385px;">
     <div class="panel panel-round">
       <div class="panel-body" id="partie_log">
-        <?php $this->print_log() ?>
+        <?php $this->print_log(); ?>
+        <?php $this->lauchGame(); ?>
       </div>
     </div>
   </div>
