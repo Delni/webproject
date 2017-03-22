@@ -107,4 +107,9 @@
         var_dump($_POST);
       }
     }
+
+    public function distributeCards($id_plat){
+      $array=User::distributeCards($id_plat);
+      return($array);
+    }
   }

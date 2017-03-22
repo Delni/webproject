@@ -1,8 +1,10 @@
 <?php
   class PlaygroundView extends View {
     protected $id_plat;
+    public $own_controller;
 
     public function render($controller){
+      $own_controller=$controller;
       include __ROOT_DIR.'/templates/headTemplate.php';
       include __ROOT_DIR.'/templates/menuTemplate.php';
       include __ROOT_DIR.'/templates/PlaygroundTemplate.php';
@@ -31,8 +33,11 @@
       $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO log(Id_plat, html) VALUES (:id,:html_content)');
       $sql_req->bindParam(':id',$id_plat);
       $sql_req->bindParam(':html_content',$html_content);
-
       $sql_req->execute();
+    }
+
+    public function distributeCards(){
+      afficheCards($own_controller->distributeCards($id_plat));
     }
   }
  ?>
