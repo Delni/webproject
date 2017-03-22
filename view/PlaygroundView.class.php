@@ -4,11 +4,14 @@
     public $own_controller;
 
     public function render($controller){
-      $own_controller=$controller;
       include __ROOT_DIR.'/templates/headTemplate.php';
       include __ROOT_DIR.'/templates/menuTemplate.php';
       include __ROOT_DIR.'/templates/PlaygroundTemplate.php';
       include __ROOT_DIR.'/templates/footTemplate.php';
+    }
+
+    public function setOwnController($controller){
+      $this->own_controller=$controller;
     }
 
     public function setIdPlat($id){
@@ -34,7 +37,7 @@
       $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
       $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
       if(unserialize($_SESSION['user'])->get_id()==$data->Createur && $data->estCommence=-1){
-        echo '<div class="row text-center"><a type="button" class="btn btn-success" href="index.php?action=distributeCards" >Lancer le jeu ('.$data->nb_joueurs.'/10 joueurs)</a></div><hr>';
+        echo '<div class="row text-center"><a type="button" class="btn btn-success" href="index.php?action=distributeCards&id='.$this->id_plat.'" >Lancer le jeu ('.$data->nb_joueurs.'/10 joueurs)</a></div><hr>';
       }
     }
 
@@ -43,10 +46,6 @@
       $sql_req->bindParam(':id',$id_plat);
       $sql_req->bindParam(':html_content',$html_content);
       $sql_req->execute();
-    }
-
-    public function distributeCards(){
-      afficheCards($own_controller->distributeCards($id_plat));
     }
   }
  ?>

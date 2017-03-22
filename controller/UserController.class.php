@@ -91,6 +91,7 @@
           if(Game::psw_entrence($psw,$id_plat)){
             $view= new PlaygroundView($this);
             $view->setIdPlat($id_plat);
+            $view->setOwnController($this);
             $view->render($this);
           } else {
             $view = new UserView($this);
@@ -109,8 +110,13 @@
       }
     }
 
-    public function distributeCards($id_plat){
-      $array=User::distributeCards($id_plat);
-      return($array);
+    public function distributeCards($request){
+      $array=User::distributeCards($request->read('id'));
+      if($array!=null){
+        $view->setArg('Mains',$array);
+        // Mains = Array ('BlazDark', Array(1,12,58,68,...); 'Delni', Array(42,69...))
+      }
+      $view= new PlaygroundView($this);
+      $view->render($this);
     }
   }

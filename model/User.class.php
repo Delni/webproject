@@ -166,14 +166,44 @@
     }
 
 
-    public function distributeCards($id_plat){
-    $sql_req=DataBasePDO::getCurrentPDO()->prepare('UPDATE plateau SET estCommence = 0 WHERE Id_Plat = "'.$this->$id_plat.'"');
+      public static function aleat($array){
+        $max=count($array);
+        return ($array[rand(0,$max-1)]);
+      }
+
+      public static function position($array,$element){
+        $i=0;
+        $pos = -1;
+        while($pos==-1 && $i<count($array)-1){
+          if($array[$i]==$element){
+            $pos=$i;
+          }
+        $i++;
+        }
+        return ($pos);
+      }
+
+      public static function suppr($array, $element){
+        $edge = User::position($array,$element);
+        $res=array();
+        for($i=0;$i<$edge;$i++){
+          array_push($res,$array[$i]);
+        }
+        for($k=$edge+1;$k<count($array)-1;$k++){
+          array_push($res,$array[$k]);
+        }
+        return($res);
+      }
+
+    public static function distributeCards($id_plat){
+    $sql_req=DataBasePDO::getCurrentPDO()->prepare("UPDATE plateau SET estCommence = 0 WHERE Id_Plat = '$id_plat'");
+    $sql_req->bindParam(':num',$id_plat);
     $sql_req->execute();
     $card_array = Array();
     for ($i=1;$i<105;$i++){
       $card_array[$i-1]=$i;;
       }
-    $sql_count="SELECT COUNT(PSEUDO)as nb_joueurs FROM jouer WHERE id_plat='".$this->$id_plat."'";
+    $sql_count="SELECT COUNT(PSEUDO)as nb_joueurs FROM jouer WHERE id_plat='".$id_plat."'";
     $res_count=DatabasePDO::getCurrentPDO()->query($sql_count);
     $count_j= $res_count->fetch(DatabasePDO::FETCH_OBJ);
     $sql_req='SELECT Pseudo FROM Jouer WHERE id_plat="'.$id_plat.'"';
@@ -183,48 +213,40 @@
     $k=0;
     $compt_num_j=0;
     $res_array=Array();
-    while(!(empty($data))&&$compteur<104){
-      $newarray=Array();
-      for($k=0;$k<10;$k++){
-        $aleat = aleat($card_array);
-        $newarray[$k]=$aleat;
-        $card_array = suppr($card_array,$aleat);
-        $compteur++;
-        $sql_main=DataBasePDO::getCurrentPDO()->prepare('UPDATE main SET Id_Carte"'.$k.'" = "'.$aleat.'" WHERE Pseudo = "'.$data->Pseudo.'" AND Id_Plat =  "'.$id_plat.'"');
-        $sql_main->execute();
-      }
-      $res_array[$compt_num_j][0]=$data->Pseudo;
-      $res_array[$compt_num_j][1]=$newarray;
-      $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
-    }
-    return($res_array);
-  }
-
-  public function aleat($array){
-    $max=count($array);
-    return ($array[rand(0,$max-1)]);
-  }
-
-  public function position($array,$element){
-    $i=0;
-    $pos = -1;
-    while($pos==-1 && $i<count($array)-1){
-      if($array[$i]==$element){
-        $pos=$i;
+    for ($ligne=0; $ligne<$count_j->nb_joueurs; $ligne++) {
+      for ($colonne=0; $colonne<2; $colonne++) {
+        $tbl[$ligne][$colonne]='';
       }
     }
-    return ($pos);
+    $sql_test="SELECT Id_Main FROM MAIN WHERE id_plat='".$id_plat."' AND Pseudo='".$data->Pseudo."'";
+    $res_sql_test=DataBasePDO::getCurrentPDO()->query($sql_test);
+    $testIf=$res_sql_test->fetch(DataBasePDO::FETCH_OBJ);
+    if(empty($testIf)){
+      $sql_main_create=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO `main` (`Pseudo`, `Id_Plat`, `Nb_Carte_Main`) VALUES (:pseudo, :id_plat, 10)');
+      $sql_main_create->bindParam(':pseudo',$data->Pseudo);
+      $sql_main_create->bindParam(':id_plat',$id_plat);
+      $sql_main_create->execute();
+      while(!(empty($data))&&$compteur<104){
+        $newarray=Array();
+        for($k=0;$k<10;$k++){
+          $aleat = User::aleat($card_array);
+          $newarray[$k]=$aleat;
+          $card_array = User::suppr($card_array,$aleat);
+          $compteur++;
+          $sql_main=DataBasePDO::getCurrentPDO()->prepare('UPDATE main SET Id_Carte'.($k+1).' = "'.$aleat.'" WHERE Pseudo = "'.$data->Pseudo.'" AND Id_Plat =  "'.$id_plat.'"');
+          $sql_main->execute();
+        }
+        $res_array[$compt_num_j][0]=$data->Pseudo;
+        $res_array[$compt_num_j][1]=$newarray;
+        $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
+        var_dump($data->Pseudo);
+      }
+      return($res_array);
+    }
+    else{
+      return(null);
+    }
   }
 
-  public function suppr($array, $element){
-    $edge = position($array,$element);
-    $res=array();
-    for($i=0;$i<$edge;$i++){
-      array_push($res,$array[$i]);
-    }
-    for($k=$edge+1;$k<count($array)-1;$k++){
-      array_push($res,$array[$k]);
-    }
-  }
 }
  ?>
