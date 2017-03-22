@@ -171,6 +171,9 @@
         if($mail->Send()){
           $view = new ConnectionView($this);
           $view->setArg('conErrorText','mail envoyé!!!!!!');
+          $sql_req=DatabasePDO::getCurrentPDO()->prepare('UPDATE joueur SET MdP = :mdp WHERE Email="'.$destinataire.'"');
+          $sql_req->bindParam(':mdp',$mdp);
+          $sql_req->execute();
         }
         else{
           $view = new ConnectionView($this);
