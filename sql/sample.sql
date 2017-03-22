@@ -139,6 +139,7 @@ INSERT INTO Carte VALUES (104, 1);
 INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des Devs', 'BlazDark', 'LesBoss', false);
 INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des Blondes', 'Blondie', 'Codouches', false);
 INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des 4', 'BlazDark', 'LeMini2', true);
+
 INSERT INTO Jouer VALUES (1,'BlazDark',42);
 INSERT INTO Jouer VALUES (1,'Delni',55);
 INSERT INTO Jouer VALUES (2, 'Blondie',4);
