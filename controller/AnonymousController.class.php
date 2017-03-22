@@ -90,7 +90,6 @@
         $view = new ConnectionView($this);
         $view->setArg('conErrorText','Unknown login');
         $view->render($this);
-        //TODO : Error handling : no matching login
       }
     }
 
@@ -117,6 +116,7 @@
     }
 
     public function validateRecovery($args){
+      $email=$args->read('recoPsw');
       if(User::eMailexist($email)){
         //TODO: send a e-mail
         $view = new ConnectionView($this);

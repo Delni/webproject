@@ -23,6 +23,7 @@
           Parties en cours
           <a href="index.php?action=creation" class="btn btn-primary btn-lg pull-right" id="create">Créer une partie</a>
         </h1>
+        <?php $this->error_handler_popup('warning','joinErrorText'); ?>
         <table class="table">
           <thead>
             <tr>
