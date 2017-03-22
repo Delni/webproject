@@ -116,13 +116,76 @@
     }
 
     public function validateRecovery($args){
+      date_default_timezone_set ('Europe/Paris');
       $email=$args->read('recoPsw');
       if(User::eMailexist($email)){
         //TODO: send a e-mail
         $view = new ConnectionView($this);
+        $mdp = $this->mdpGenerator();
+        $destinataire = $email;
+        /*
+        // Pour les champs $expediteur / $copie / $destinataire, séparer par une virgule s'il y a plusieurs adresses
+        $expediteur = 'adrien.handjani@yahoo.fr';
+        $objet = "Changement de MdP - 6 qui ramasse !";
+        $headers  = 'MIME-Version: 1.0' . "\n"; // Version MIME
+        $headers .= 'Content-type: text/html; charset=ISO-8859-1'."\n"; // l'en-tete Content-type pour le format HTML
+        $headers .= 'Reply-To: '.$expediteur."\n"; // Mail de reponse
+        $headers .= 'From: "Nom_de_expediteur"<'.$expediteur.'>'."\n"; // Expediteur
+        $headers .= 'Delivered-to: '.$destinataire."\n"; // Destinataire
+        $message = '<div style="width: 100%; text-align: center; font-weight: bold">Un Bonjour de Developpez.com !</div>';        $succes = mail($destinataire,$objet,$message,$headers);
+*/
+require "/class.phpmailer.php";
+require 'PHPMailerAutoload.php';
+
+$mail = new PHPmailer();
+$mail->IsSMTP();
+$mail->SMTPAuth   = false;
+$mail->IsHTML(true);
+$mail->Host='smtp.free.fr';
+$mail->From='adrien.handjani@minesdedouai.fr';
+$mail->AddAddress($destinataire);
+$mail->AddReplyTo('adrien.handjani@minesdedouai.fr');
+$mail->Subject='Exemple trouvé sur DVP';
+$mail->Body='<html><body><head><style>.entete{background-color:#0000FF;color:#FFFFFF;border:solid 3px;font-size:25px}';
+$mail->Body.='.ligne{color:#0000FF;border:solid 1px;text-align:center;font-size:23px}</style></head>';
+$mail->Body.='<center><table><tr><td class="entete">Voici un exemple d\'e-mail au format HTML</td></tr>';
+$mail->Body.='<tr><td class="ligne">Ceci est un tableau HTML</td></tr></table></center></body></html>';
+$mail->MsgHTML('Contenu du message en HTML');
+/*
+$mail = new PHPMailer();
+$mail->Host = 'smtp.free.fr';
+$mail->SMTPAuth   = false;
+$mail->Port = 25; // Par défaut
+
+// Expéditeur
+$mail->From='adrien.handjani@yahoo.fr';
+// Destinataire
+$mail->AddAddress($destinataire, 'Nom Prénom');
+// Objet
+$mail->Subject = 'Objet du message';
+
+// Votre message
+$mail->MsgHTML('Contenu du message en HTML');
+*/
+        if($mail->Send()){
+          $view = new ConnectionView($this);
+          $view->setArg('conErrorText','mail envoyé!!!!!!');
+        }
+        else{
+          $view = new ConnectionView($this);
+          $view->setArg('conErrorText',$mail->ErrorInfo.'fuuu // '.$destinataire);
+        }
+        $mail->SmtpClose();
+        unset($mail);
+        /*while($succes==FALSE){
+        $view = new ConnectionView($this);
+        $view->setArg('conErrorText','E-mail inconnu');
+        $view->render($this);
+      }*/
         $view->setArg('RecoverText','Un e-mail avec vos identifiants a été envoyé !');
         $view->render($this);
-      } else {
+      }
+      else {
         $view = new ConnectionView($this);
         $view->setArg('conErrorText','E-mail inconnu');
         $view->render($this);
