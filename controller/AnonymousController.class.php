@@ -119,21 +119,9 @@
       date_default_timezone_set ('Europe/Paris');
       $email=$args->read('recoPsw');
       if(User::eMailexist($email)){
-        //TODO: send a e-mail
         $view = new ConnectionView($this);
         $mdp = $this->mdpGenerator();
         $destinataire = $email;
-        /*
-        // Pour les champs $expediteur / $copie / $destinataire, séparer par une virgule s'il y a plusieurs adresses
-        $expediteur = 'adrien.handjani@yahoo.fr';
-        $objet = "Changement de MdP - 6 qui ramasse !";
-        $headers  = 'MIME-Version: 1.0' . "\n"; // Version MIME
-        $headers .= 'Content-type: text/html; charset=ISO-8859-1'."\n"; // l'en-tete Content-type pour le format HTML
-        $headers .= 'Reply-To: '.$expediteur."\n"; // Mail de reponse
-        $headers .= 'From: "Nom_de_expediteur"<'.$expediteur.'>'."\n"; // Expediteur
-        $headers .= 'Delivered-to: '.$destinataire."\n"; // Destinataire
-        $message = '<div style="width: 100%; text-align: center; font-weight: bold">Un Bonjour de Developpez.com !</div>';        $succes = mail($destinataire,$objet,$message,$headers);
-        */
         require "/PHPMailer/class.phpmailer.php";
         require '/PHPMailer/PHPMailerAutoload.php';
 
@@ -170,27 +158,12 @@
         $mail->Body.='  </body>';
         $mail->Body.='</html>';
         $mail->MsgHTML($mail->Body);
-        /*
-        $mail = new PHPMailer();
-        $mail->Host = 'smtp.free.fr';
-        $mail->SMTPAuth   = false;
-        $mail->Port = 25; // Par défaut
-
-        // Expéditeur
-        $mail->From='adrien.handjani@yahoo.fr';
-        // Destinataire
-        $mail->AddAddress($destinataire, 'Nom Prénom');
-        // Objet
-        $mail->Subject = 'Objet du message';
-
-        // Votre message
-        $mail->MsgHTML('Contenu du message en HTML');
-        */
         if($mail->Send()){
           $view = new ConnectionView($this);
-          $sql_req=DatabasePDO::getCurrentPDO()->prepare('UPDATE joueur SET MdP = :mdp WHERE Email="'.$destinataire.'"');
-          $sql_req->bindParam(':mdp',$mdp);
-          $sql_req->execute();
+          $data=User::exec_sql('USER_UPDATE_PASSWORD_BY_MAIL',array(
+            ':mdp'=>$mdp,
+            'mail'=>$destinataire
+          ));
         }
         else{
           $view = new ConnectionView($this);
@@ -198,11 +171,6 @@
         }
         $mail->SmtpClose();
         unset($mail);
-        /*while($succes==FALSE){
-        $view = new ConnectionView($this);
-        $view->setArg('conErrorText','E-mail inconnu');
-        $view->render($this);
-      }*/
         $view->setArg('RecoverText','Un e-mail avec vos identifiants a été envoyé !');
         $view->render($this);
       }

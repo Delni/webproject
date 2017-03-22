@@ -35,8 +35,11 @@
   User::addSQLquerry('USER_UPDATE_COUNTRY',
     'UPDATE joueur SET Pays = :pays WHERE Pseudo=:id');
 
-  User::addSQLquerry('USER_UPDATE_PASSWORD',
+  User::addSQLquerry('USER_UPDATE_PASSWORD_BY_ID',
     'UPDATE joueur SET MdP = :mdp WHERE Pseudo=:id');
+
+  User::addSQLquerry('USER_UPDATE_PASSWORD_BY_MAIL',
+    'UPDATE joueur SET MdP = :mdp WHERE email=:mail');
 
   User::addSQLquerry('USER_CUSTOM_QUERRY',
     'SELECT :custom_field FROM joueur WHERE pseudo=:login');

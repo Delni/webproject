@@ -76,7 +76,7 @@
     public function updatePassWord($lastpw, $newpw){
       if($this->getX('MdP')==$lastpw){
         $data=static::exec_sql('USER_UPDATE_COUNTRY',array(
-          ':pays'=>$pays,
+          ':mdp'=>$newpw,
           ':id'  =>$this->get_id()
         ));
         return(true);
