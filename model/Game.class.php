@@ -13,7 +13,7 @@
     }
 
     public static function userIsallowed($login,$id_plat){
-      $sql="SELECT COUNT(PSEUDO)as nb_joueurs, estCommencee FROM jouer LEFT JOIN Plateau USING Id_plat WHERE id_plat='".$id_plat."'";
+      $sql="SELECT COUNT(PSEUDO)as nb_joueurs, estCommence FROM jouer LEFT JOIN Plateau USING (Id_plat) WHERE id_plat='".$id_plat."'";
       $sql2="SELECT PSEUDO FROM jouer WHERE pseudo='".$login."' AND id_plat='".$id_plat."'";
       $res_sql=DatabasePDO::getCurrentPDO()->query($sql);
       $data= $res_sql->fetch(DatabasePDO::FETCH_OBJ);

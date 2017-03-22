@@ -86,15 +86,23 @@
       $psw= (isset($psw)?$psw:'');
       if(isset($id_plat)){
         //TODO : Game Model, to handle people connection
-        if(Game::psw_entrence($psw,$id_plat)){
-          $view= new PlaygroundView($this);
-          $view->setIdPlat($id_plat);
-          $view->render($this);
+        if (Game::userIsallowed(unserialize($_SESSION['user'])->get_id(),$id_plat)) {
+          if(Game::psw_entrence($psw,$id_plat)){
+            $view= new PlaygroundView($this);
+            $view->setIdPlat($id_plat);
+            $view->render($this);
+          } else {
+            $view = new UserView($this);
+            $view->setArg('joinErrorText','Impossible de se connecter à la partie : mot de passe incorrect.');
+            $view->render($this);
+          }
         } else {
           $view = new UserView($this);
-          $view->setArg('joinErrorText','Impossible de se connecter à la partie : mot de passe incorrect.');
+          $view->setArg('joinErrorText','Impossible de se connecter à la partie (partie en cours ou remplie).');
           $view->render($this);
         }
+
+
       } else {
         var_dump($_POST);
       }
