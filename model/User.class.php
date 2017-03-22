@@ -21,7 +21,8 @@
     }
 
     public static function create($login, $password,$mail,$nom,$prenom){
-      $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO `joueur` (`PSEUDO`,`MDP`, `NOM`, `PRENOM`, `EMAIL`, `DATE_CREATION`,`PERDUES`,`GAGNEES`) VALUES (:login,:psw,:name,:fname,:mail,:today,0,0)');
+      $sql_req=DataBasePDO::getCurrentPDO()->prepare("INSERT INTO `joueur` (`PSEUDO`,`MDP`, `NOM`, `PRENOM`, `EMAIL`, `DATE_CREATION`,`PERDUES`,`GAGNEES`) VALUES (:login,:psw,:name,:fname,:mail,:today,0,0)");
+      $login = strreplace("'","\'",$login);
       $sql_req->bindParam(':login',$login);
       $sql_req->bindParam(':psw',$password);
       $sql_req->bindParam(':name',$nom);
@@ -158,6 +159,10 @@
         }
       }
       return $victoires." : ".$defaites;
+    }
+
+    public function getRidOfComas($str){
+      
     }
 
   }

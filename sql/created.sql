@@ -49,7 +49,7 @@ Id_Plat int NOT NULL AUTO_INCREMENT,
 Nom varchar(50),
 Createur varchar(50),
 Prive varchar(50),
-estCommence boolean DEFAULT false,
+estCommence int DEFAULT -1,
 PRIMARY KEY (Id_Plat),
 CONSTRAINT Fk_Createur FOREIGN KEY (Createur) REFERENCES Joueur(Pseudo)
 );

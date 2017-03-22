@@ -4,7 +4,7 @@ INSERT INTO Joueur VALUES ('SeigneurSith', 'JeSuisTonPère', 'Vador', 'Dark', NU
 INSERT INTO Joueur VALUES ('Plombierdu59', 'ItsME', 'Super', 'Mario', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('HiaHIA', 'Hyrule=IRule', 'Kokiri', 'Link', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('ChasseuseDePrimesGalactique', 'ZeroSuit', 'Aran', 'Samus', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('PilleusedeTombe', 'SeinsCubiques', 'Croft', 'Lara', NULL, NULL, NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('PilleusedeTombes', 'SeinsCubiques', 'Croft', 'Lara', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('Hérissondu59', 'ChaosControl', 'TheHedgehog', 'Sonic', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('PrincessePlage', 'BowsersGirl', 'Peach', 'Princess', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('PilleurdeFranchise', 'RemplacelesBoobs', 'Drake', 'Nathan', NULL, NULL, NULL, NULL,0,0);
@@ -136,18 +136,32 @@ INSERT INTO Carte VALUES (102, 1);
 INSERT INTO Carte VALUES (103, 1);
 INSERT INTO Carte VALUES (104, 1);
 
-INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des Devs', 'BlazDark', 'LesBoss', false);
-INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des Blondes', 'Blondie', 'Codouches', false);
-INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des 4', 'BlazDark', 'LeMini2', true);
+INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des Devs', 'BlazDark', 'LesBoss', -1);
+INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des Blondes', 'Blondie', 'Codouches', -1);
+INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des 4', 'BlazDark', 'LeMini2', 0);
+INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie Full NonCom', 'BlazDark', 'FullNonCom', -1);
+
 
 INSERT INTO Jouer VALUES (1,'BlazDark',42);
 INSERT INTO Jouer VALUES (1,'Delni',55);
+
 INSERT INTO Jouer VALUES (2, 'Blondie',4);
 INSERT INTO Jouer VALUES (2, 'DelaLune', 13);
+
 INSERT INTO Jouer VALUES (3, 'BlazDark', 27);
 INSERT INTO Jouer VALUES (3,'Delni',40);
 INSERT INTO Jouer VALUES (3,'Blondie', 0);
 INSERT INTO Jouer VALUES (3,'DelaLune',0);
+
+INSERT INTO Jouer VALUES (4,'Superman',0);
+INSERT INTO Jouer VALUES (4,'Batman',0);
+INSERT INTO Jouer VALUES (4,'TazmaniedeSony',0);
+INSERT INTO Jouer VALUES (4,'Hérissondu59',0);
+INSERT INTO Jouer VALUES (4,'PilleusedeTombe',0);
+INSERT INTO Jouer VALUES (4,'Delni',0);
+INSERT INTO Jouer VALUES (4,'SourisElectrique',0);
+INSERT INTO Jouer VALUES (4,'FilloteA',0);
+INSERT INTO Jouer VALUES (4,'LHommeFemme',0);
 
 INSERT INTO Historique(Pseudo, Score, Nom) VALUES('Delni',12, 'LaPartieDeLEgalite');
 INSERT INTO Historique(Pseudo, Score, Nom) VALUES('BlazDark', 12, 'LaPartieDeLEgalite');
