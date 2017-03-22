@@ -146,11 +146,29 @@
         $mail->FromName='6nimmt Contact';
         $mail->AddAddress($destinataire);
         $mail->AddReplyTo('adrien.handjani@minesdedouai.fr');
+        $mail->CharSet = 'UTF-8';
         $mail->Subject='Vos identifiants -- 6nimmt';
-        $mail->Body='<html><body><head><style>.entete{background-color:#0000FF;color:#FFFFFF;border:solid 3px;font-size:25px}';
-        $mail->Body.='.ligne{color:#0000FF;border:solid 1px;text-align:center;font-size:23px}</style></head>';
-        $mail->Body.='<center><table><tr><td class="entete">Voici un exemple d\'e-mail au format HTML</td></tr>';
-        $mail->Body.='<tr><td class="ligne">Ceci est un tableau HTML</td></tr></table></center></body></html>';
+        $mail->Body='<html>';
+        $mail->Body.='    <head>';
+        $mail->Body.='      <meta charset="utf-8">';
+        $mail->Body.='<style>body{color: #3A405A}</style>';
+        $mail->Body.='    </head>';
+        $mail->Body.='      <body><h2>Mot de passe oublié</h2>';
+        $mail->Body.='      <p>Vous avez fait une demande de réactualisation de mot de passe sur notre site 6 qui ramasse.</p>';
+        $mail->Body.='      <p>Si vous n\'êtes pas à l\'origine de cette action, répondez à ce mail, nous traiterons votre demande au plus vite!</p>';
+        $mail->Body.='      <table>';
+        $mail->Body.='        <thead>';
+        $mail->Body.='          <th>Nouveau mot de passe</th>';
+        $mail->Body.='        </thead>';
+        $mail->Body.='        <tbody>';
+        $mail->Body.='          <tr>';
+        $mail->Body.='            <td>'.$mdp.'</td>';
+        $mail->Body.='          </tr>';
+        $mail->Body.='        </tbody>';
+        $mail->Body.='';
+        $mail->Body.='      </table>';
+        $mail->Body.='  </body>';
+        $mail->Body.='</html>';
         $mail->MsgHTML($mail->Body);
         /*
         $mail = new PHPMailer();
@@ -170,14 +188,13 @@
         */
         if($mail->Send()){
           $view = new ConnectionView($this);
-          $view->setArg('conErrorText','mail envoyé!!!!!!');
           $sql_req=DatabasePDO::getCurrentPDO()->prepare('UPDATE joueur SET MdP = :mdp WHERE Email="'.$destinataire.'"');
           $sql_req->bindParam(':mdp',$mdp);
           $sql_req->execute();
         }
         else{
           $view = new ConnectionView($this);
-          $view->setArg('conErrorText',$mail->ErrorInfo.'fuuu // '.$destinataire);
+          $view->setArg('conErrorText','Une erreur a été détectée, veuillez reessayer');
         }
         $mail->SmtpClose();
         unset($mail);
