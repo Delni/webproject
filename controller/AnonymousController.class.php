@@ -134,8 +134,8 @@
         $headers .= 'Delivered-to: '.$destinataire."\n"; // Destinataire
         $message = '<div style="width: 100%; text-align: center; font-weight: bold">Un Bonjour de Developpez.com !</div>';        $succes = mail($destinataire,$objet,$message,$headers);
         */
-        require "/class.phpmailer.php";
-        require 'PHPMailerAutoload.php';
+        require "/PHPMailer/class.phpmailer.php";
+        require '/PHPMailer/PHPMailerAutoload.php';
 
         $mail = new PHPmailer();
         $mail->IsSMTP();
