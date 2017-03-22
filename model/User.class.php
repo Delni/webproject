@@ -241,10 +241,6 @@
       return(null);
     }
   }
-<<<<<<< HEAD
-
 }
-=======
   require_once('sql/User.sql.php');
->>>>>>> 1ab0b4b8008a017fedecf73bc9c2505e622f2d58
  ?>
