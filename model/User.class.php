@@ -183,7 +183,7 @@
         for($i=0;$i<$edge;$i++){
           array_push($res,$array[$i]);
         }
-        for($k=$edge+1;$k<count($array)-1;$k++){
+        for($k=$edge+1;$k<count($array);$k++){
           array_push($res,$array[$k]);
         }
         return($res);
@@ -208,19 +208,18 @@
     $compt_num_j=0;
     $res_array=Array();
     for ($ligne=0; $ligne<$count_j->nb_joueurs; $ligne++) {
-      for ($colonne=0; $colonne<2; $colonne++) {
-        $tbl[$ligne][$colonne]='';
-      }
+        $res_array[$ligne][0]='';
+        $res_array[$ligne][1]=Array();
     }
     $sql_test="SELECT Id_Main FROM MAIN WHERE id_plat='".$id_plat."' AND Pseudo='".$data->Pseudo."'";
     $res_sql_test=DataBasePDO::getCurrentPDO()->query($sql_test);
     $testIf=$res_sql_test->fetch(DataBasePDO::FETCH_OBJ);
-    if(empty($testIf)){
-      $sql_main_create=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO `main` (`Pseudo`, `Id_Plat`, `Nb_Carte_Main`) VALUES (:pseudo, :id_plat, 10)');
-      $sql_main_create->bindParam(':pseudo',$data->Pseudo);
-      $sql_main_create->bindParam(':id_plat',$id_plat);
-      $sql_main_create->execute();
-      while(!(empty($data))&&$compteur<104){
+    if(!$testIf){
+      while(($data!=null)&&($compteur<104)){
+        $sql_main_create=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO `main` (`Pseudo`, `Id_Plat`, `Nb_Carte_Main`) VALUES (:pseudo, :id_plat, 10)');
+        $sql_main_create->bindParam(':pseudo',$data->Pseudo);
+        $sql_main_create->bindParam(':id_plat',$id_plat);
+        $sql_main_create->execute();
         $newarray=Array();
         for($k=0;$k<10;$k++){
           $aleat = User::aleat($card_array);
@@ -230,10 +229,11 @@
           $sql_main=DataBasePDO::getCurrentPDO()->prepare('UPDATE main SET Id_Carte'.($k+1).' = "'.$aleat.'" WHERE Pseudo = "'.$data->Pseudo.'" AND Id_Plat =  "'.$id_plat.'"');
           $sql_main->execute();
         }
+
         $res_array[$compt_num_j][0]=$data->Pseudo;
         $res_array[$compt_num_j][1]=$newarray;
         $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
-        var_dump($data->Pseudo);
+        $compt_num_j++;
       }
       return($res_array);
     }

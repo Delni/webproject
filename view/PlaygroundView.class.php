@@ -36,8 +36,10 @@
       $sql_req='SELECT Createur, estCommence, COUNT(pseudo)AS nb_joueurs FROM Plateau LEFT JOIN jouer USING (Id_plat) WHERE id_plat='.$this->id_plat;
       $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
       $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
-      if(unserialize($_SESSION['user'])->get_id()==$data->Createur && $data->estCommence=-1){
+      if((unserialize($_SESSION['user'])->get_id()==$data->Createur) && ($data->estCommence==-1)){
         echo '<div class="row text-center"><a type="button" class="btn btn-success" href="index.php?action=distributeCards&id='.$this->id_plat.'" >Lancer le jeu ('.$data->nb_joueurs.'/10 joueurs)</a></div><hr>';
+      } else {
+        echo '<div class="row text-center">La partie est commencée</div><hr>';
       }
     }
 
