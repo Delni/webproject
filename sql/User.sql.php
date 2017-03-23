@@ -41,6 +41,20 @@
   User::addSQLquerry('USER_UPDATE_PASSWORD_BY_MAIL',
     'UPDATE joueur SET MdP = :mdp WHERE email=:mail');
 
+  User::addSQLquerry('USER_ALL_INFO',
+    'SELECT * FROM joueur WHERE Pseudo=:login');
+
+    //Not working properly, see User->getX()
   User::addSQLquerry('USER_CUSTOM_QUERRY',
     'SELECT :custom_field FROM joueur WHERE pseudo=:login');
+
+  User::addSQLquerry('USER_START_GAME',
+    'UPDATE plateau SET estCommence = 0 WHERE Id_Plat = :id_plat');
+
+  User::addSQLquerry('USER_GET_nbJOUEURS',
+    'SELECT COUNT(PSEUDO)as nb_joueurs FROM jouer WHERE id_plat=:id_plat');
+
+  User::addSQLquerry('USER_SET_HAND',
+    'INSERT INTO `main` (`Pseudo`, `Id_Plat`, `Nb_Carte_Main`) VALUES (:pseudo, :id_plat, 10)')
+
  ?>

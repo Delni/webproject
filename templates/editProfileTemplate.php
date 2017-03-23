@@ -38,6 +38,7 @@
     <div class="form-group">
       <div class="col-sm-offset-4 col-sm-4">
         <input type="submit" class="btn btn-input-primary" value="Enregistrer les modifications"/>
+        <a href="index.php" class="btn btn-warning">Retour</a>
       </div>
     </div>
   </form>
@@ -56,6 +57,7 @@
     <div class="form-group">
       <div class="col-sm-offset-4 col-sm-4">
         <input type="submit" class="btn btn-input-primary" value="Enregistrer les modifications"/>
+        <a href="index.php" class="btn btn-warning">Retour</a>
       </div>
     </div>
   </form>

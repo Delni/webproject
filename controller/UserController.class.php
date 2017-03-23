@@ -40,7 +40,7 @@
           $sql_req="SELECT COUNT(PSEUDO)AS nb_joueurs FROM jouer WHERE id_plat='".$id_plat."'";
           $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
           $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
-          $view->setLog($id_plat,'<div class="progress"><div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div><div class="row"><p class="log"> En attente de joueurs...</div><hr>');
+          $view->setLog($id_plat,'<div class="progress"><div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div><div class="row"><p class="log"> En attente de joueurs...</p></div><hr>');
           $view->render($this);
         } else {
           $view = new CreationView($this);

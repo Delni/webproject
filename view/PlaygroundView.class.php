@@ -39,7 +39,7 @@
       if((unserialize($_SESSION['user'])->get_id()==$data->Createur) && ($data->estCommence==-1)){
         echo '<div class="row text-center"><a type="button" class="btn btn-success" href="index.php?action=distributeCards&id='.$this->id_plat.'" >Lancer le jeu ('.$data->nb_joueurs.'/10 joueurs)</a></div><hr>';
       } else {
-        echo '<div class="row text-center">La partie est commencée</div><hr>';
+        echo '<div class="row text-center"><p class="log">La partie est commencée ('.date("d/m/Y").')</p></div><hr>';
       }
     }
 
