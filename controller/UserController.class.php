@@ -37,9 +37,9 @@
           } else {
             $view->setLog($id_plat,'<div class="row"><p class="log"><em class="underline">Nom :</em> '. $nom_plat.', ne nécessite pas de mot de passe</p></div><hr>');
           }
-          $sql_req="SELECT COUNT(PSEUDO)AS nb_joueurs FROM jouer WHERE id_plat='".$id_plat."'";
-          $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
-          $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
+          $data = User::exec_sql('USER_GET_nbJOUEURS',array(
+            ':id_plat'=> $id_plat
+          ));
           $view->setLog($id_plat,'<div class="progress"><div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div><div class="row"><p class="log"> En attente de joueurs...</p></div><hr>');
           $view->render($this);
         } else {
@@ -55,8 +55,9 @@
     }
 
     public function totalWipeOut($reques){
-      $sql_req="DELETE FROM `joueur` WHERE `joueur`.`Pseudo` = '". unserialize($_SESSION['user'])->get_id() ."'";
-      DatabasePDO::getCurrentPDO()->query($sql_req);
+      User::exec_sql('USER_DELETE',array(
+        ':login'=> unserialize($_SESSION['user'])->get_id()
+      ));
       SessionStop();
       header('Location: index.php');
     }

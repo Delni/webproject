@@ -55,6 +55,8 @@
     'SELECT COUNT(PSEUDO)as nb_joueurs FROM jouer WHERE id_plat=:id_plat');
 
   User::addSQLquerry('USER_SET_HAND',
-    'INSERT INTO `main` (`Pseudo`, `Id_Plat`, `Nb_Carte_Main`) VALUES (:pseudo, :id_plat, 10)')
+    'INSERT INTO `main` (`Pseudo`, `Id_Plat`, `Nb_Carte_Main`) VALUES (:pseudo, :id_plat, 10)');
 
+  User::addSQLquerry('USER_DELETE',
+    'DELETE FROM `joueur` WHERE `joueur`.`Pseudo` = :login');
  ?>
