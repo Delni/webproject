@@ -114,11 +114,6 @@
       $array=User::distributeCards($request->read('id'));
       $view= new PlaygroundView($this);
       $view->setIdPlat($request->read('id'));
-      if($array!=null){
-
-        $view->setArg('Mains',$array);
-        // Mains = Array ('BlazDark', Array(1,12,58,68,...); 'Delni', Array(42,69...))
-      }
       $view->render($this);
 
     }

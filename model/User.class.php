@@ -237,9 +237,6 @@
       }
       return($res_array);
     }
-    else{
-      return(null);
-    }
   }
 }
   require_once('sql/User.sql.php');
