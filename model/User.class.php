@@ -17,7 +17,6 @@
     }
 
     public static function create($login, $password,$mail,$nom,$prenom){
-      $sql_req=DataBasePDO::getCurrentPDO()->prepare("INSERT INTO `joueur` (`PSEUDO`,`MDP`, `NOM`, `PRENOM`, `EMAIL`, `DATE_CREATION`,`PERDUES`,`GAGNEES`) VALUES (:login,:psw,:name,:fname,:mail,:today,0,0)");
       $today=date("Y-m-d");
       $data = static::exec_sql('USER_CREATE_ACCOUNT', array(
         ':login'=>$login,
@@ -92,10 +91,11 @@
     }
 
     public function getAllInfo(){
-      $sql_req='SELECT * FROM joueur WHERE PSEUDO=\'' . $this->local_login . '\'';
-      $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
-      $data = $res_sql->fetchAll(DatabasePDO::FETCH_OBJ);
-      return $data;
+      $sql_req=DatabasePDO::getCurrentPDO()->prepare('SELECT * FROM joueur WHERE Pseudo=:login');
+      $sql_req->execute(array(
+        ':login'=>$this->local_login
+      ));
+      return $sql_req->fetchAll(DatabasePDO::FETCH_OBJ);
     }
 
     public function set_id($str){
@@ -190,16 +190,17 @@
       }
 
     public static function distributeCards($id_plat){
-    $sql_req=DataBasePDO::getCurrentPDO()->prepare("UPDATE plateau SET estCommence = 0 WHERE Id_Plat = '$id_plat'");
-    $sql_req->bindParam(':num',$id_plat);
-    $sql_req->execute();
+    $data=static::exec_sql('USER_START_GAME',array(
+      ':id_plat'=>$id_plat
+    ));
+
     $card_array = Array();
     for ($i=1;$i<105;$i++){
       $card_array[$i-1]=$i;;
       }
-    $sql_count="SELECT COUNT(PSEUDO)as nb_joueurs FROM jouer WHERE id_plat='".$id_plat."'";
-    $res_count=DatabasePDO::getCurrentPDO()->query($sql_count);
-    $count_j= $res_count->fetch(DatabasePDO::FETCH_OBJ);
+    $count_j=static::exec_sql('USER_GET_nbJOUEURS',array(
+      ':id_plat'=>$id_plat
+    ));
     $sql_req='SELECT Pseudo FROM Jouer WHERE id_plat="'.$id_plat.'"';
     $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
     $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
@@ -216,10 +217,10 @@
     $testIf=$res_sql_test->fetch(DataBasePDO::FETCH_OBJ);
     if(!$testIf){
       while(($data!=null)&&($compteur<104)){
-        $sql_main_create=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO `main` (`Pseudo`, `Id_Plat`, `Nb_Carte_Main`) VALUES (:pseudo, :id_plat, 10)');
-        $sql_main_create->bindParam(':pseudo',$data->Pseudo);
-        $sql_main_create->bindParam(':id_plat',$id_plat);
-        $sql_main_create->execute();
+        static::exec_sql('USER_SET_HAND',array(
+          ':pseudo' =>$data->Pseudo,
+          ':id_plat'=>$id_plat
+        ));
         $newarray=Array();
         for($k=0;$k<10;$k++){
           $aleat = User::aleat($card_array);
