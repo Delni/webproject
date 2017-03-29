@@ -1,3 +1,4 @@
+<?php var_dump($this->liste_cartes) ?>
 <div class="jumbotron row playground">
   <div class="col-lg-7">
     <div class="column">
@@ -79,33 +80,43 @@
 
 <div class="jumbotron hand">
   <div class="card">
+    <?php $this->showCard(1); ?>
     1
   </div>
   <div class="card">
+    <?php $this->showCard(2); ?>
     2
   </div>
   <div class="card">
+    <?php $this->showCard(3); ?>
     3
   </div>
   <div class="card">
+    <?php $this->showCard(4); ?>
     4
   </div>
   <div class="card">
+    <?php $this->showCard(5); ?>
     5
   </div>
   <div class="card">
+    <?php $this->showCard(6); ?>
     6
   </div>
   <div class="card">
+    <?php $this->showCard(7); ?>
     7
   </div>
   <div class="card">
+    <?php $this->showCard(8); ?>
     8
   </div>
   <div class="card">
+    <?php $this->showCard(9); ?>
     9
   </div>
   <div class="card">
+    <?php $this->showCard(10); ?>
     10
   </div>
 </div>

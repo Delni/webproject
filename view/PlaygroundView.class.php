@@ -62,5 +62,18 @@
       $sql_req->bindParam(':html_content',$html_content);
       $sql_req->execute();
     }
+
+    public function showCard($num_dans_main){
+      $num_card=$this->getListeCartes()[$num_dans_main];
+      if ($num_card >=100) {
+        $X_offset= -86*($num_card%100-1);
+      } else {
+        $X_offset= -86*($num_card%10-1);
+      }
+      $Y_offset=-133.5*(int)($num_card/10-1);
+      //TODO : values multiple of 10
+      echo '<div class="card__content" id="card'.$num_card.'" style="background-position: '.$X_offset.'px '.$Y_offset.'px"></div>';
+    }
+
   }
  ?>

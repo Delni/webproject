@@ -16,20 +16,22 @@ INSERT INTO Joueur VALUES ('IronMan', 'TheBest', 'Stark', 'Tony', NULL, NULL, NU
 INSERT INTO Joueur VALUES ('CaptainAmerica', 'LoveBucky', 'Roger', 'Steve', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('Batman', 'RIPPapaMaman', 'Wayne', 'Bruce', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('Superman', 'KriptoPhobe', 'Kent', 'Clark', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('Blondie', 'Camstresse!!', 'Del', 'Val', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('DelaLune', 'PetiteChieuse', 'LaC', 'Cla', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('Delni', 'Maniac', 'Del', 'Nic', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('BlazDark', 'Gamer4Life', 'Han', 'Adr', NULL, NULL, NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('Blondie', 'Camstresse!!', 'Delory', 'Valentine', NULL, NULL, NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('DelaLune', 'PetiteChieuse', 'LaCroix', 'Claire', NULL, NULL, NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('Delni', 'Maniac', 'Delauney', 'Nicolas', NULL, NULL, NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('BlazDark', 'Gamer4Life', 'Handjani', 'Adrien', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('Lambassadrice', 'CougarTown', 'Amidala', 'Padmé', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('Jedu-Bid', 'Nooo', 'Skywalker', 'Luke', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('SourisElectrique', 'OndineMaChose', 'Kachu', 'Pi', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('LaLégendeVivante', 'Red', 'Red', 'Red', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('LEmodesCarte', 'AmedesCarte', 'Muto', 'Yugi', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('FilloteA', 'CheVaisEnvahirLaPologne!', 'Ker', 'Ali', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('LHommeFemme', 'MaisJe****Des*****', 'Coi', 'Ant', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('FilloteB', 'NimporteQuoi!', 'LeM', 'Sol', NULL, NULL, NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('FilloteA', 'CheVaisEnvahirLaPologne!', 'Kerchove', 'Alice', NULL, NULL, NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('LHommeFemme', 'MaisJe****Des*****', 'Coignet', 'Anthony', NULL, NULL, NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('FilloteB', 'NimporteQuoi!', 'Le Mentec', 'Solène', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('ArchéologueDesAztèques', 'FouetEtChapeau', 'Jones', 'Indiana', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('SorcieralaCicatrice', 'RIPHermioneLove', 'Potter', 'Harry', NULL, NULL, NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('User', 'User', 'Nyme', 'Ano', NULL, NULL, NULL, NULL,0,0);
+
 
 INSERT INTO Carte VALUES (1, 1);
 INSERT INTO Carte VALUES (2, 1);
@@ -138,7 +140,7 @@ INSERT INTO Carte VALUES (104, 1);
 
 INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des Devs', 'BlazDark', 'LesBoss', -1);
 INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des Blondes', 'Blondie', 'Codouches', -1);
-INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des 4', 'BlazDark', 'LeMini2', 0);
+INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des 4', 'BlazDark', 'LeMini2', -1);
 INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie Full NonCom', 'BlazDark', 'FullNonCom', -1);
 
 
