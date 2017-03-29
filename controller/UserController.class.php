@@ -6,13 +6,15 @@
       $view->render($this);
     }
 
-    public function setArgs($view){
-        $view->user_data=User::getAllInfo();
-    }
-
     public function editProfile($request){
       $view = new EditeView($this);
-      $this->setArgs($view);
+      $args = unserialize($_SESSION['user'])->getAllInfo()[0];
+      $view->setArgs('Prenom',$args->Prenom);
+      $view->setArgs('Nom',$args->Nom);
+      $view->setArgs('MdP',$args->MdP);
+      $view->setArgs('Email',$args->Email);
+      $view->setArgs('Pays',$args->Pays);
+      $view->setArgs('IdP',$args->IdP);
       $view->render($this);
     }
 
