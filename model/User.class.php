@@ -239,6 +239,29 @@
       return($res_array);
     }
   }
-}
+
+// SQL TO REFACTOR
+  public static function estCommence($id_plat){
+    $sql_req='SELECT estCommence FROM Plateau WHERE id_plat="'.$id_plat.'"';
+    $sql_req=DatabasePDO::getCurrentPDO()->prepare($sql_req);
+    $sql_req->execute();
+    $res=$sql_req->fetch(DatabasePDO::FETCH_OBJ);
+    return ($res->estCommence);
+  }
+
+  // SQL TO REFACTOR
+    public static function playgame($id_plat, $pseudo){
+      $array=[];
+      for ($i=1;$i<11;$i++){
+        $sql_req='SELECT Id_Carte'.$i.' AS Id_Carte FROM Main WHERE id_plat="'.$id_plat.'" AND Pseudo = "'.$pseudo.'"';
+        $sql_req=DatabasePDO::getCurrentPDO()->prepare($sql_req);
+        $sql_req->execute();
+        $res=$sql_req->fetch(DatabasePDO::FETCH_OBJ);
+        $array[$i]= $res->Id_Carte;
+      }
+      return ($array);
+    }
+  }
+
   require_once('sql/User.sql.php');
  ?>

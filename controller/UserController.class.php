@@ -101,12 +101,19 @@
             $view->setIdPlat($id_plat);
             $view->setOwnController($this);
             $view->render($this);
-          } else {
+            if(User::estCommence($id_plat)==0){
+              $pseudo=unserialize($_SESSION['user'])->get_id();
+              $array=User::playgame($id_plat,$pseudo);
+              $view->setListeCartes($array);
+            }
+          }
+          else {
             $view = new UserView($this);
             $view->setArg('joinErrorText','Impossible de se connecter à la partie : mot de passe incorrect.');
             $view->render($this);
           }
-        } else {
+        }
+        else {
           $view = new UserView($this);
           $view->setArg('joinErrorText','Impossible de se connecter à la partie (partie en cours ou remplie).');
           $view->render($this);
@@ -116,6 +123,11 @@
         $view->setArg('joinErrorText','Une erreur a été rencontrée.');
         $view->render($this);
       }
+    }
+
+    public function playgame($request){
+      $id_plat=$request->read('id_plat');
+      $array=User::playgame($request->read('id'));
     }
 
     public function distributeCards($request){

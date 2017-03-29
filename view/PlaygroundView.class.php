@@ -1,7 +1,8 @@
 <?php
   class PlaygroundView extends View {
     protected $id_plat;
-    public $own_controller;
+    protected $own_controller;
+    protected $liste_cartes;
 
     public function render($controller){
       include __ROOT_DIR.'/templates/headTemplate.php';
@@ -12,6 +13,18 @@
 
     public function setOwnController($controller){
       $this->own_controller=$controller;
+    }
+
+    public function getOwnController(){
+      return $this->own_controller;
+    }
+
+    public function setListeCartes($array){
+      $this->liste_cartes=$array;
+    }
+
+    public function getListeCartes(){
+      return $this->liste_cartes;
     }
 
     public function setIdPlat($id){
