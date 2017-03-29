@@ -230,12 +230,23 @@
           $sql_main=DataBasePDO::getCurrentPDO()->prepare('UPDATE main SET Id_Carte'.($k+1).' = "'.$aleat.'" WHERE Pseudo = "'.$data->Pseudo.'" AND Id_Plat =  "'.$id_plat.'"');
           $sql_main->execute();
         }
+          $res_array[$compt_num_j][0]=$data->Pseudo;
+          $res_array[$compt_num_j][1]=$newarray;
+          $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
+          $compt_num_j++;
+        }
 
-        $res_array[$compt_num_j][0]=$data->Pseudo;
-        $res_array[$compt_num_j][1]=$newarray;
-        $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
-        $compt_num_j++;
-      }
+        //SQL TO REFACTOR
+        $sql_id_pile='SELECT Id_Pile FROM PILE WHERE Id_Plat ="'.$id_plat.'"';
+        $res_sql_id_pile=DatabasePDO::getCurrentPDO()->query($sql_id_pile);
+        for($k=0;$k<4;$k++){
+          $id_pile = $res_sql_id_pile->fetch(DatabasePDO::FETCH_OBJ);
+          $aleat = User::aleat($card_array);
+          $newarray[$k]=$aleat;
+          $card_array = User::suppr($card_array,$aleat);
+          $sql_pile_carte = 'INSERT INTO etre_dans VALUES ('.$id_pile->Id_Pile.','.$aleat.')';
+          DatabasePDO::getCurrentPDO()->query($sql_pile_carte);
+        }
       return($res_array);
     }
   }
