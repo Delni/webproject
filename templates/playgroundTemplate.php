@@ -1,4 +1,4 @@
-<?php var_dump($this->liste_cartes) ?>
+<!-- <?php var_dump($this->liste_cartes) ?> -->
 <div class="jumbotron row playground">
   <div class="col-lg-7">
     <div class="column">

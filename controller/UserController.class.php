@@ -126,9 +126,13 @@
     }
 
     public function distributeCards($request){
-      $array=User::distributeCards($request->read('id'));
+      User::distributeCards($request->read('id'));
+      $pseudo=unserialize($_SESSION['user'])->get_id();
+      $id_plat=$request->read('id');
       $view= new PlaygroundView($this);
       $view->setIdPlat($request->read('id'));
+      $array=User::playgame($id_plat,$pseudo);
+      $view->setListeCartes($array);
       $view->render($this);
 
     }

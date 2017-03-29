@@ -49,10 +49,12 @@
       $sql_req='SELECT Createur, estCommence, COUNT(pseudo)AS nb_joueurs FROM Plateau LEFT JOIN jouer USING (Id_plat) WHERE id_plat='.$this->id_plat;
       $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
       $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
-      if((unserialize($_SESSION['user'])->get_id()==$data->Createur) && ($data->estCommence==-1)){
-        echo '<div class="row text-center"><a type="button" class="btn btn-success" href="index.php?action=distributeCards&id='.$this->id_plat.'" >Lancer le jeu ('.$data->nb_joueurs.'/10 joueurs)</a></div><hr>';
+      if ($data->estCommence==-1) {
+        if((unserialize($_SESSION['user'])->get_id()==$data->Createur)){
+          echo '<div class="row text-center"><a type="button" class="btn btn-success" href="index.php?action=distributeCards&id='.$this->id_plat.'" >Lancer le jeu ('.$data->nb_joueurs.'/10 joueurs)</a></div><hr>';
+        }
       } else {
-        echo '<div class="row text-center"><p class="log">La partie est commencée ('.date("d/m/Y").')</p></div><hr>';
+        echo '<div class="row"><p class="log">La partie est commencée </p></div><hr>';
       }
     }
 
@@ -70,9 +72,12 @@
       } else {
         $X_offset= -86*($num_card%10-1);
       }
-      $Y_offset=-133.5*(int)($num_card/10-1);
+      $Y_offset = ($num_card%10==0) ? -133.5*(int)($num_card/10-1) : -133.5*(int)($num_card/10) ;
+      // $Y_offset=-133.5*(int)($num_card/10);
       //TODO : values multiple of 10
-      echo '<div class="card__content" id="card'.$num_card.'" style="background-position: '.$X_offset.'px '.$Y_offset.'px"></div>';
+      if ($num_card!=NULL) {
+        echo '<div class="card__content" id="card'.$num_card.'" style="background-position: '.$X_offset.'px '.$Y_offset.'px"></div>';
+      }
     }
 
   }
