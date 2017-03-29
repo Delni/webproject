@@ -20,12 +20,25 @@
       <div class="col-sm-3">
         <select id="pays" class="form-control col-sm-2" name="pays">
           <option value="">-- Default --</option>
+          <option value="de">Allemagne</option>
+          <option value="au">Australie</option>
+          <option value="be">Belgique</option>
+          <option value="br">Brésil</option>
           <option value="ca">Canada</option>
+          <option value="cn">Chine</option>
+          <option value="_Scotland">Ecosse</option>
           <option value="es">Espagne</option>
+          <option value="fi">Finlande</option>
           <option value="fr">France</option>
           <option value="gb">Grande-Bretagne</option>
           <option value="it">Italie</option>
+          <option value="ir">Iran</option>
+          <option value="ie">Irlande</option>
+          <option value="jp">Japon</option>
+          <option value="no">Norvège</option>
           <option value="se">Suède</option>
+          <option value="ch">Suisse</option>
+          <option value="cz">République Tchèque</option>
         </select>
       </div>
     </div>

@@ -122,6 +122,11 @@
             <span class="col-sm-1"><a target="_blank" href="http://fontawesome.io/"><i class="fa fa-external-link"></i></a></span>
           </div>
           <div class="row">
+            <span class="col-sm-offset-1 col-sm-1"><i class="fa fa-edit"></i></span>
+            <span class="col-sm-3">IconDrawer </span>
+            <span class="col-sm-1"><a target="_blank" href="http://www.icondrawer.com/"><i class="fa fa-external-link"></i></a></span>
+          </div>
+          <div class="row">
             <span class="col-sm-offset-1 col-sm-1"><i class="fa fa-github"></i></span>
             <span class="col-sm-3">GitHub </span>
             <span class="col-sm-1"><a target="_blank" href="http://github.com/"><i class="fa fa-external-link"></i></a></span>
