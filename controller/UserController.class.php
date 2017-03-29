@@ -6,8 +6,13 @@
       $view->render($this);
     }
 
+    public function setArgs($view){
+        $view->user_data=User::getAllInfo();
+    }
+
     public function editProfile($request){
       $view = new EditeView($this);
+      $this->setArgs($view);
       $view->render($this);
     }
 

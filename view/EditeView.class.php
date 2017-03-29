@@ -3,7 +3,6 @@
     protected $user_data;
 
     public function render($controller){
-      $this->user_data=$this->user->getAllInfo();
       include __ROOT_DIR.'/templates/headTemplate.php';
       include __ROOT_DIR.'/templates/menuTemplate.php';
       include __ROOT_DIR.'/templates/editProfileTemplate.php';
