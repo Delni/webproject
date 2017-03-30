@@ -3,12 +3,14 @@
     protected $id_plat;
     protected $own_controller;
     protected $liste_cartes;
+    protected $pile_cartes=NULL;
 
     public function render($controller){
       include __ROOT_DIR.'/templates/headTemplate.php';
       include __ROOT_DIR.'/templates/menuTemplate.php';
       include __ROOT_DIR.'/templates/PlaygroundTemplate.php';
       include __ROOT_DIR.'/templates/footTemplate.php';
+      var_dump($this->pile_cartes);
     }
 
     public function setOwnController($controller){
@@ -17,6 +19,14 @@
 
     public function getOwnController(){
       return $this->own_controller;
+    }
+
+    public function setPileCartes($array){
+      $this->pile_cartes=$array;
+    }
+
+    public function getPileCartes(){
+      return $this->pile_cartes;
     }
 
     public function setListeCartes($array){

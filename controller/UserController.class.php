@@ -100,10 +100,12 @@
             $view= new PlaygroundView($this);
             $view->setIdPlat($id_plat);
             $view->setOwnController($this);
-            if(User::estCommence($id_plat)==0){
+            if(Game::estCommence($id_plat)==0){
               $pseudo=unserialize($_SESSION['user'])->get_id();
               $array=User::playgame($id_plat,$pseudo);
               $view->setListeCartes($array);
+              $array_pile=Game::lesPiles($id_plat);
+              $view->setPileCartes($array_pile);
             }
             $view->render($this);
           }
@@ -126,13 +128,15 @@
     }
 
     public function distributeCards($request){
-      User::distributeCards($request->read('id'));
+      Game::distributeCards($request->read('id'));
       $pseudo=unserialize($_SESSION['user'])->get_id();
       $id_plat=$request->read('id');
       $view= new PlaygroundView($this);
       $view->setIdPlat($request->read('id'));
       $array=User::playgame($id_plat,$pseudo);
       $view->setListeCartes($array);
+      $array_pile=Game::lesPiles($id_plat);
+      $view->setPileCartes($array_pile);
       $view->render($this);
 
     }
