@@ -10,7 +10,6 @@
       include __ROOT_DIR.'/templates/menuTemplate.php';
       include __ROOT_DIR.'/templates/PlaygroundTemplate.php';
       include __ROOT_DIR.'/templates/footTemplate.php';
-      var_dump($this->pile_cartes);
     }
 
     public function setOwnController($controller){
