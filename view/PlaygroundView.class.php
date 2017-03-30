@@ -76,17 +76,19 @@
 
     public function showCard($num_dans_main){
       $num_card=$this->getListeCartes()[$num_dans_main];
-      if ($num_card >=100) {
-        $X_offset= -86*($num_card%100-1);
-      } else {
-        $X_offset= -86*($num_card%10-1);
-      }
-      $Y_offset = ($num_card%10==0) ? -133.5*(int)($num_card/10-1) : -133.5*(int)($num_card/10) ;
-      // $Y_offset=-133.5*(int)($num_card/10);
-      //TODO : values multiple of 10
+      $offset=$this->spriteOffset($num_card);
       if ($num_card!=NULL) {
-        echo '<div class="card__content" id="card'.$num_card.'" style="background-position: '.$X_offset.'px '.$Y_offset.'px"></div>';
+        echo '<div class="card__content" id="card'.$num_card.'" style="background-position: '.$offset['X'].'px '.$offset['Y'].'px"></div>';
       }
+    }
+    
+    public function spriteOffset($num){
+      $X_offset = ($num >=100) ? -86*($num%100-1) : -86*($num%10-1);
+      $Y_offset = ($num%10==0) ? -133.5*(int)($num/10-1) : -133.5*(int)($num/10);
+      return array(
+        "X"=>$X_offset,
+        "Y"=>$Y_offset
+      );
     }
 
   }
