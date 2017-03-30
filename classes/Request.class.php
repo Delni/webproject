@@ -1,5 +1,21 @@
 <?php
   class Request extends MyObject {
+
+    /**
+    *
+    *   Request add useful functions with singleton pattern
+    *
+    *   Variables:
+    *     @uniqueInstance     (object Request)    -> For the pattern
+    *
+    *   Functions:
+    *     @getCurrentRequest  (object Request)    -> For the pattern
+    *     @getControllerName  (string)            -> return the current controller or Anonymous is none is found
+    *     @getActionName      (string)            -> like controllerName but with the actions
+    *     @read & @write      (void)              -> pass values within the request
+    *
+    **/
+
     protected static $uniqueInstance = NULL;
 
     // Construct with Singleton design pattern
@@ -41,10 +57,6 @@
 
     public function write($key,$value){
       $_GET[$key]=$value;
-    }
-
-    public function writePOST($key,$value){
-      $_POST[$key]=$value;
     }
   }
 

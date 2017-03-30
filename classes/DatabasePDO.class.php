@@ -1,5 +1,18 @@
 <?php
   class DatabasePDO extends PDO {
+
+    /**
+    *   Extension of PHP's PDO class, allowing the application of a singleton pattern
+    *
+    *   Variables :
+    *     @uniqueInstance     (object DatabasePDO)    -> for the singleton pattern
+    *     @dbname             (string)                -> configure the PDO statment connection
+    *     @user               (string)                -> configure the PDO statment connection
+    *     @pass               (string)                -> configure the PDO statment connection
+    *
+    **/
+
+
     protected static $uniqueInstance = NULL;
     protected static $dbname = '6nimmt';
     protected static $user = 'root';

@@ -3,6 +3,12 @@
   require_once(__ROOT_DIR . '/classes/MyObject.class.php');
 
   class AutoLoader extends MyObject {
+
+    /**
+    *   This class call itself every class called from a string
+    *   It search in the treeview of the project
+    **/
+
     public function __construct() {
       spl_autoload_register(array($this, 'load'));
     }

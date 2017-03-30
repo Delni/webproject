@@ -1,5 +1,15 @@
 <?php
   class Dispatcher extends MyObject {
+
+    /**
+    *  Application of a singleton pattern
+    *  Select the current controller to handle actions
+    *
+    *   Variables :
+    *     @uniqueInstance     (object Dispatcher)    -> for the singleton pattern
+    *
+    **/
+
     protected static $uniqueInstance = NULL;
 
     public static function getCurrentDispatcher(){
