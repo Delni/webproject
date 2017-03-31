@@ -130,6 +130,14 @@
         }
       }
     }
+
+    public static function getIdMain($id_plat, $pseudo){
+        $sql="SELECT Id_Main FROM MAIN WHERE pseudo='".$pseudo."' AND id_plat='".$id_plat."'";
+        $sql=DatabasePDO::getCurrentPDO()->prepare($sql);
+        $sql->execute();
+        $res=$sql->fetch(DatabasePDO::FETCH_OBJ);
+        return($res->Id_Main);
+    }
   }
     require_once('sql/Game.sql.php');
  ?>

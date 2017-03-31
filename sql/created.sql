@@ -33,7 +33,7 @@ CREATE TABLE Pile (
 Id_Pile int NOT NULL AUTO_INCREMENT,
 Id_Plat int,
 PRIMARY KEY (Id_Pile)
--- Foreign Key for Id_Plat is at the very end, cause Plateau has not been created yet!
+-- Foreign Key for Id_Plat is at the very end, because Plateau has not been created yet!
 );
 
 CREATE TABLE Etre_dans(
@@ -92,6 +92,7 @@ Id_Carte7 int,
 Id_Carte8 int,
 Id_Carte9 int,
 Id_Carte10 int,
+Id_Selected_Card int DEFAULT -1,
 Nb_Carte_main int DEFAULT -1,
 PRIMARY KEY (Id_Main),
 CONSTRAINT Fk_Id_Carte1 FOREIGN KEY (ID_Carte1) REFERENCES Carte(Id_Carte),

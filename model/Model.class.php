@@ -13,7 +13,5 @@
       $sql_req->execute($params);
       return $sql_req->fetch(DatabasePDO::FETCH_OBJ);
     }
-
-
   }
  ?>
