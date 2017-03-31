@@ -84,7 +84,7 @@
     }
 
     public function getX($var){
-      $sql_req='SELECT '. $var . ' FROM joueur WHERE PSEUDO=\'' . $this->local_login . '\'';
+      $sql_req='SELECT '. $var . ' FROM joueur WHERE PSEUDO="' . $this->local_login . '"';
       $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
       $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
       return $data->$var;

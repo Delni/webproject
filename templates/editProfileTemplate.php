@@ -44,9 +44,14 @@
       </div>
     </div>
     <div class="form-group">
-      <div class="col-sm-offset-3 col-sm-6">
-        <label for="InputFile">Image de profil</label>
-        <input type="file" id="InputFile">
+      <div class="col-lg-6">
+        <div class="input-group">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Go!</button>
+          </span>
+          <label for="InputFile">Image de profil</label>
+          <input type="file" id="InputFile">
+                  </div>
       </div>
     </div>
     <div class="form-group">
