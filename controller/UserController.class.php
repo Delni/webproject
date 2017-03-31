@@ -61,7 +61,7 @@
       }
     }
 
-    public function totalWipeOut($reques){
+    public function totalWipeOut($request){
       User::exec_sql('USER_DELETE',array(
         ':login'=> unserialize($_SESSION['user'])->get_id()
       ));
@@ -106,6 +106,17 @@
               $view->setListeCartes($array);
               $array_pile=Game::lesPiles($id_plat);
               $view->setPileCartes($array_pile);
+              $selected_card=$request->read('id_card');
+              if(isset($selected_card)){
+                $view->setSelectedCard($request->read('id_card'));
+                // TODO : 1 must be changed into $id_plat when set :
+                // The button which activates joinGame to select a card must add
+                // the id_plat to the request
+                var_dump($id_plat);
+                $pseudo = Game::getIdMain($id_plat,unserialize($_SESSION['user'])->get_id());
+                var_dump(unserialize($_SESSION['user'])->get_id());
+                User::selectCard($request->read('id_card'),$pseudo);
+              }
             }
             $view->render($this);
           }
@@ -138,6 +149,29 @@
       $array_pile=Game::lesPiles($id_plat);
       $view->setPileCartes($array_pile);
       $view->render($this);
+    }
+
+    // TODO : game in itself
+    // sort $array
+    // then play cards according to this
+
+    public static function playCard($request){
+      $id_plat=($request->read('id_plat');
+      $all=true;
+      $array=User::allSelectedCards($id_plat));
+      $nb_joueurs = User::exec_sql('USER_GET_nbJOUEURS',array(
+                ':id_plat'=>$id_plat
+              ));
+      $i=0
+      while($i<$nb_joueurs && $all){
+        if($array[$i]==-1){
+          $all=false;
+        }
+      }
+      if($all){
+
+      }
 
     }
+
   }

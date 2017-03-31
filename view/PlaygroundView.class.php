@@ -3,6 +3,7 @@
     protected $id_plat;
     protected $own_controller;
     protected $liste_cartes;
+    protected $selected_card=NULL;
     protected $pile_cartes=NULL;
 
     public function render($controller){
@@ -26,6 +27,14 @@
 
     public function getPileCartes(){
       return $this->pile_cartes;
+    }
+
+    public function setSelectedCard($int){
+      $this->selected_card=$int;
+    }
+
+    public function getSelectedCard(){
+      return $this->selected_card;
     }
 
     public function setListeCartes($array){
@@ -78,7 +87,7 @@
       $num_card=$this->getListeCartes()[$num_dans_main];
       $offset=$this->spriteOffset($num_card);
       if ($num_card!=NULL) {
-        echo '<div class="card__content" id="card'.$num_card.'" style="background-position: '.$offset['X'].'px '.$offset['Y'].'px"></div>';
+        echo '<a class="card__choosen" href="index.php?action=joinGame&id_plat='.$this->getIdPlat().'&id_card='.$num_card.'"><div class="card__content" id="card'.$num_card.'" style="background-position: '.$offset['X'].'px '.$offset['Y'].'px"></div></a>';
       }
     }
 

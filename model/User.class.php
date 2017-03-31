@@ -155,8 +155,22 @@
       return $victoires." : ".$defaites;
     }
 
-    public function getRidOfComas($str){
+    // TODO tri
 
+    public function trierCroissant($tab, $taille){
+      for($i=0;$i<$taille;$i++){
+        $k=0;
+        for($j=1;$j<$taille;$j++){
+          if($tab[$k]>$tab[$j]){
+            for($diff=0;$diff<$j-$k){
+              $tmp=$tab[$k+$diff];
+              $tab[$k+$diff]=$tab[$k+$diff+1];
+              $tab[$k+$diff+1]=$tmp;
+            }
+          }
+
+        }
+      }
     }
 
 
@@ -201,7 +215,14 @@
       }
       return ($array);
     }
-  }
 
+    public static function selectCard($id_card, $id_main){
+      $sql_select_card= "UPDATE Main SET Id_Selected_Card = '".$id_card."' WHERE Id_main='".$id_main."'";
+      $res_sql=DatabasePDO::getCurrentPDO()->query($sql_select_card);
+    }
+
+
+
+  }
   require_once('sql/User.sql.php');
  ?>
