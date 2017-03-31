@@ -39,6 +39,7 @@
           <option value="se">Suède</option>
           <option value="ch">Suisse</option>
           <option value="cz">République Tchèque</option>
+          <option value="easter-egg">YOLO</option>
         </select>
       </div>
     </div>
