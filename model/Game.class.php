@@ -91,7 +91,6 @@
           $card_array = User::suppr($card_array,$aleat);
           $sql_pile_carte = 'INSERT INTO etre_dans VALUES ('.$id_pile->Id_Pile.','.$aleat.')';
           DatabasePDO::getCurrentPDO()->query($sql_pile_carte);
-          var_dump($aleat);
         }
       return($res_array);
     }

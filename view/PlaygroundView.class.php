@@ -81,7 +81,7 @@
         echo '<div class="card__content" id="card'.$num_card.'" style="background-position: '.$offset['X'].'px '.$offset['Y'].'px"></div>';
       }
     }
-    
+
     public function spriteOffset($num){
       $X_offset = ($num >=100) ? -86*($num%100-1) : -86*($num%10-1);
       $Y_offset = ($num%10==0) ? -133.5*(int)($num/10-1) : -133.5*(int)($num/10);
