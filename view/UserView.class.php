@@ -10,7 +10,11 @@
 
     public function get_flag(){
       $flag=$this->user->getX('PAYS');
-      echo "<img src=\"css/img/flags/flags_iso/24/".$flag.".png\" alt=\"".$flag."\">";
+      if($flag=="easter-egg"){
+        echo "<img src=\"css/img/parrot.gif\" alt=\"Yolo\">";
+      } else {
+        echo "<img src=\"css/img/flags/flags_iso/24/".$flag.".png\" alt=\"".$flag."\">";
+      }
     }
   }
  ?>
