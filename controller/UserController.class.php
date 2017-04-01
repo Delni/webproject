@@ -155,10 +155,10 @@
     // sort $array
     // then play cards according to this
 
-    public static function playCard($request){
-      $id_plat=($request->read('id_plat');
+  /*  public static function playCard($request){
+      $id_plat=($request->read('id_plat'));
       $all=true;
-      $array=User::allSelectedCards($id_plat));
+      $array=User::allSelectedCards($id_plat);
       $nb_joueurs = User::exec_sql('USER_GET_nbJOUEURS',array(
                 ':id_plat'=>$id_plat
               ));
@@ -172,6 +172,6 @@
 
       }
 
-    }
+    }*/
 
   }

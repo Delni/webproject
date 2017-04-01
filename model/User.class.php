@@ -157,21 +157,22 @@
 
     // TODO tri
 
-    public function trierCroissant($tab, $taille){
-      for($i=0;$i<$taille;$i++){
-        $k=0;
-        for($j=1;$j<$taille;$j++){
-          if($tab[$k]>$tab[$j]){
-            for($diff=0;$diff<$j-$k){
-              $tmp=$tab[$k+$diff];
-              $tab[$k+$diff]=$tab[$k+$diff+1];
-              $tab[$k+$diff+1]=$tmp;
+      /*  public function trierCroissant($tab, $taille){
+          for($i=0;$i<$taille;$i++){
+            $k=0;
+            for($j=1;$j<$taille;$j++){
+              if($tab[$k]>$tab[$j]){
+                for($diff=0;$diff<$j-$k){
+                  $tmp=$tab[$k+$diff];
+                  $tab[$k+$diff]=$tab[$k+$diff+1];
+                  $tab[$k+$diff+1]=$tmp;
+                }
+              }
+
             }
           }
+        }*/
 
-        }
-      }
-    }
 
 
       public static function aleat($array){
