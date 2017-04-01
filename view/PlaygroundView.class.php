@@ -62,7 +62,7 @@
         $data = $res_sql->fetch(PDO::FETCH_OBJ);
       }
     }
-    
+
     public function setLog($id_plat,$html_content){
       $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO log(Id_plat, html) VALUES (:id,:html_content)');
       $sql_req->bindParam(':id',$id_plat);
@@ -77,6 +77,8 @@
       if ($data->estCommence==-1) {
         if((unserialize($_SESSION['user'])->get_id()==$data->Createur)){
           echo '<div class="row text-center"><a type="button" class="btn btn-success" href="index.php?action=distributeCards&id='.$this->id_plat.'" >Lancer le jeu ('.$data->nb_joueurs.'/10 joueurs)</a></div><hr>';
+        } else {
+          echo '<div class="row alert alert-warning"><p class="log">Seul le createur de la partie peut lancer la partie ('.$data->nb_joueurs.'/10 joueurs)</p></div><hr>';
         }
       } else {
         echo '<div class="row"><p class="log">La partie est commencée </p></div><hr>';

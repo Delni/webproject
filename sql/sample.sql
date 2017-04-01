@@ -167,24 +167,38 @@ INSERT INTO log(Id_plat, html) VALUES (4,'<div class="progress"><div class="prog
 
 INSERT INTO Jouer VALUES (1,'BlazDark',42);
 INSERT INTO Jouer VALUES (1,'Delni',55);
+INSERT INTO log(Id_plat, html) VALUES (1,'<div class="row"><p class="log">Delni a rejoins la partie !</p></div><hr>');
 
 INSERT INTO Jouer VALUES (2, 'Blondie',4);
 INSERT INTO Jouer VALUES (2, 'DelaLune', 13);
+INSERT INTO log(Id_plat, html) VALUES (2,'<div class="row"><p class="log">DelaLune a rejoins la partie !</p></div><hr>');
 
 INSERT INTO Jouer VALUES (3, 'BlazDark', 27);
 INSERT INTO Jouer VALUES (3,'Delni',40);
+INSERT INTO log(Id_plat, html) VALUES (3,'<div class="row"><p class="log">Delni a rejoins la partie !</p></div><hr>');
 INSERT INTO Jouer VALUES (3,'Blondie', 0);
+INSERT INTO log(Id_plat, html) VALUES (3,'<div class="row"><p class="log">Blondie a rejoins la partie !</p></div><hr>');
 INSERT INTO Jouer VALUES (3,'DelaLune',0);
+INSERT INTO log(Id_plat, html) VALUES (3,'<div class="row"><p class="log">DelaLune a rejoins la partie !</p></div><hr>');
 
 INSERT INTO Jouer VALUES (4,'Superman',0);
+INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row"><p class="log">Superman a rejoins la partie !</p></div><hr>');
 INSERT INTO Jouer VALUES (4,'Batman',0);
+INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row"><p class="log">Batman a rejoins la partie !</p></div><hr>');
 INSERT INTO Jouer VALUES (4,'TazmaniedeSony',0);
+INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row"><p class="log">TazmaniedeSony a rejoins la partie !</p></div><hr>');
 INSERT INTO Jouer VALUES (4,'Hérissondu59',0);
+INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row"><p class="log">Hérissondu59 a rejoins la partie !</p></div><hr>');
 INSERT INTO Jouer VALUES (4,'PilleusedeTombe',0);
+INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row"><p class="log">PilleusedeTombe a rejoins la partie !</p></div><hr>');
 INSERT INTO Jouer VALUES (4,'Delni',0);
+INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row"><p class="log">Delni a rejoins la partie !</p></div><hr>');
 INSERT INTO Jouer VALUES (4,'SourisElectrique',0);
+INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row"><p class="log">SourisElectrique a rejoins la partie !</p></div><hr>');
 INSERT INTO Jouer VALUES (4,'FilloteA',0);
+INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row"><p class="log">FilloteA a rejoins la partie !</p></div><hr>');
 INSERT INTO Jouer VALUES (4,'LHommeFemme',0);
+INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row"><p class="log">LHommeFemme a rejoins la partie !</p></div><hr>');
 
 INSERT INTO Historique(Pseudo, Score, Nom) VALUES('Delni',12, 'LaPartieDeLEgalite');
 INSERT INTO Historique(Pseudo, Score, Nom) VALUES('BlazDark', 12, 'LaPartieDeLEgalite');
