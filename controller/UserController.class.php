@@ -74,15 +74,36 @@
       $prenom=$request->read('fname');
       $mail=$request->read('email');
       $pays=$request->read('pays');
-      User::updateProfile($nom,$prenom,$mail,$pays,unserialize($_SESSION['user'])->get_id());
-      Header('Location:index.php');
+      $img=$request->read('InputFile');
+      User::updateProfile($nom,$prenom,$mail,$pays,$img,unserialize($_SESSION['user'])->get_id());
+      
+      $view = new EditeView($this);
+      $args = unserialize($_SESSION['user'])->getAllInfo()[0];
+      $view->setArgs('Prenom',$args->Prenom);
+      $view->setArgs('Nom',$args->Nom);
+      $view->setArgs('MdP',$args->MdP);
+      $view->setArgs('Email',$args->Email);
+      $view->setArgs('Pays',$args->Pays);
+      $view->setArgs('IdP',$args->IdP);
+      $view->setArgs('UpdateInfo',true);
+      $view->render($this);
     }
 
     public function updatePassWord($request){
       $lpassword=$request->read('lPass');
       $npassword=$request->read('nPass');
-      unserialize($_SESSION['user'])->updatePassWord($lpassword, $npassword);
-      Header('Location:index.php');
+      $isDone=unserialize($_SESSION['user'])->updatePassWord($lpassword, $npassword);
+
+      $view = new EditeView($this);
+      $args = unserialize($_SESSION['user'])->getAllInfo()[0];
+      $view->setArgs('Prenom',$args->Prenom);
+      $view->setArgs('Nom',$args->Nom);
+      $view->setArgs('MdP',$args->MdP);
+      $view->setArgs('Email',$args->Email);
+      $view->setArgs('Pays',$args->Pays);
+      $view->setArgs('IdP',$args->IdP);
+    $view->setArgs('UpdatePass',$isDone);
+      $view->render($this);
     }
 
     public function showGame($request){

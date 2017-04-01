@@ -62,6 +62,13 @@
         $data = $res_sql->fetch(PDO::FETCH_OBJ);
       }
     }
+    
+    public function setLog($id_plat,$html_content){
+      $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO log(Id_plat, html) VALUES (:id,:html_content)');
+      $sql_req->bindParam(':id',$id_plat);
+      $sql_req->bindParam(':html_content',$html_content);
+      $sql_req->execute();
+    }
 
     public function lauchGame(){
       $sql_req='SELECT Createur, estCommence, COUNT(pseudo)AS nb_joueurs FROM Plateau LEFT JOIN jouer USING (Id_plat) WHERE id_plat='.$this->id_plat;
@@ -74,13 +81,6 @@
       } else {
         echo '<div class="row"><p class="log">La partie est commencée </p></div><hr>';
       }
-    }
-
-    public function setLog($id_plat,$html_content){
-      $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO log(Id_plat, html) VALUES (:id,:html_content)');
-      $sql_req->bindParam(':id',$id_plat);
-      $sql_req->bindParam(':html_content',$html_content);
-      $sql_req->execute();
     }
 
     public function showCardInPile($numPile,$numDansPile){

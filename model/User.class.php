@@ -49,7 +49,7 @@
     }
 
     //TODO : add image into updating
-    public static function updateProfile($nom, $prenom,$mail, $pays, $id){
+    public static function updateProfile($nom, $prenom,$mail, $pays, $img, $id){
       $data=static::exec_sql('USER_UPDATE_NAME',array(
         ':nom'=>$nom,
         ':id' =>$id
@@ -74,7 +74,7 @@
 
     public function updatePassWord($lastpw, $newpw){
       if($this->getX('MdP')==$lastpw){
-        $data=static::exec_sql('USER_UPDATE_COUNTRY',array(
+        $data=static::exec_sql('USER_UPDATE_PASSWORD_BY_ID',array(
           ':mdp'=>$newpw,
           ':id'  =>$this->get_id()
         ));

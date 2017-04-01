@@ -430,6 +430,7 @@ p{
 	position: relative;
 	transition: all 2s ease;
 }
+
 .card__choosen:hover{
 	top: -30px;
 }
