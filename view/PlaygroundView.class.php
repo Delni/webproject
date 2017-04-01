@@ -83,11 +83,20 @@
       $sql_req->execute();
     }
 
+    public function showCardInPile($numPile,$numDansPile){
+      $cards=$this->getPileCartes();
+      if (isset($cards[$numPile-1][$numDansPile-1])) {
+        $num_card=$cards[$numPile-1][$numDansPile-1];
+        $offset=$this->spriteOffset($num_card);
+        echo '<div class="card__content" id="card'.$num_card.'" style="background-position: '.$offset['X'].'px '.$offset['Y'].'px"></div>';
+      }
+    }
+
     public function showCard($num_dans_main){
       $num_card=$this->getListeCartes()[$num_dans_main];
-      $offset=$this->spriteOffset($num_card);
       if ($num_card!=NULL) {
-        echo '<a class="card__choosen" href="index.php?action=joinGame&id_plat='.$this->getIdPlat().'&id_card='.$num_card.'"><div class="card__content" id="card'.$num_card.'" style="background-position: '.$offset['X'].'px '.$offset['Y'].'px"></div></a>';
+        $offset=$this->spriteOffset($num_card);
+        echo '<a class="" href="index.php?action=joinGame&id_plat='.$this->getIdPlat().'&id_card='.$num_card.'"><abbr title="Jouer cette carte ?" style="cursor:pointer"><div class="card__content" id="card'.$num_card.'" style="background-position: '.$offset['X'].'px '.$offset['Y'].'px"></div></abbr></a>';
       }
     }
 

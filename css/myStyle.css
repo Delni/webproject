@@ -426,6 +426,14 @@ p{
 	overflow: auto;
 }
 
+.card__choosen{
+	position: relative;
+	transition: all 2s ease;
+}
+.card__choosen:hover{
+	top: -30px;
+}
+
 /******************************************************************************/
 /*                    EXTERNAL CSS FROM CODROPS TUTORIALS                     */
 /******************************************************************************/

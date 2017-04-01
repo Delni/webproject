@@ -162,7 +162,7 @@
         $k=0;
         for($j=1;$j<$taille;$j++){
           if($tab[$k]>$tab[$j]){
-            for($diff=0;$diff<$j-$k){
+            for($diff=0;$diff<$j-$k; $diff++){
               $tmp=$tab[$k+$diff];
               $tab[$k+$diff]=$tab[$k+$diff+1];
               $tab[$k+$diff+1]=$tmp;

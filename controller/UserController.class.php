@@ -156,21 +156,21 @@
     // then play cards according to this
 
     public static function playCard($request){
-      $id_plat=($request->read('id_plat');
-      $all=true;
-      $array=User::allSelectedCards($id_plat));
-      $nb_joueurs = User::exec_sql('USER_GET_nbJOUEURS',array(
-                ':id_plat'=>$id_plat
-              ));
-      $i=0
-      while($i<$nb_joueurs && $all){
-        if($array[$i]==-1){
-          $all=false;
-        }
-      }
-      if($all){
-
-      }
+      // $id_plat=$request->read('id_plat');
+      // $all=true;
+      // $array=User::allSelectedCards($id_plat));
+      // $nb_joueurs = User::exec_sql('USER_GET_nbJOUEURS',array(
+      //           ':id_plat'=>$id_plat
+      //         ));
+      // $i=0;
+      // while($i<$nb_joueurs && $all){
+      //   if($array[$i]==-1){
+      //     $all=false;
+      //   }
+      // }
+      // if($all){
+      //
+      // }
 
     }
 
