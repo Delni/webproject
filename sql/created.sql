@@ -1,4 +1,4 @@
-CREATE DATABASE `6nimmt`;
+CREATE DATABASE `6nimmt`  DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 USE `6nimmt`;
 
 CREATE TABLE Joueur (

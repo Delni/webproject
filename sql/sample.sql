@@ -140,8 +140,29 @@ INSERT INTO Carte VALUES (104, 1);
 
 INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des Devs', 'BlazDark', 'LesBoss', -1);
 INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des Blondes', 'Blondie', 'Codouches', -1);
-INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des 4', 'BlazDark', 'LeMini2', -1);
+INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des 4', 'Delni', 'LeMini2', -1);
 INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie Full NonCom', 'BlazDark', 'FullNonCom', -1);
+
+
+INSERT INTO log(Id_plat, html) VALUES (1,'<div class="row text-center"><h2> -- Création de la partie --</h2></div>');
+INSERT INTO log(Id_plat, html) VALUES (1,'<div class="row text-center"><p>Créée par BlazDark<p></div><hr>');
+INSERT INTO log(Id_plat, html) VALUES (1,'<div class="row"><p class="log"><em class="underline">Nom : </em> Partie des Devs,<br> <em class="underline">Mot de passe :</em> LesBoss </p></div><hr>');
+INSERT INTO log(Id_plat, html) VALUES (1,'<div class="progress"><div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div><div class="row"><p class="log"> En attente de joueurs...</p></div><hr>');
+
+INSERT INTO log(Id_plat, html) VALUES (2,'<div class="row text-center"><h2> -- Création de la partie --</h2></div>');
+INSERT INTO log(Id_plat, html) VALUES (2,'<div class="row text-center"><p>Créée par Blondie<p></div><hr>');
+INSERT INTO log(Id_plat, html) VALUES (2,'<div class="row"><p class="log"><em class="underline">Nom : </em> Partie des Blondes,<br> <em class="underline">Mot de passe :</em> Codouches </p></div><hr>');
+INSERT INTO log(Id_plat, html) VALUES (2,'<div class="progress"><div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div><div class="row"><p class="log"> En attente de joueurs...</p></div><hr>');
+
+INSERT INTO log(Id_plat, html) VALUES (3,'<div class="row text-center"><h2> -- Création de la partie --</h2></div>');
+INSERT INTO log(Id_plat, html) VALUES (3,'<div class="row text-center"><p>Créée par Delni<p></div><hr>');
+INSERT INTO log(Id_plat, html) VALUES (3,'<div class="row"><p class="log"><em class="underline">Nom : </em>Partie des 4,<br> <em class="underline">Mot de passe :</em> LeMini2 </p></div><hr>');
+INSERT INTO log(Id_plat, html) VALUES (3,'<div class="progress"><div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div><div class="row"><p class="log"> En attente de joueurs...</p></div><hr>');
+
+INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row text-center"><h2> -- Création de la partie --</h2></div>');
+INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row text-center"><p>Créée par BlazDark<p></div><hr>');
+INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row"><p class="log"><em class="underline">Nom : </em> Partie Full NonCom,<br> <em class="underline">Mot de passe :</em> FullNonCom </p></div><hr>');
+INSERT INTO log(Id_plat, html) VALUES (4,'<div class="progress"><div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div><div class="row"><p class="log"> En attente de joueurs...</p></div><hr>');
 
 
 INSERT INTO Jouer VALUES (1,'BlazDark',42);
