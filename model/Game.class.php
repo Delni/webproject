@@ -146,6 +146,30 @@
         $res=$sql->fetch(DatabasePDO::FETCH_OBJ);
         return($res->Id_Main);
     }
+
+    public static function triCroissant($tab, $taille){
+        for($i=0;$i<$taille;$i++){
+          $k=0;
+          for($j=1;$j<$taille;$j++){
+            if($tab[$k]>$tab[$j]){
+              for($diff=0;$diff<$j-$k){
+                $tmp=$tab[$k+$diff];
+                $tab[$k+$diff]=$tab[$k+$diff+1];
+                $tab[$k+$diff+1]=$tmp;
+              }
+            }
+          }
+        }
+        return($tab);
+      }
+
+      // TODO by FrontEnd
+      // Because SQL should sort it by itself
+
+    public static function allSelectedCards($id_plat){
+
+    }
+
   }
     require_once('sql/Game.sql.php');
  ?>

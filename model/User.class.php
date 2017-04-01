@@ -155,38 +155,6 @@
       return $victoires." : ".$defaites;
     }
 
-    // TODO tri
-
-<<<<<<< HEAD
-      /*  public function trierCroissant($tab, $taille){
-          for($i=0;$i<$taille;$i++){
-            $k=0;
-            for($j=1;$j<$taille;$j++){
-              if($tab[$k]>$tab[$j]){
-                for($diff=0;$diff<$j-$k){
-                  $tmp=$tab[$k+$diff];
-                  $tab[$k+$diff]=$tab[$k+$diff+1];
-                  $tab[$k+$diff+1]=$tmp;
-                }
-              }
-
-=======
-    public function trierCroissant($tab, $taille){
-      for($i=0;$i<$taille;$i++){
-        $k=0;
-        for($j=1;$j<$taille;$j++){
-          if($tab[$k]>$tab[$j]){
-            for($diff=0;$diff<$j-$k; $diff++){
-              $tmp=$tab[$k+$diff];
-              $tab[$k+$diff]=$tab[$k+$diff+1];
-              $tab[$k+$diff+1]=$tmp;
->>>>>>> e322680a02ad7edae41b86e39a66714fcd1a93f4
-            }
-          }
-        }*/
-
-
-
       public static function aleat($array){
         $max=count($array);
         return ($array[rand(0,$max-1)]);

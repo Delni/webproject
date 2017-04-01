@@ -173,18 +173,65 @@
     }
 
     // TODO : game in itself
-    // sort $array
-    // then play cards according to this
 
-<<<<<<< HEAD
-  /*  public static function playCard($request){
+   public static function playCard($request){
       $id_plat=($request->read('id_plat'));
       $all=true;
-      $array=User::allSelectedCards($id_plat);
+      // TODO : allSelectedCards
+      // Gotta return all the selected cards
+      $array=Game::allSelectedCards($id_plat);
       $nb_joueurs = User::exec_sql('USER_GET_nbJOUEURS',array(
                 ':id_plat'=>$id_plat
               ));
-      $i=0
+      $i=0;
+      while($i<$nb_joueurs && $all){
+        if($array[$i]==-1){
+          $all=false;
+        }
+      }
+      if($all){
+        //$array=Game::triCroissant($array);
+        // TODO : getIdPlayers
+        // Returns array with Id of Players according to sorted $array
+        $array_id_players = Game::getIdPlayers($array);
+        // TODO : getPilesId($id_plat)
+        $array_id_pile = Game::getPilesId($id_plat);
+        $maxOfPiles=[];
+        for ($k=0;$k<4;$k++){
+          $arra_cards_pile=[];
+          // TODO : getCardsOfPile
+          $array_cards_pile = Game::getCardsofPile($array_id_pile[$k]);
+          // TODO : max_list($id_plat)
+          $maxOfPiles[$k]= Game::max_list($array_cards_pile);
+        }
+        for ($l=0;$l<4;$l++){
+          // TODO : indexOfClosest
+          // Returns the number of the pile where the card is to be added
+          $index_closest = Game::indexOfClosest($array[$l],$maxOfPile);
+          // TODO : relatedIndex
+          // Returns the index of the pile where the card is to be added
+          // According to $maxOfPile and not according to SQL
+          $index_tab = Game::relatedIndex($maxOfPile, $index_closest);
+          // TODO : addCardToPiles
+          // Beware : this function has to take care of the number of Cards
+          // In each pile, and update scores if necessary
+          Game::addCardToPiles($array[$l],$index_closest);
+          // TODO : SuppressCardsHand
+          // Erase card with value $array[$l] and selectedCard
+          Game::suppressCardsHand($array[$l]);
+          $maxOfPiles=User::suppr($maxOfPiles, $maxOfPiles[$index_tab]);
+        }
+      }
+    }
+
+    public static function playCard($request){
+      $id_plat=$request->read('id_plat');
+      $all=true;
+      $array=User::allSelectedCards($id_plat));
+      $nb_joueurs = User::exec_sql('USER_GET_nbJOUEURS',array(
+                ':id_plat'=>$id_plat
+              ));
+      $i=0;
       while($i<$nb_joueurs && $all){
         if($array[$i]==-1){
           $all=false;
@@ -193,25 +240,7 @@
       if($all){
 
       }
-=======
-    public static function playCard($request){
-      // $id_plat=$request->read('id_plat');
-      // $all=true;
-      // $array=User::allSelectedCards($id_plat));
-      // $nb_joueurs = User::exec_sql('USER_GET_nbJOUEURS',array(
-      //           ':id_plat'=>$id_plat
-      //         ));
-      // $i=0;
-      // while($i<$nb_joueurs && $all){
-      //   if($array[$i]==-1){
-      //     $all=false;
-      //   }
-      // }
-      // if($all){
-      //
-      // }
->>>>>>> e322680a02ad7edae41b86e39a66714fcd1a93f4
 
-    }*/
+    }
 
   }
