@@ -49,7 +49,7 @@
     }
 
     //TODO : add image into updating
-    public static function updateProfile($nom, $prenom,$mail, $pays, $id){
+    public static function updateProfile($nom, $prenom,$mail, $pays, $img, $id){
       $data=static::exec_sql('USER_UPDATE_NAME',array(
         ':nom'=>$nom,
         ':id' =>$id
@@ -74,7 +74,7 @@
 
     public function updatePassWord($lastpw, $newpw){
       if($this->getX('MdP')==$lastpw){
-        $data=static::exec_sql('USER_UPDATE_COUNTRY',array(
+        $data=static::exec_sql('USER_UPDATE_PASSWORD_BY_ID',array(
           ':mdp'=>$newpw,
           ':id'  =>$this->get_id()
         ));
@@ -84,7 +84,7 @@
     }
 
     public function getX($var){
-      $sql_req='SELECT '. $var . ' FROM joueur WHERE PSEUDO=\'' . $this->local_login . '\'';
+      $sql_req='SELECT '. $var . ' FROM joueur WHERE PSEUDO="' . $this->local_login . '"';
       $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
       $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
       return $data->$var;
@@ -157,6 +157,7 @@
 
     // TODO tri
 
+<<<<<<< HEAD
       /*  public function trierCroissant($tab, $taille){
           for($i=0;$i<$taille;$i++){
             $k=0;
@@ -169,6 +170,17 @@
                 }
               }
 
+=======
+    public function trierCroissant($tab, $taille){
+      for($i=0;$i<$taille;$i++){
+        $k=0;
+        for($j=1;$j<$taille;$j++){
+          if($tab[$k]>$tab[$j]){
+            for($diff=0;$diff<$j-$k; $diff++){
+              $tmp=$tab[$k+$diff];
+              $tab[$k+$diff]=$tab[$k+$diff+1];
+              $tab[$k+$diff+1]=$tmp;
+>>>>>>> e322680a02ad7edae41b86e39a66714fcd1a93f4
             }
           }
         }*/

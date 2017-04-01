@@ -41,5 +41,16 @@
       }
     }
 
+    public function isUpdate($status){
+      if(isset($this->user_data['Update'.$status])){
+        if($this->user_data['Update'.$status]==true){
+          echo '<i class="fa fa-check fa-2x" style="color : #29b136"></i>';
+        } else {
+          echo '<i class="fa fa-times fa-2x" style="color : #9F2D2D"></i>';
+        }
+      }
+
+    }
+
   }
  ?>

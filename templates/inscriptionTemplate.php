@@ -8,7 +8,7 @@
         <span class="input input--yoko">
           <input class="input__field input__field--yoko" type="text" name="inscLogin" id="input-1" required/>
           <label class="input__label input__label--yoko" for="input-1">
-            <span class="input__label-content input__label-content--yoko"><i class="fa fa-user-circle"></i> Login <span class="obligatoire">*</span> (Caractères interdits : ' " \ `)</span>
+            <span class="input__label-content input__label-content--yoko"><i class="fa fa-user-circle"></i> Login <span class="obligatoire">*</span> (Caractères interdits : " \ `)</span>
           </label>
         </span>
       </div>
