@@ -12,6 +12,13 @@
       }
     }
 
+    public static function setLog($id_plat,$html_content){
+      $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO log(Id_plat, html) VALUES (:id,:html_content)');
+      $sql_req->bindParam(':id',$id_plat);
+      $sql_req->bindParam(':html_content',$html_content);
+      $sql_req->execute();
+    }
+
     public static function lesPiles($id_plat){
       $array;
       $sql_req='SELECT Id_Pile FROM PILE WHERE id_plat="'.$id_plat.'"';
@@ -116,12 +123,13 @@
         return true;
       }
       else{
-        if($data->estCommence=-1){
+        if($data->estCommence==-1){
           if($data->nb_joueurs<10){
             $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO `jouer`(`ID_PLAT`,`PSEUDO`,`SCORE`) VALUES (:plat,:joueur,0)');
             $sql_req->bindParam(':plat',$id_plat);
             $sql_req->bindParam(':joueur',$login);
             $sql_req->execute();
+            static::setLog($id_plat,'<div class="row"><p class="log">'.$login.' a rejoins la partie !</p></div><hr>');
             return(true);
           }
         }
