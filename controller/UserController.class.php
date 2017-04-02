@@ -172,14 +172,11 @@
 
     // TODO : game in itself
 
-   public static function playCard($request){
+   public function playCard($request){
       $id_plat=($request->read('id_plat'));
       $all=true;
       $id_selected=($request->read('id_card'));
-      var_dump($id_selected);
-      // TODO TEST : selectCard
       User::selectCard(unserialize($_SESSION['user'])->get_id(), $id_plat, $id_selected);
-      // TODO By FrontEnd : allSelectedCards
       // Gotta return all the selected cards
       $array_selected_cards=Game::allSelectedCards($id_plat);
       $numb_joueurs = User::exec_sql('USER_GET_nbJOUEURS',array(
@@ -193,42 +190,63 @@
         $i++;
       }
       if($all){
-        //$array_selected_cards=Game::triCroissant($array);
-        // TODO TEST : getIdPlayers
         // Returns array with Id of Players according to sortedArray
         $array_id_players = Game::getIdPlayers($array_selected_cards,$id_plat, $numb_joueurs->nb_joueurs);
-        // TODO TEST : getPilesId($id_plat)
         $array_id_pile = Game::getPilesId($id_plat);
-        $maxOfPiles=[];
+        $maxOfPile=[];
         for ($k=0;$k<4;$k++){
           $array_cards_pile=[];
-          // TODO TEST : getCardsOfPile
           $array_cards_pile = Game::getCardsOfPile($array_id_pile[$k]);
-          // TODO TEST : numberOfCardsInPile
           $numberInPile = Game::numberOfCardsInPile($array_id_pile[$k]);
-          // TODO TEST : max_list($id_plat)
-          $maxOfPiles[$k]= Game::max_list($array_cards_pile, $nbOfCards);
+          $maxOfPile[$k]=$array_cards_pile[count($array_cards_pile)-1];
         }
-        for ($l=0;$l<4;$l++){
-          // TODO TEST : indexOfClosest
+        $nb_joueurs=Game::getNbJoueurs($id_plat);
+        for ($l=0;$l<$nb_joueurs->nb_joueurs;$l++){
           // Returns the number of the pile where the card is to be added
-          $index_closest = Game::indexOfClosest($array_selected_cards[$l],$maxOfPile,4-$l);
-          // TODO TEST : relatedIndex
+          // TODO : TAKE CARE WHEN CARD IS LOWER THAN EVERY PILE
+          $index_closest = Game::indexOfClosest($array_selected_cards[$l][0],$maxOfPile, $id_plat);
           // Returns the index of the pile where the card is to be added
           // According to $maxOfPile and not according to SQL
-          $index_tab = Game::relatedIndex($maxOfPile, $index_closest, 4-$l);
-          // TODO quasi TEST : addCardToPile
+          $index_tab = Game::relatedIndex($array_selected_cards[$l][0],$maxOfPile,4-$l);
           // Beware : this function has to take care of the number of Cards
           // In each pile, and update scores if necessary
           $numberInAimedPile = Game::numberOfCardsInPile($index_closest);
           Game::addCardToPile($array_selected_cards[$l],$index_closest,$numberInAimedPile, $id_plat, $array_id_players[$l]);
-          // TODO TEST : SuppressCardsHand
           // Erase card with value $array[$l] and selectedCard
           Game::suppressCardsHand($array_selected_cards[$l],$id_plat, $array_id_players[$l]);
-          $maxOfPiles=User::suppr($maxOfPiles, $maxOfPiles[$index_tab]);
+          $maxOfPiles=User::suppr($maxOfPile, $maxOfPile[$index_tab]);
         }
         // TODO : make sure there's still cards in hands to end the game if necessary
+        // TODO : display
+        $view= new PlaygroundView($this);
+        $view->setIdPlat($id_plat);
+        $view->setOwnController($this);
+        $pseudo=unserialize($_SESSION['user'])->get_id();
+        $array=User::playgame($id_plat,$pseudo);
+        $view->setListeCartes($array);
+        $array_pile=Game::lesPiles($id_plat);
+        $view->setPileCartes($array_pile);
+        // $selected_card=$request->read('id_card');
+        // if(isset($selected_card)){
+        //   $view->setSelectedCard($request->read('id_card'));
+        //   // TODO : 1 must be changed into $id_plat when set :
+        //   // The button which activates joinGame to select a card must add
+        //   // the id_plat to the request
+        //   $pseudo = Game::getIdMain($id_plat,unserialize($_SESSION['user'])->get_id());
+        //   User::selectCard($request->read('id_card'),$pseudo);
+        // }
+        $view->render($this);
       }
+
     }
+
+    // TODO :
+    // Gérer la pile pleine
+    // Gérer si la carte est inférieure à toutes les Piles
+    // Modifier les scores
+    // Voir le bug qd on joue à deux (le créateur n'atterrit jamais ?)
+    // User_set_score
+    // Historique
+    // Javascript
 
   }
