@@ -167,17 +167,23 @@
         return($tab);
       }
 
-      // TODO by FrontEnd
+      // TODO by FrontEndDev
       // Because SQL should sort it by itself
 
     public static function allSelectedCards($id_plat){
+      $sql_req='SELECT `Id_Selected_Card` FROM Main WHERE Id_Plat=:id_plat';
+      $sql=DatabasePDO::getCurrentPDO()->prepare($sql_req);
+      $sql->bindParam(':id_plat',$id_plat);
+      $sql->execute();
+      return $sql->fetchAll(DatabasePDO::FETCH_NUM);
 
     }
 
     public static function getIdPlayers($sortedArray,$id_plat, $nb_joueurs){
       $res=[];
       for ($i=0;$i<$nb_joueurs;$i++){
-        $sql="SELECT Pseudo FROM MAIN WHERE id_plat='".$id_plat."' AND Id_Selected_Card='".$sortedArray[$i]."'";
+        var_dump($sortedArray);
+        $sql="SELECT Pseudo FROM MAIN WHERE id_plat='".$id_plat."' AND Id_Selected_Card='".$sortedArray[$i][0]."'";
         var_dump($sql);
         $sql=DatabasePDO::getCurrentPDO()->prepare($sql);
         $sql->execute();
@@ -207,9 +213,11 @@
       $sql=DatabasePDO::getCurrentPDO()->prepare($sql);
       $sql->execute();
       $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
+      $i=0;
       while(!empty($res_req)){
         $res[$i]=$res_req->Id_Carte;
         $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
+        $i++;
       }
       return($res);
     }

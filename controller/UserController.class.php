@@ -187,7 +187,7 @@
               ));
       $i=0;
       while($i<$numb_joueurs->nb_joueurs && $all){
-        if($array_selected_cards[$i]==-1){
+        if($array_selected_cards[$i][0]==-1){
           $all=false;
         }
         $i++;

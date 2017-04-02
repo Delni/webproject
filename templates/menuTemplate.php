@@ -104,6 +104,7 @@
                 <td>Adrien Handjani</td>
                 <td><span class="label label-info">Back-End</span></td>
                 <td><span class="label label-primary">SGBD</span></td>
+                <td><span class="label label-success">Algorithmie</span></td>
               </tr>
               <tr>
                 <td>Nicolas Delauney</td>
