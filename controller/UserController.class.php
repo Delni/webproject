@@ -133,9 +133,7 @@
                 // TODO : 1 must be changed into $id_plat when set :
                 // The button which activates joinGame to select a card must add
                 // the id_plat to the request
-                var_dump($id_plat);
                 $pseudo = Game::getIdMain($id_plat,unserialize($_SESSION['user'])->get_id());
-                var_dump(unserialize($_SESSION['user'])->get_id());
                 User::selectCard($request->read('id_card'),$pseudo);
               }
             }
@@ -177,23 +175,28 @@
    public static function playCard($request){
       $id_plat=($request->read('id_plat'));
       $all=true;
+      $id_selected=($request->read('id_card'));
+      var_dump($id_selected);
+      // TODO TEST : selectCard
+      User::selectCard(unserialize($_SESSION['user'])->get_id(), $id_plat, $id_selected);
       // TODO By FrontEnd : allSelectedCards
       // Gotta return all the selected cards
       $array_selected_cards=Game::allSelectedCards($id_plat);
-      $nb_joueurs = User::exec_sql('USER_GET_nbJOUEURS',array(
+      $numb_joueurs = User::exec_sql('USER_GET_nbJOUEURS',array(
                 ':id_plat'=>$id_plat
               ));
       $i=0;
-      while($i<$nb_joueurs && $all){
+      while($i<$numb_joueurs->nb_joueurs && $all){
         if($array_selected_cards[$i]==-1){
           $all=false;
         }
+        $i++;
       }
       if($all){
         //$array_selected_cards=Game::triCroissant($array);
         // TODO TEST : getIdPlayers
-        // Returns array with Id of Players according to sorted $array
-        $array_id_players = Game::getIdPlayers($array_selected_cards,$id_plat, $nb_joueurs, $array);
+        // Returns array with Id of Players according to sortedArray
+        $array_id_players = Game::getIdPlayers($array_selected_cards,$id_plat, $numb_joueurs->nb_joueurs);
         // TODO TEST : getPilesId($id_plat)
         $array_id_pile = Game::getPilesId($id_plat);
         $maxOfPiles=[];

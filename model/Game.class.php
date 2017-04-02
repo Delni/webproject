@@ -174,14 +174,17 @@
 
     }
 
-    public static function getIdPlayers($array,$id_plat, $nb_joueurs, $sortedArray){
+    public static function getIdPlayers($sortedArray,$id_plat, $nb_joueurs){
       $res=[];
-      $sql="SELECT Pseudo FROM MAIN WHERE id_plat='".$id_plat."' AND Id_Selected_Card='".$sortedArray[$i]."'";
-      $sql=DatabasePDO::getCurrentPDO()->prepare($sql);
-      $sql->execute();
       for ($i=0;$i<$nb_joueurs;$i++){
-        $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
-        $res[$i]=$res_req->Pseudo;
+        $sql="SELECT Pseudo FROM MAIN WHERE id_plat='".$id_plat."' AND Id_Selected_Card='".$sortedArray[$i]."'";
+        var_dump($sql);
+        $sql=DatabasePDO::getCurrentPDO()->prepare($sql);
+        $sql->execute();
+        $res_sql=$sql->fetch(DatabasePDO::FETCH_OBJ);
+        var_dump($res_sql);
+        $res[$i]=$res_sql->Pseudo;
+        var_dump($res[$i]);
       }
       return($res);
     }
@@ -268,7 +271,7 @@
 
     public static function addCardToPile($selectedCard, $indexPile, $numberInPile, $id_plat, $pseudo){
       if($numberInPile<5){
-        $sql='INSERT INTO `etre_dans` (`Id_Pile`, `Id_Carte`) VALUES ('".$indexPile."', '".$selectedCard."')';
+        $sql='INSERT INTO `etre_dans` (`Id_Pile`, `Id_Carte`) VALUES ('.$indexPile.', '.$selectedCard.')';
         $sql=DatabasePDO::getCurrentPDO()->query($sql);
       }
       else{
@@ -281,26 +284,27 @@
         $sql=DatabasePDO::getCurrentPDO()->prepare($sql);
         $sql->execute();
         // TODO : Delete cards in pile
-        // And add the new first card in pile        
+        // And add the new first card in pile
         for($i=0;$i<$numberInPile;$i++){
           $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
           $somme+=$res_req->Poids;
         }
-        $sql_score='UPDATE score SET Val_Score = '".$somme."' WHERE Id_Plat = '".$id_plat."' AND Pseudo ='".$pseudo."'';
+        $sql_score='UPDATE score SET Val_Score = '.$somme.' WHERE Id_Plat = '.$id_plat.' AND Pseudo ='.$pseudo.'';
         $sql_score=DatabasePDO::getCurrentPDO()->query($sql_score);
       }
     }
 
     public static function suppressCardsHand($selectedCard, $id_plat,$pseudo){
-      $sql_delete_selected='UPDATE main SET Id_Selected_Card = -1 WHERE Id_Plat = '".$id_plat."' AND Pseudo ='".$pseudo."'';
+      $sql_delete_selected='UPDATE main SET Id_Selected_Card = -1 WHERE Id_Plat = '.$id_plat.' AND Pseudo ='.$pseudo.'';
       $sql_delete_selected=DatabasePDO::getCurrentPDO()->query($sql_delete_selected);
       // TODO TEST : numeroInHand
       $numeroInHand=$this::numeroInHand($selectedCard);
       // TODO TEST : numberInHand
       $numberInHand=$this::numberInHand($pseudo,$id_plat);
-      $sql_delete_card='UPDATE main SET Id_Carte'.$numeroInHand.' = -1 WHERE Id_Plat = '".$id_plat."' AND Pseudo ='".$pseudo."'';
+      $sql_delete_card='UPDATE main SET Id_Carte'.$numeroInHand.' = -1 WHERE Id_Plat = '.$id_plat.' AND Pseudo ='.$pseudo.'';
       $sql_delete_card=DatabasePDO::getCurrentPDO()->query($sql_delete_card);
-      $sql_number_hand='UPDATE main SET Nb_Carte_Main = '".$numberInHand-1."' WHERE Id_Plat = '".$id_plat."' AND Pseudo ='".$pseudo."'';
+      $number_rest= $numberInHand-1;
+      $sql_number_hand='UPDATE main SET Nb_Carte_Main = '.$number_rest.' WHERE Id_Plat = '.$id_plat.' AND Pseudo ='.$pseudo.'';
       $sql_number_hand=DatabasePDO::getCurrentPDO()->query($sql_number_hand);
     }
 

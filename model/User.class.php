@@ -197,8 +197,8 @@
       return ($array);
     }
 
-    public static function selectCard($id_card, $id_main){
-      $sql_select_card= "UPDATE Main SET Id_Selected_Card = '".$id_card."' WHERE Id_main='".$id_main."'";
+    public static function selectCard($pseudo, $id_plat, $id_selected){
+      $sql_select_card= "UPDATE Main SET Id_Selected_Card = '".$id_selected."' WHERE Id_plat='".$id_plat."' AND Pseudo='".$pseudo."'";
       $res_sql=DatabasePDO::getCurrentPDO()->query($sql_select_card);
     }
 

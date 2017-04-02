@@ -98,7 +98,7 @@
       $num_card=$this->getListeCartes()[$num_dans_main];
       if ($num_card!=NULL) {
         $offset=$this->spriteOffset($num_card);
-        echo '<a class="" href="index.php?action=joinGame&id_plat='.$this->getIdPlat().'&id_card='.$num_card.'"><abbr title="Jouer cette carte ?" style="cursor:pointer"><div class="card__content" id="card'.$num_card.'" style="background-position: '.$offset['X'].'px '.$offset['Y'].'px"></div></abbr></a>';
+        echo '<a class="" href="index.php?action=playCard&id_plat='.$this->getIdPlat().'&id_card='.$num_card.'"><abbr title="Jouer cette carte ?" style="cursor:pointer"><div class="card__content" id="card'.$num_card.'" style="background-position: '.$offset['X'].'px '.$offset['Y'].'px"></div></abbr></a>';
       }
     }
 
