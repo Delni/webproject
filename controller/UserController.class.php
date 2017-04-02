@@ -47,7 +47,7 @@
           $data = User::exec_sql('USER_GET_nbJOUEURS',array(
             ':id_plat'=> $id_plat
           ));
-          Game::setLog($id_plat,'<div class="progress"><div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div><div class="row"><p class="log col-sm-11"> En attente de joueurs...</p></div><hr>');
+          Game::setLog($id_plat,'<div class="progress"><div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div><div class="row text-center"><p class="log col-sm-11"> En attente de joueurs...</p></div><hr>');
           $view->render($this);
         } else {
           $view = new CreationView($this);
