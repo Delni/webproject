@@ -141,7 +141,7 @@
             $sql_req->bindParam(':plat',$id_plat);
             $sql_req->bindParam(':joueur',$login);
             $sql_req->execute();
-            static::setLog($id_plat,'<div class="row"><p class="log">'.$login.' a rejoins la partie !</p></div><hr>');
+            static::setLog($id_plat,'<div class="row"><p class="log">'.$login.' a rejoint la partie !</p></div><hr>');
             return(true);
           }
         }
@@ -246,8 +246,25 @@
       return ($res);
     }
 
-    public static function indexOfClosest($selectedCard, $tabMaxPile,$id_plat){
-      $aux=0;
+    public static function minimizePiles($array_id_pile){
+      $somme=150;
+      $res=0;
+      for ($i=0;$i<4;$i++){
+        $sql_somme_poids="SELECT COUNT(Poids) as Poids FROM Carte LEFT JOIN etre_dans ON Carte.Id_Carte = etre_dans.Id_Carte WHERE id_pile='.$array_id_pile[$i]->Id_Pile.'";
+        $sql_somme_poids=DatabasePDO::getCurrentPDO()->prepare($sql_somme_poids);
+        $sql_somme_poids->execute();
+        $res_req=$sql_somme_poids->fetch(DatabasePDO::FETCH_OBJ);
+        $aux=$res_req->Poids;
+        if($aux<$somme){
+          $somme=$aux;
+          $res=$array_id_pile[$i]->Id_Pile;
+        }
+      }
+      return($res);
+    }
+
+    public static function indexOfClosest($selectedCard, $tabMaxPile,$id_plat, $array_id_pile){
+      $aux=-1;
       $last=1500;
       for($i=0;$i<4;$i++){
         if($selectedCard>$tabMaxPile[$i]){
@@ -258,19 +275,14 @@
           }
         }
       }
-      var_dump('---------------- AUX ----------------');
-      var_dump($aux);
+      if($aux==-1){
+        $res=Game::minimizePiles($array_id_pile);
+      }
       $sql='SELECT etre_dans.Id_Pile FROM etre_dans LEFT JOIN Pile ON etre_dans.Id_Pile=Pile.Id_Pile WHERE id_carte='.$aux.' AND Id_Plat='.$id_plat;
       $sql=DatabasePDO::getCurrentPDO()->prepare($sql);
       $sql->execute();
-      var_dump('---------------- SQL ----------------');
-      var_dump($sql);
       $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
-      var_dump('---------------- RES_REQ->ID_PILE ----------------');
-      var_dump($res_req->Id_Pile);
       $res=$res_req->Id_Pile;
-      var_dump('---------------- RES ----------------');
-      var_dump($res);
       return($res);
     }
 
@@ -291,33 +303,31 @@
 
     public static function addCardToPile($selectedCard, $indexPile, $numberInPile, $id_plat, $pseudo){
       if($numberInPile<5){
-        var_dump('IF');
         $sql='INSERT INTO `etre_dans` (`Id_Pile`, `Id_Carte`) VALUES ('.$indexPile.', '.$selectedCard[0].')';
         $sql=DatabasePDO::getCurrentPDO()->query($sql);
-        var_dump($sql);
       }
       else{
-        var_dump('ELSE');
         $somme=0;
         $array_cards_pile=[];
         $numberInPile=0;
-        $array_cards_pile = $this::getCardsOfPile($indexPile);
-        $numberInPile = $this::numberOfCardsInPile($indexPile);
-        $sql="SELECT Poids FROM Carte WHERE id_carte='".$array_cards_pile[$i]."'";
-        $sql=DatabasePDO::getCurrentPDO()->prepare($sql);
-        $sql->execute();
-        var_dump($sql);
+        $array_cards_pile = Game::getCardsOfPile($indexPile);
+        $numberInPile = Game::numberOfCardsInPile($indexPile);
         // TODO : Delete cards in pile
         // And add the new first card in pile
+        $sql_delete_piles='DELETE FROM `etre_dans` WHERE Id_Pile='.$indexPile.'';
+        $sql_delete_piles=DatabasePDO::getCurrentPDO()->query($sql_delete_piles);
+        $sql='INSERT INTO `etre_dans` (`Id_Pile`, `Id_Carte`) VALUES ('.$indexPile.', '.$selectedCard[0].')';
+        $sql=DatabasePDO::getCurrentPDO()->query($sql);
         for($i=0;$i<$numberInPile;$i++){
+          $sql="SELECT Poids FROM Carte WHERE Id_Carte='.$array_cards_pile[$i].'";
+          $sql=DatabasePDO::getCurrentPDO()->query($sql);
+          var_dump($sql);
           $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
           var_dump($res_req);
           $somme+=$res_req->Poids;
         }
-        var_dump($somme);
         $sql_score='UPDATE score SET Val_Score = '.$somme.' WHERE Id_Plat = '.$id_plat.' AND Pseudo ='.$pseudo.'';
         $sql_score=DatabasePDO::getCurrentPDO()->query($sql_score);
-        var_dump($sql_score);
       }
     }
 
@@ -330,24 +340,37 @@
       $numberInHand=Game::numberInHand($pseudo,$id_plat);
       $sql_delete_card='UPDATE main SET '.$numeroInHand.' = NULL WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
       $sql_delete_card=DatabasePDO::getCurrentPDO()->query($sql_delete_card);
-      $sql_delete_card='UPDATE main SET Id_Selected_Card = -1 WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
-      $sql_delete_card=DatabasePDO::getCurrentPDO()->query($sql_delete_card);
       $number_rest= $numberInHand-1;
       $sql_number_hand='UPDATE main SET Nb_Carte_Main = '.$number_rest.' WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
       $sql_number_hand=DatabasePDO::getCurrentPDO()->query($sql_number_hand);
+    }
+
+    public static function resetSelected($id_plat,$pseudo){
+      $sql_delete_card='UPDATE main SET Id_Selected_Card = -1 WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
+      $sql_delete_card=DatabasePDO::getCurrentPDO()->query($sql_delete_card);
     }
 
     public static function numeroInHand($id_plat, $selectedCard){
       $sql_req=DatabasePDO::getCurrentPDO()->prepare('SELECT * FROM main WHERE Id_Plat=:id_plat && Id_Selected_Card=:selected');
       $sql_req->execute(array(
         ':id_plat' => $id_plat,
-        ':selected' => $selectedCard[0]
+        ':selected' => $selectedCard
       ));
       $res=$sql_req->fetch(DatabasePDO::FETCH_ASSOC);
       unset($res['Id_Main']);
       unset($res['Id_plat']);
-      $numeroInHand=array_search($res['Id_Selected_Card'],$res);
-      return $numeroInHand;
+      $i=1;
+      $find=false;
+      $numeroInHand=-1;
+      while($i<11 && !$find){
+        if($selectedCard==$res['Id_Carte'.$i]){
+          $numeroInHand=$i;
+          $find=true;
+        }
+        $i++;
+        //$numeroInHand=array_search($res['Id_Carte'.$i],$res);
+        }
+      return 'Id_Carte'.$numeroInHand;
     }
 
     public static function numberInHand($pseudo,$id_plat){

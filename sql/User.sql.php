@@ -57,7 +57,8 @@
   User::addSQLquerry('USER_SET_HAND',
     'INSERT INTO `main` (`Pseudo`, `Id_Plat`, `Nb_Carte_Main`) VALUES (:pseudo, :id_plat, 10)');
 
-
+  User::addSQLquerry('USER_GET_SELECTED',
+    'SELECT Id_Selected_Card FROM `main` WHERE `Pseudo` = :pseudo AND `Id_Plat` = :id_plat');
 
   User::addSQLquerry('USER_DELETE',
     'DELETE FROM `joueur` WHERE `joueur`.`Pseudo` = :login');
