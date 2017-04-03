@@ -319,14 +319,13 @@
         $sql='INSERT INTO `etre_dans` (`Id_Pile`, `Id_Carte`) VALUES ('.$indexPile.', '.$selectedCard[0].')';
         $sql=DatabasePDO::getCurrentPDO()->query($sql);
         for($i=0;$i<$numberInPile;$i++){
-          $sql="SELECT Poids FROM Carte WHERE Id_Carte='.$array_cards_pile[$i].'";
+          $sql='SELECT Poids FROM Carte WHERE Id_Carte='.$array_cards_pile[$i];
           $sql=DatabasePDO::getCurrentPDO()->query($sql);
-          var_dump($sql);
           $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
-          var_dump($res_req);
           $somme+=$res_req->Poids;
         }
-        $sql_score='UPDATE score SET Val_Score = '.$somme.' WHERE Id_Plat = '.$id_plat.' AND Pseudo ='.$pseudo.'';
+        $sql_score='UPDATE score SET Val_Score = '.$somme.' WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
+        static::setLog($id_plat,'<div class="row"><p class="log">'.$pseudo.' vient de se prendre <span class="badge">'.$somme.'</span> points dans la vue!</p></div><hr>');
         $sql_score=DatabasePDO::getCurrentPDO()->query($sql_score);
       }
     }
@@ -390,6 +389,38 @@
         $i= ($card==NULL)? $i:$i+1;
       }
       return $i;
+    }
+
+    public static function showScores($id_plat){
+      $sql=DatabasePDO::getCurrentPDO()->prepare('SELECT Pseudo, Val_Score FROM Score WHERE Id_plat=:id_plat ORDER BY Val_score');
+      $sql->execute(array(
+        ':id_plat' => $id_plat
+      ));
+      $res=$sql->fetchAll(DatabasePDO::FETCH_NUM);
+      var_dump($res);
+      //TODO : display point in a table
+      // static::setLog($id_plat, '<div class="row col-md-offset-1 col-md-10">
+      //   <table class="table">
+      //     <thead>
+      //       <th>Classement</th>
+      //       <th>Joueur</th>
+      //       <th>Score</th>
+      //     </thead>
+      //     <tbody>
+      //       <tr>
+      //         <td>1</td>
+      //         <td>'.$res[0][0].'</td>
+      //         <td class="text-center"><span  class="badge">'.$res[0][1].'</span></td>
+      //       </tr>
+      //       <tr>
+      //         <td>2</td>
+      //         <td>BlazDark</td>
+      //         <td class="text-center"><span  class="badge">5</span></td>
+      //       </tr>
+      //     </tbody>
+      //   </table>
+      // </div>
+      // <hr>');
     }
 
   }

@@ -223,6 +223,7 @@
             Game::resetSelected($id_plat, $array_id_players[$l]);
             $maxOfPiles=User::suppr($maxOfPile, $maxOfPile[$index_tab]);
           }
+          Game::showScores($id_plat);
           // TODO : make sure there's still cards in hands to end the game if necessary
           // TODO : display
           // $selected_card=$request->read('id_card');

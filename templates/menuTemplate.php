@@ -104,13 +104,15 @@
                 <td>Adrien Handjani</td>
                 <td><span class="label label-info">Back-End</span></td>
                 <td><span class="label label-primary">SGBD</span></td>
-                <td><span class="label label-success">Algorithmie</span></td>
+                <td class="text-center"><span class="label label-success">Algorithmie</span></td>
+                <td><a href="mailto:adrien.handjani@minesdedouai.fr"><i class="fa fa-envelope"></i></a></td>
               </tr>
               <tr>
                 <td>Nicolas Delauney</td>
                 <td><span class="label label-info">Back-End</span></td>
                 <td><span class="label label-primary">SGBD</span></td>
-                <td><span class="label label-success">Front-End</span></td>
+                <td class="text-center"><span class="label label-success">Front-End</span></td>
+                <td><a href="mailto:nicolas.delauney@minesdedouai.fr"><i class="fa fa-envelope"></i></a></td>
               </tr>
             </tbody>
           </table>

@@ -81,7 +81,7 @@
           echo '<div class="row alert alert-warning"><p class="log">Seul le createur de la partie peut lancer la partie ('.$data->nb_joueurs.'/10 joueurs)</p></div><hr>';
         }
       } else {
-        echo '<div class="row"><p class="log">La partie est commencée </p></div><hr>';
+        //echo '<div class="row"><p class="log">La partie est commencée </p></div><hr>';
       }
     }
 

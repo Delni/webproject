@@ -16,7 +16,7 @@
         <span class="input input--yoko">
           <input class="input__field input__field--yoko" type="password" name="inscPassword" id="input-2" required/>
           <label class="input__label input__label--yoko" for="input-2">
-            <span class="input__label-content input__label-content--yoko"><i class="fa fa-unlock-alt"></i> Mot de passe <span class="obligatoire">*</span></span>
+            <span class="input__label-content input__label-content--yoko"><i class="fa fa-unlock-alt"></i> Mot de passe <span class="obligatoire">*</span><a target="_blank" href="http://www.trypap.com/" class="pull-right"><i class="easter-egg fa fa-circle-o"></i></a></span>
           </label>
         </span>
         <span class="input input--yoko">
