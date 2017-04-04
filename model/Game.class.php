@@ -397,30 +397,33 @@
         ':id_plat' => $id_plat
       ));
       $res=$sql->fetchAll(DatabasePDO::FETCH_NUM);
-      var_dump($res);
+      // var_dump($res);
       //TODO : display point in a table
-      // static::setLog($id_plat, '<div class="row col-md-offset-1 col-md-10">
-      //   <table class="table">
-      //     <thead>
-      //       <th>Classement</th>
-      //       <th>Joueur</th>
-      //       <th>Score</th>
-      //     </thead>
-      //     <tbody>
-      //       <tr>
-      //         <td>1</td>
-      //         <td>'.$res[0][0].'</td>
-      //         <td class="text-center"><span  class="badge">'.$res[0][1].'</span></td>
-      //       </tr>
-      //       <tr>
-      //         <td>2</td>
-      //         <td>BlazDark</td>
-      //         <td class="text-center"><span  class="badge">5</span></td>
-      //       </tr>
-      //     </tbody>
-      //   </table>
-      // </div>
-      // <hr>');
+      static::setLog($id_plat, '<div class="row">
+        <div class="col-md-offset-1 col-md-10">
+        <p class=log">Fin du tour !</p>
+          <table class="table">
+            <thead>
+              <th>Classement</th>
+              <th>Joueur</th>
+              <th>Score</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>'.$res[0][0].'</td>
+                <td class="text-center"><span  class="badge">'.$res[0][1].'</span></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>BlazDark</td>
+                <td class="text-center"><span  class="badge">5</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <hr>');
     }
 
   }

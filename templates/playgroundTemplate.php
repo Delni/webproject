@@ -92,6 +92,7 @@
       <div class="panel-body" id="partie_log">
         <?php $this->print_log(); ?>
         <?php $this->lauchGame(); ?>
+        <span id="bottom"></span>
       </div>
     </div>
   </div>
