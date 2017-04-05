@@ -234,7 +234,6 @@
               $maxOfPiles=User::suppr($maxOfPile, $maxOfPile[$index_tab]);
             }
           }
-          Game::showScores($id_plat);
           $numberInHand=Game::numberInHand($pseudo,$id_plat);
           if($numberInHand==0){
             // TODO TEST addHistorique

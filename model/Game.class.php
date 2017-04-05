@@ -268,6 +268,7 @@
       $sql_score='UPDATE score SET Val_Score = '.$new.' WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
       static::setLog($id_plat,'<div class="row"><p class="log">'.$pseudo.' vient de se prendre <span class="badge">'.$somme.'</span> points dans la vue!</p></div><hr>');
       $sql_score=DatabasePDO::getCurrentPDO()->query($sql_score);
+      static::showScores($id_plat);
       return($res);
     }
 
@@ -348,6 +349,7 @@
         $new = $somme+ $prec_score->Val_Score;
         $sql_score='UPDATE score SET Val_Score = '.$new.' WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
         static::setLog($id_plat,'<div class="row"><p class="log">'.$pseudo.' vient de se prendre <span class="badge">'.$somme.'</span> points dans la vue!</p></div><hr>');
+        static::showScores($id_plat);
         $sql_score=DatabasePDO::getCurrentPDO()->query($sql_score);
       }
     }
@@ -419,9 +421,8 @@
         ':id_plat' => $id_plat
       ));
       $res=$sql->fetchAll(DatabasePDO::FETCH_NUM);
-      // var_dump($res);
-      //TODO : display point in a table
-      static::setLog($id_plat, '<div class="row">
+      var_dump($res);
+      $html_content ='<div class="row">
         <div class="col-md-offset-1 col-md-10">
         <p class=log">Fin du tour !</p>
         <p>
@@ -431,23 +432,22 @@
               <th>Joueur</th>
               <th>Score</th>
             </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>'.$res[0][0].'</td>
-                <td class="text-center"><span  class="badge">'.$res[0][1].'</span></td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>BlazDark</td>
-                <td class="text-center"><span  class="badge">5</span></td>
-              </tr>
-            </tbody>
+            <tbody>';
+      for($i=0;$i<count($res);$i++){
+        $html_content=$html_content.'<tr>
+          <td>'.($i+1).'</td>
+          <td>'.$res[$i][0].'</td>
+          <td class="text-center"><span  class="badge">'.$res[$i][1].'</span></td>
+        </tr>';
+      }
+      $html_content=$html_content.'</tbody>
           </table>
         </p>
         </div>
       </div>
-      <hr>');
+      <hr>';
+      //TODO : display point in a table
+      static::setLog($id_plat, $html_content);
     }
 
     public static function getScore($pseudo, $id_plat){
