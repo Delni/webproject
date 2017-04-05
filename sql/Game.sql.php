@@ -11,6 +11,9 @@
   Game::addSQLquerry('GAME_SELECT_CARD_IN_PILE',
     'SELECT Id_Carte FROM etre_dans WHERE id_pile=:id_pile');
 
+  Game::addSQLquerry('GAME_ADD_HISTORIQUE',
+    'INSERT INTO historique(Pseudo, Score, Nom, Nom_Gagnant, Score_Gagnant) VALUES (:pseudo, :score, :nom, :nom_gagnant, :score_gagnant)');
+
   Game::addSQLquerry('USER_GET_nbJOUEURS',
     'SELECT COUNT(PSEUDO)as nb_joueurs FROM jouer WHERE id_plat=:id_plat');
 
