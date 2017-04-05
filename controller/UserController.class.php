@@ -182,7 +182,7 @@
       $id_pre_selected = User::exec_sql('USER_GET_SELECTED',array(
                 ':id_plat'=>$id_plat,
                 ':pseudo'=>$pseudo
-              ));
+      ));
       if($id_pre_selected->Id_Selected_Card==-1){
         User::selectCard(unserialize($_SESSION['user'])->get_id(), $id_plat, $id_selected);
         Game::suppressCardsHand($id_selected,$id_plat,$pseudo);
@@ -235,7 +235,8 @@
             }
           }
           Game::showScores($id_plat);
-          $numberInHand=Game::numberInHand($id_plat,$peuso)
+          $numberInHand=Game::numberInHand($id_plat,$pseudo);
+          var_dump($numberInHand);
           if($numberInHand==0){
             // TODO TEST addHistorique
             Game::addHistorique($id_plat,$array_id_players, $numb_joueurs->nb_joueurs);

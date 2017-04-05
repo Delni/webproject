@@ -358,7 +358,7 @@
       // TODO TEST : numeroInHand
       $numeroInHand=Game::numeroInHand($id_plat, $selectedCard);
       // TODO TEST : numberInHand
-      $numberInHand=Game::numberInHand($pseudo,$id_plat);
+      $numberInHand=static::numberInHand($pseudo,$id_plat);
       $sql_delete_card='UPDATE main SET '.$numeroInHand.' = NULL WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
       $sql_delete_card=DatabasePDO::getCurrentPDO()->query($sql_delete_card);
       $number_rest= $numberInHand-1;
@@ -459,7 +459,7 @@
     public static function getWinner($id_plat,$array_id_players, $nb_joueurs){
       $res=250;
       for($i=0;$i<$nb_joueurs;$i++){
-        $score=Game::getScore($array_id_players[$i][0]);
+        $score=Game::getScore($array_id_players[$i][0],$id_plat);
         if($score<$res){
           $res=$score;
         }
@@ -495,8 +495,14 @@
       for($i=0;$i<$nb_joueurs;$i++){
         $current_id = $array_id_players[$i][0];
         $current_score=Game::getScore($current_id,$id_plat);
-        $sql='INSERT INTO `historique` (`Pseudo`, `Score`, `Nom`, `Nom_Gagnant`, `Score_Gagnant`) VALUES ('.$current_id.', '.$current_score.', '.$nom_plat.', '.$id_winner.', '.$score_winner.')';
-        $sql=DatabasePDO::getCurrentPDO()->query($sql);
+        $sql_req=DatabasePDO::getCurrentPDO()->prepare('INSERT INTO `historique` (`Pseudo`, `Score`, `Nom`, `Nom_Gagnant`, `Score_Gagnant`) VALUES (:pseudo, :score, :nom, :nom_gagnant, :score_gagnant)');
+        $sql_req->execute(array(
+          ':pseudo' => $current_id,
+          ':score' => $current_score,
+          ':nom' => $nom_plat,
+          ':nom_gagnant' => $id_winner,
+          ':score_gagnant' => $score_winner
+        ));
       }
     }
 
