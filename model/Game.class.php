@@ -246,21 +246,36 @@
       return ($res);
     }
 
-    public static function minimizePiles($array_id_pile){
+    public static function minimizePiles($array_id_pile, $id_plat, $pseudo){
       $somme=150;
       $res=0;
       for ($i=0;$i<4;$i++){
-        $sql_somme_poids="SELECT COUNT(Poids) as Poids FROM Carte LEFT JOIN etre_dans ON Carte.Id_Carte = etre_dans.Id_Carte WHERE id_pile='.$array_id_pile[$i]->Id_Pile.'";
+        $sql_somme_poids="SELECT SUM(Poids) as Poids FROM Carte LEFT JOIN etre_dans ON Carte.Id_Carte = etre_dans.Id_Carte WHERE id_pile='.$array_id_pile[$i].'";
         $sql_somme_poids=DatabasePDO::getCurrentPDO()->prepare($sql_somme_poids);
         $sql_somme_poids->execute();
         $res_req=$sql_somme_poids->fetch(DatabasePDO::FETCH_OBJ);
         $aux=$res_req->Poids;
         if($aux<$somme){
           $somme=$aux;
-          $res=$array_id_pile[$i]->Id_Pile;
+          $res=$array_id_pile[$i];
         }
       }
+      $sql_get_score='SELECT Val_Score FROM SCORE WHERE Pseudo = "'.$pseudo.'" AND Id_Plat ='.$id_plat;
+      $sql_get_score=DatabasePDO::getCurrentPDO()->prepare($sql_get_score);
+      $sql_get_score->execute();
+      $prec_score = $sql_get_score->fetch(DatabasePDO::FETCH_OBJ);
+      $new = $somme+ $prec_score->Val_Score;
+      $sql_score='UPDATE score SET Val_Score = '.$new.' WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
+      static::setLog($id_plat,'<div class="row"><p class="log">'.$pseudo.' vient de se prendre <span class="badge">'.$somme.'</span> points dans la vue!</p></div><hr>');
+      $sql_score=DatabasePDO::getCurrentPDO()->query($sql_score);
       return($res);
+    }
+
+    public static function deletePile($index_closest, $id_card){
+      $sql_delete_pile='DELETE FROM `etre_dans` WHERE Id_Pile='.$index_closest.'';
+      $sql_delete_pile=DatabasePDO::getCurrentPDO()->query($sql_delete_pile);
+      $sql_add_pile='INSERT INTO etre_dans (`Id_Pile`, `Id_Carte`) VALUES ('.$index_closest.', '.$id_card.')';
+      $sql_add_pile=DatabasePDO::getCurrentPDO()->query($sql_add_pile);
     }
 
     public static function indexOfClosest($selectedCard, $tabMaxPile,$id_plat, $array_id_pile){
@@ -276,13 +291,15 @@
         }
       }
       if($aux==-1){
-        $res=Game::minimizePiles($array_id_pile);
+        $res=-1;
       }
-      $sql='SELECT etre_dans.Id_Pile FROM etre_dans LEFT JOIN Pile ON etre_dans.Id_Pile=Pile.Id_Pile WHERE id_carte='.$aux.' AND Id_Plat='.$id_plat;
-      $sql=DatabasePDO::getCurrentPDO()->prepare($sql);
-      $sql->execute();
-      $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
-      $res=$res_req->Id_Pile;
+      else{
+        $sql='SELECT etre_dans.Id_Pile FROM etre_dans LEFT JOIN Pile ON etre_dans.Id_Pile=Pile.Id_Pile WHERE id_carte='.$aux.' AND Id_Plat='.$id_plat;
+        $sql=DatabasePDO::getCurrentPDO()->prepare($sql);
+        $sql->execute();
+        $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
+        $res=$res_req->Id_Pile;
+      }
       return($res);
     }
 
@@ -324,7 +341,12 @@
           $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
           $somme+=$res_req->Poids;
         }
-        $sql_score='UPDATE score SET Val_Score = '.$somme.' WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
+        $sql_get_score='SELECT Val_Score FROM SCORE WHERE Pseudo = "'.$pseudo.'" AND Id_Plat ='.$id_plat;
+        $sql_get_score=DatabasePDO::getCurrentPDO()->prepare($sql_get_score);
+        $sql_get_score->execute();
+        $prec_score = $sql_get_score->fetch(DatabasePDO::FETCH_OBJ);
+        $new = $somme+ $prec_score->Val_Score;
+        $sql_score='UPDATE score SET Val_Score = '.$new.' WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
         static::setLog($id_plat,'<div class="row"><p class="log">'.$pseudo.' vient de se prendre <span class="badge">'.$somme.'</span> points dans la vue!</p></div><hr>');
         $sql_score=DatabasePDO::getCurrentPDO()->query($sql_score);
       }
@@ -424,6 +446,58 @@
         </div>
       </div>
       <hr>');
+    }
+
+    public static function getScore($pseudo, $id_plat){
+      $sql_get_score='SELECT Val_Score FROM SCORE WHERE Pseudo = "'.$pseudo.'" AND Id_Plat ='.$id_plat;
+      $sql_get_score=DatabasePDO::getCurrentPDO()->prepare($sql_get_score);
+      $sql_get_score->execute();
+      $res=$sql_get_score->fetch(DatabasePDO::FETCH_OBJ);
+      return($res);
+    }
+
+    public static function getWinner($id_plat,$array_id_players, $nb_joueurs){
+      $res=250;
+      for($i=0;$i<$nb_joueurs;$i++){
+        $score=Game::getScore($array_id_players[$i][0]);
+        if($score<$res){
+          $res=$score;
+        }
+      }
+      return($res);
+    }
+
+    public static function getScoreWinner($id_plat,$array_id_players, $nb_joueurs){
+      $aux=250;
+      $res='';
+      for($i=0;$i<$nb_joueurs;$i++){
+        $score=Game::getScore($array_id_players[$i][0], $id_plat);
+        if($score<$aux){
+          $aux=$score;
+          $res=$array_id_players[$i][0];
+        }
+      }
+      return($res);
+    }
+
+    public static function getNomPlat($id_plat){
+      $sql_get_nom='SELECT Nom FROM Plateau WHERE Id_Plat = '.$id_plat;
+      $sql_get_nom=DatabasePDO::getCurrentPDO()->prepare($sql_get_nom);
+      $sql_get_nom->execute();
+      $res=$sql_get_nom->fetch(DatabasePDO::FETCH_OBJ);
+      return($res);
+    }
+
+    public static function addHistorique($id_plat,$array_id_players, $nb_joueurs){
+      $id_winner = Game::getWinner($id_plat,$array_id_players,$nb_joueurs);
+      $score_winner = Game::getScoreWinner($id_plat,$array_id_players, $nb_joueurs);
+      $nom_plat = Game::getNomPlat($id_plat);
+      for($i=0;$i<$nb_joueurs;$i++){
+        $current_id = $array_id_players[$i][0];
+        $current_score=Game::getScore($current_id,$id_plat);
+        $sql='INSERT INTO `historique` (`Pseudo`, `Score`, `Nom`, `Nom_Gagnant`, `Score_Gagnant`) VALUES ('.$current_id.', '.$current_score.', '.$nom_plat.', '.$id_winner.', '.$score_winner.')';
+        $sql=DatabasePDO::getCurrentPDO()->query($sql);
+      }
     }
 
   }

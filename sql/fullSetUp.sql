@@ -68,6 +68,8 @@ CREATE TABLE Historique(
   Pseudo varchar(50),
   Score int,
   Nom varchar(50),
+  Nom_Gagnant varchar(50),
+  Score_Gagnant varchar(50),
   PRIMARY KEY (Id_Historique),
   CONSTRAINT Fk_Pseudo FOREIGN KEY (Pseudo) REFERENCES Joueur(Pseudo)
 );

@@ -173,6 +173,7 @@
     // TODO : game in itself
 
    public function playCard($request){
+
       $id_plat=($request->read('id_plat'));
       $all=true;
       $id_selected=($request->read('id_card'));
@@ -207,23 +208,40 @@
             $numberInPile = Game::numberOfCardsInPile($array_id_pile[$k]);
             $maxOfPile[$k]=$array_cards_pile[count($array_cards_pile)-1];
           }
+          //Game::minimizePiles($array_id_pile)
           $nb_joueurs=Game::getNbJoueurs($id_plat);
           for ($l=0;$l<$nb_joueurs->nb_joueurs;$l++){
             // Returns the number of the pile where the card is to be added
             // TODO : TAKE CARE WHEN CARD IS LOWER THAN EVERY PILE
             $index_closest = Game::indexOfClosest($array_selected_cards[$l][0],$maxOfPile, $id_plat, $array_id_pile);
-            // Returns the index of the pile where the card is to be added
-            // According to $maxOfPile and not according to SQL
-            $index_tab = Game::relatedIndex($array_selected_cards[$l][0],$maxOfPile,4-$l);
-            // Beware : this function has to take care of the number of Cards
-            // In each pile, and update scores if necessary
-            $numberInAimedPile = Game::numberOfCardsInPile($index_closest);
-            Game::addCardToPile($array_selected_cards[$l],$index_closest,$numberInAimedPile, $id_plat, $array_id_players[$l]);
-            // Erase card with value $array[$l] and selectedCard
-            Game::resetSelected($id_plat, $array_id_players[$l]);
-            $maxOfPiles=User::suppr($maxOfPile, $maxOfPile[$index_tab]);
+            if($index_closest==-1){
+              $index_closest=Game::minimizePiles($array_id_pile, $id_plat, $pseudo);
+              $index_tab = Game::relatedIndex($array_selected_cards[$l][0],$maxOfPile,4-$l);
+              Game::deletePile($index_closest,$id_selected);
+              Game::resetSelected($id_plat, $array_id_players[$l]);
+              $maxOfPiles=User::suppr($maxOfPile, $maxOfPile[$index_tab]);
+            }
+            else{
+              // Returns the index of the pile where the card is to be added
+              // According to $maxOfPile and not according to SQL
+              $index_tab = Game::relatedIndex($array_selected_cards[$l][0],$maxOfPile,4-$l);
+              // Beware : this function has to take care of the number of Cards
+              // In each pile, and update scores if necessary
+              $numberInAimedPile = Game::numberOfCardsInPile($index_closest);
+              Game::addCardToPile($array_selected_cards[$l],$index_closest,$numberInAimedPile, $id_plat, $array_id_players[$l]);
+              // Erase card with value $array[$l] and selectedCard
+              Game::resetSelected($id_plat, $array_id_players[$l]);
+              $maxOfPiles=User::suppr($maxOfPile, $maxOfPile[$index_tab]);
+            }
           }
           Game::showScores($id_plat);
+          $numberInHand=Game::numberInHand($id_plat,$peuso)
+          if($numberInHand==0){
+            // TODO TEST addHistorique
+            Game::addHistorique($id_plat,$array_id_players, $numb_joueurs->nb_joueurs);
+            // TODO showFinalScores ou TEMPLATE
+            Game::showFinalScores($id_plat);
+          }
           // TODO : make sure there's still cards in hands to end the game if necessary
           // TODO : display
           // $selected_card=$request->read('id_card');
@@ -249,11 +267,12 @@
     }
 
     // TODO :
-    // Gérer la pile pleine
-    // Gérer si la carte est inférieure à toutes les Piles
-    // Modifier les scores
-    // Voir le bug qd on joue à deux (le créateur n'atterrit jamais ?)
-    // User_set_score
+    // DONE Gérer la pile pleine
+    // DONE Gérer si la carte est inférieure à toutes les Piles
+    // DONE Modifier les scores
+    // DONE Voir le bug qd on joue à deux (le créateur n'atterrit jamais ?)
+    // DONE User_set_score
+    // Almost DONE Fin de la partie
     // Historique
     // Javascript
 
