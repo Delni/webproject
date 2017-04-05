@@ -217,7 +217,7 @@
             if($index_closest==-1){
               $index_closest=Game::minimizePiles($array_id_pile, $id_plat, $pseudo);
               $index_tab = Game::relatedIndex($array_selected_cards[$l][0],$maxOfPile,4-$l);
-              Game::deletePile($index_closest,$id_selected);
+              Game::deletePilePleine($index_closest,$id_selected);
               Game::resetSelected($id_plat, $array_id_players[$l]);
               $maxOfPiles=User::suppr($maxOfPile, $maxOfPile[$index_tab]);
             }
@@ -241,6 +241,8 @@
             Game::addHistorique($id_plat,$array_id_players, $numb_joueurs->nb_joueurs);
             // TODO showFinalScores ou TEMPLATE
             Game::showFinalScores($id_plat);
+            // TODO DELETEALL
+            Game::deleteAll($id_plat,$array_id_pile, $array_id_players, $numb_joueurs->nb_joueurs);
           }
           // TODO : make sure there's still cards in hands to end the game if necessary
           // TODO : display
@@ -273,7 +275,7 @@
     // DONE Voir le bug qd on joue à deux (le créateur n'atterrit jamais ?)
     // DONE User_set_score
     // Almost DONE Fin de la partie
-    // Historique
+    // DONE Historique
     // Javascript
 
   }
