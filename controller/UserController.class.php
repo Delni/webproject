@@ -235,7 +235,7 @@
             }
           }
           Game::showScores($id_plat);
-          $numberInHand=Game::numberInHand($id_plat,$peuso)
+          $numberInHand=Game::numberInHand($pseudo,$id_plat)
           if($numberInHand==0){
             // TODO TEST addHistorique
             Game::addHistorique($id_plat,$array_id_players, $numb_joueurs->nb_joueurs);
