@@ -1,4 +1,11 @@
 <?php
+
+/**
+*
+*  Redfine the session handler
+*
+**/
+
   if(isset($_COOKIE['PHPSESSID'])){
     SessionStart();
   }

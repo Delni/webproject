@@ -1,6 +1,24 @@
 <?php
   class AnonymousController extends Controller {
 
+    /**
+    *
+    *   The Default Controller. Only to create a count or connect
+    *
+    *   Functions:
+    *     @execute                (void)      -> Define the action to execute depending on the $_POST Variable
+    *     @defaultAction          (void)      -> Render the default view
+    *     @inscription            (void)      -> Render the inscription view
+    *     @inscription            (void)      -> Render the inscription view
+    *     @getIDsBack             (void)      -> Render the recovery view
+    *     @validateInscription    (void)      -> Handle the inscription. If correct, start a UserController, if not display errors messages.
+    *     @validateConnection     (void)      -> Handle the connection. If correct, start a UserController, if not display errors messages.
+    *     @validateRecovery       (void)      -> Handle the recovery. If correct, send a mail and reset password, if not display errors messages.
+    *     @mdpGenerator           (string)    -> Create a new random password (numbers+letters)
+    *
+    *
+    **/
+
     public function __construct($request) {
       parent::__construct($request);
 
@@ -72,7 +90,6 @@
       if(User::isLoginUsed($login)){
         // That means that the login exist in the table.
         $user= new User($login);
-        //$user->set_id($login);
         if($user->getX('MDP')==$password){
           SessionStart();
           $_SESSION['user']=serialize($user);
@@ -94,25 +111,38 @@
     }
 
     public function mdpGenerator(){
-      $res = "";
-      $aleat1=0;
-      $aleat2=0;
+      $aleat_Password = "";
+      $aleatCase=0;
+      $aleatChar=0;
       for ($i=0;$i<7;$i++){
-        $aleat1 = rand(0,2);
-        if($aleat1 ==0){
-          $aleat2= rand(0,9);
-          $res=$res.$aleat2;
-        }
-        if($aleat1==1){
-          $aleat2=rand(65,90);
-          $res=$res.chr($aleat2);
-        }
-        if($aleat1==2){
-          $aleat2=rand(97,122);
-          $res=$res.chr($aleat2);
+        $aleatCase = rand(0,2);
+        switch ($aleatCase) {
+          case 0:
+            // Case 0 : Number
+            $aleatChar= rand(0,9);
+            $aleat_Password=$aleat_Password.$aleatChar;
+            break;
+
+          case 1:
+            // Case 1 : letter
+            $aleatChar=rand(65,90);
+            $aleat_Password=$aleat_Password.chr($aleatChar);
+            break;
+
+          case 2:
+            // Case 2 : Capital Letter
+            $aleatChar=rand(97,122);
+            $aleat_Password=$aleat_Password.chr($aleatChar);
+            break;
+
+          default:
+            //Default : Case 0
+            $aleatChar= rand(0,9);
+            $aleat_Password=$aleat_Password.$aleatChar;
+            break;
         }
       }
-      return ($res);
+      return ($aleat_Password);
     }
 
     public function validateRecovery($args){
