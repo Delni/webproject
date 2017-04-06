@@ -1,6 +1,26 @@
 <?php
   class UserController extends Controller {
 
+    /**
+    *
+    *   UserController handle every actions a connected user can do.
+    *
+    *   Functions:
+    *     @defaultAction      (void)    -> Solely render the default UserView
+    *     @editProfile        (void)    -> Render a form to modify User's info
+    *     @logout             (void)    -> Stop the session (cf config.php) and head to the main page (no action)
+    *     @Creation           (void)    -> Render a view in order to create a new game
+    *     @createGame         (void)    -> Create the new game. If ok, goes to PlaygroundView, if not display errors
+    *     @totalWipeOut       (void)    -> Delete a account, and then stop the session
+    *     @updateProfile      (void)    -> Render the editProfileView, with an OK/not-OK display
+    *     @updatePassWord     (void)    -> Same idea for the password
+    *     @showGame           (void)    -> Display all the games currently on the server
+    *     @joinGame           (void)    -> Look if the user can join a particular game. If so, shows the playground, if not shows errors
+    *     @distributeCards    (void)    -> Randomize the hands and distribute Cards. Set view args for display cards
+    *     @playCard           (void)    -> Select a card. If each player have done so, play the round. If not, wait. If a card is already selected, don't move
+    *
+    **/
+
     public function defaultAction($request) {
       $view = new UserView($this);
       $view->render($this);
@@ -243,36 +263,21 @@
             // TODO DELETEALL
             Game::deleteAll($id_plat,$array_id_pile, $array_id_players, $numb_joueurs->nb_joueurs);
           }
-          // TODO : make sure there's still cards in hands to end the game if necessary
-          // TODO : display
-          // $selected_card=$request->read('id_card');
-          // if(isset($selected_card)){
-          //   $view->setSelectedCard($request->read('id_card'));
-          //   // TODO : 1 must be changed into $id_plat when set :
-          //   // The button which activates joinGame to select a card must add
-          //   // the id_plat to the request
-          //   $pseudo = Game::getIdMain($id_plat,unserialize($_SESSION['user'])->get_id());
-          //   User::selectCard($request->read('id_card'),$pseudo);
-          // }
         }
-        $view= new PlaygroundView($this);
-        $view->setIdPlat($id_plat);
-        $view->setOwnController($this);
-        $pseudo=unserialize($_SESSION['user'])->get_id();
-        $array=User::playgame($id_plat,$pseudo);
-        $view->setListeCartes($array);
-        $array_pile=Game::lesPiles($id_plat);
-        $view->setPileCartes($array_pile);
-        $view->render($this);
       }
+      // TODO : handle the multi-select case
+      $view= new PlaygroundView($this);
+      $view->setIdPlat($id_plat);
+      $view->setOwnController($this);
+      $pseudo=unserialize($_SESSION['user'])->get_id();
+      $array=User::playgame($id_plat,$pseudo);
+      $view->setListeCartes($array);
+      $array_pile=Game::lesPiles($id_plat);
+      $view->setPileCartes($array_pile);
+      $view->render($this);
     }
 
     // TODO :
-    // DONE Gérer la pile pleine
-    // DONE Gérer si la carte est inférieure à toutes les Piles
-    // DONE Modifier les scores
-    // DONE Voir le bug qd on joue à deux (le créateur n'atterrit jamais ?)
-    // DONE User_set_score
     // Almost DONE Fin de la partie
     // DONE Historique
     // Javascript
