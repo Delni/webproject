@@ -259,12 +259,8 @@
               $maxOfPiles=User::suppr($maxOfPile, $maxOfPile[$index_tab]);
             }
           }
-<<<<<<< HEAD
           Game::showScores($id_plat);
-          $numberInHand=Game::numberInHand($pseudo,$id_plat)
-=======
           $numberInHand=Game::numberInHand($pseudo,$id_plat);
->>>>>>> e5f1786a29670054b585f9288eab23257820e40a
           if($numberInHand==0){
             // TODO TEST addHistorique
             Game::addHistorique($id_plat,$array_id_players, $numb_joueurs->nb_joueurs);
@@ -272,19 +268,23 @@
             Game::showFinalScores($id_plat);
             // TODO DELETEALL
             Game::deleteAll($id_plat,$array_id_pile, $array_id_players, $numb_joueurs->nb_joueurs);
+            //TODO Template win
+          }
+          else{
+            // TODO : handle the multi-select case
+            $view= new PlaygroundView($this);
+            $view->setIdPlat($id_plat);
+            $view->setOwnController($this);
+            $pseudo=unserialize($_SESSION['user'])->get_id();
+            $array=User::playgame($id_plat,$pseudo);
+            $view->setListeCartes($array);
+            $array_pile=Game::lesPiles($id_plat);
+            $view->setPileCartes($array_pile);
+            $view->render($this);
           }
         }
       }
-      // TODO : handle the multi-select case
-      $view= new PlaygroundView($this);
-      $view->setIdPlat($id_plat);
-      $view->setOwnController($this);
-      $pseudo=unserialize($_SESSION['user'])->get_id();
-      $array=User::playgame($id_plat,$pseudo);
-      $view->setListeCartes($array);
-      $array_pile=Game::lesPiles($id_plat);
-      $view->setPileCartes($array_pile);
-      $view->render($this);
+
     }
 
     // TODO :
