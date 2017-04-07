@@ -268,6 +268,7 @@
       $sql_score='UPDATE score SET Val_Score = '.$new.' WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
       static::setLog($id_plat,'<div class="row"><p class="log">'.$pseudo.' vient de se prendre <span class="badge">'.$somme.'</span> points dans la vue!</p></div><hr>');
       $sql_score=DatabasePDO::getCurrentPDO()->query($sql_score);
+      static::showScores($id_plat);
       return($res);
     }
 
@@ -348,6 +349,7 @@
         $new = $somme+ $prec_score->Val_Score;
         $sql_score='UPDATE score SET Val_Score = '.$new.' WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
         static::setLog($id_plat,'<div class="row"><p class="log">'.$pseudo.' vient de se prendre <span class="badge">'.$somme.'</span> points dans la vue!</p></div><hr>');
+        static::showScores($id_plat);
         $sql_score=DatabasePDO::getCurrentPDO()->query($sql_score);
       }
     }
@@ -358,7 +360,7 @@
       // TODO TEST : numeroInHand
       $numeroInHand=Game::numeroInHand($id_plat, $selectedCard);
       // TODO TEST : numberInHand
-      $numberInHand=Game::numberInHand($pseudo,$id_plat);
+      $numberInHand=static::numberInHand($pseudo,$id_plat);
       $sql_delete_card='UPDATE main SET '.$numeroInHand.' = NULL WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
       $sql_delete_card=DatabasePDO::getCurrentPDO()->query($sql_delete_card);
       $number_rest= $numberInHand-1;
@@ -419,47 +421,49 @@
         ':id_plat' => $id_plat
       ));
       $res=$sql->fetchAll(DatabasePDO::FETCH_NUM);
-      // var_dump($res);
-      //TODO : display point in a table
-      static::setLog($id_plat, '<div class="row">
+      var_dump($res);
+      $html_content ='<div class="row">
         <div class="col-md-offset-1 col-md-10">
         <p class=log">Fin du tour !</p>
+        <p>
           <table class="table">
             <thead>
               <th>Classement</th>
               <th>Joueur</th>
               <th>Score</th>
             </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>'.$res[0][0].'</td>
-                <td class="text-center"><span  class="badge">'.$res[0][1].'</span></td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>BlazDark</td>
-                <td class="text-center"><span  class="badge">5</span></td>
-              </tr>
-            </tbody>
+            <tbody>';
+      for($i=0;$i<count($res);$i++){
+        $html_content=$html_content.'<tr>
+          <td>'.($i+1).'</td>
+          <td>'.$res[$i][0].'</td>
+          <td class="text-center"><span  class="badge">'.$res[$i][1].'</span></td>
+        </tr>';
+      }
+      $html_content=$html_content.'</tbody>
           </table>
+        </p>
         </div>
       </div>
-      <hr>');
+      <hr>';
+      //TODO : display point in a table
+      static::setLog($id_plat, $html_content);
     }
 
     public static function getScore($pseudo, $id_plat){
-      $sql_get_score='SELECT Val_Score FROM SCORE WHERE Pseudo = "'.$pseudo.'" AND Id_Plat ='.$id_plat;
-      $sql_get_score=DatabasePDO::getCurrentPDO()->prepare($sql_get_score);
-      $sql_get_score->execute();
-      $res=$sql_get_score->fetch(DatabasePDO::FETCH_OBJ);
-      return($res);
+      $sql_get_score=DatabasePDO::getCurrentPDO()->prepare('SELECT Val_Score FROM SCORE WHERE Pseudo=:pseudo AND Id_Plat=:id_plat');
+      $sql_get_score->execute(array(
+        ':pseudo' => $pseudo,
+        ':id_plat'=> $id_plat
+      ));
+      $res=$sql_get_score->fetch(DatabasePDO::FETCH_NUM);
+      return($res[0]);
     }
 
     public static function getWinner($id_plat,$array_id_players, $nb_joueurs){
       $res=250;
       for($i=0;$i<$nb_joueurs;$i++){
-        $score=Game::getScore($array_id_players[$i][0]);
+        $score=Game::getScore($array_id_players[$i],$id_plat);
         if($score<$res){
           $res=$score;
         }
@@ -471,10 +475,10 @@
       $aux=250;
       $res='';
       for($i=0;$i<$nb_joueurs;$i++){
-        $score=Game::getScore($array_id_players[$i][0], $id_plat);
+        $score=Game::getScore($array_id_players[$i], $id_plat);
         if($score<$aux){
           $aux=$score;
-          $res=$array_id_players[$i][0];
+          $res=$array_id_players[$i];
         }
       }
       return($res);
@@ -485,7 +489,7 @@
       $sql_get_nom=DatabasePDO::getCurrentPDO()->prepare($sql_get_nom);
       $sql_get_nom->execute();
       $res=$sql_get_nom->fetch(DatabasePDO::FETCH_OBJ);
-      return($res);
+      return($res->Nom);
     }
 
     public static function addHistorique($id_plat,$array_id_players, $nb_joueurs){
@@ -493,12 +497,23 @@
       $score_winner = Game::getScoreWinner($id_plat,$array_id_players, $nb_joueurs);
       $nom_plat = Game::getNomPlat($id_plat);
       for($i=0;$i<$nb_joueurs;$i++){
-        $current_id = $array_id_players[$i][0];
+        $current_id = $array_id_players[$i];
         $current_score=Game::getScore($current_id,$id_plat);
-        $sql='INSERT INTO `historique` (`Pseudo`, `Score`, `Nom`, `Nom_Gagnant`, `Score_Gagnant`) VALUES ('.$current_id.', '.$current_score.', '.$nom_plat.', '.$id_winner.', '.$score_winner.')';
-        $sql=DatabasePDO::getCurrentPDO()->query($sql);
+        var_dump($current_score);
+        var_dump($nom_plat);
+        var_dump($id_winner);
+        var_dump($score_winner);
+        $sql_req=Game::exec_sql('GAME_ADD_HISTORIQUE',array(
+          ':pseudo' => $current_id,
+          ':score' => $current_score,
+          ':nom' => $nom_plat,
+          ':nom_gagnant' => $id_winner,
+          ':score_gagnant' => $score_winner
+        ));
       }
     }
+
+    public static function showFinalScores($id_plat){}
 
     public static function deleteEtreDans($array_id_pile){
       for($i=0;$i<4;$i++){

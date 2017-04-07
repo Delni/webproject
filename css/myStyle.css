@@ -3,15 +3,15 @@
 /*                                                                           */
 /*  ABOUT THIS FILE:                                                         */
 /*  	1) Custom Fonts                   Lines   23  -   35                   */
-/*    2) Basics definitions             Lines   37  -  108                   */
-/*    3) Bootstrap redifinition         Lines  114  -  153                   */
+/*    2) Basics definitions             Lines   37  -  150                   */
+/*    3) Bootstrap redifinition         Lines  152  -  213                   */
 /*    3) CSS for custom parts                                                */
-/*			 a. Accueil                     Lines  155  -  183                   */
-/*			 b. Formulaire d'inscription    Lines  185  -  202                   */
-/*       c. User Template               Lines  204  -  260                   */
-/*       d. Edit Profile Template       Lines  262  -  297                   */
-/*       e. Playground Template         Lines  299  -  359                   */
-/*    4) CSS from other sources         Lines  361  +                        */
+/*			 a. Accueil                     Lines  215  -  243                   */
+/*			 b. Formulaire d'inscription    Lines  245  -  262                   */
+/*       c. User Template               Lines  264  -  330                   */
+/*       d. Edit Profile Template       Lines  332  -  367                   */
+/*       e. Playground Template         Lines  369  -  439                   */
+/*    4) CSS from other sources         Lines  441  +                        */
 /*                                                                           */
 /* Parts as organised by : tags > id > class                                 */
 /*****************************************************************************/
@@ -148,6 +148,7 @@ p{
 .id_plat_input{
 	display: none;
 }
+
 /*****************************************************************************/
 /*                        BOOTSTRAP REDEFINITIONS                            */
 /*****************************************************************************/

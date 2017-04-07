@@ -13,5 +13,11 @@
       $sql_req->execute($params);
       return $sql_req->fetch(DatabasePDO::FETCH_OBJ);
     }
+
+    public static function exec_sql_noFetch($sql_querry,$params){
+      $sql_req=DatabasePDO::getCurrentPDO()->prepare(static::$sql_querries[$sql_querry]);
+      $sql_req->execute($params);
+      return $sql_req;
+    }
   }
  ?>
