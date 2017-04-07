@@ -24,14 +24,14 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-left">
-        <li><a href="index.php">Dashboard</a></li>
+        <li><a href="index.php">Accueil</a></li>
         <li><a href="index.php?action=showGame">Jeux</a></li>
         <li><a href="index.php?action=creation">Créer une partie</a></li>
         <li><a href="#" data-toggle="modal" data-target="#PopupHelp">Règles du jeu</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li role="presentation" class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $this->user->get_id(); ?> <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle"></i> <?php echo $this->user->get_id(); ?> <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="index.php"><i class="fa fa-user-circle-o fa-fw"></i> Mon Profil</a></li>
             <li><a href="index.php?action=editProfile"><i class="fa fa-cog fa-fw"></i> Mes données</a></li>
