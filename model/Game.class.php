@@ -45,7 +45,7 @@
     *   @deleteAll            (void)        -> Uses all 6 previous deleting functions to delete a game.
     **/
 
-    public static function psw_entrance($psw,$id_plat){
+     public static function psw_entrance($psw,$id_plat){
       $sql='SELECT Prive FROM Plateau WHERE id_plat="'.$id_plat.'"';
       $res_sql=DatabasePDO::getCurrentPDO()->query($sql);
       $data= $res_sql->fetch(DatabasePDO::FETCH_OBJ);
