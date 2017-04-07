@@ -3,21 +3,21 @@
 
     /**
     *
-    *   UserController handle every actions a connected user can do.
+    *   UserController handles every actions a connected user can do.
     *
     *   Functions:
-    *     @defaultAction      (void)    -> Solely render the default UserView
-    *     @editProfile        (void)    -> Render a form to modify User's info
-    *     @logout             (void)    -> Stop the session (cf config.php) and head to the main page (no action)
-    *     @Creation           (void)    -> Render a view in order to create a new game
-    *     @createGame         (void)    -> Create the new game. If ok, goes to PlaygroundView, if not display errors
-    *     @totalWipeOut       (void)    -> Delete a account, and then stop the session
-    *     @updateProfile      (void)    -> Render the editProfileView, with an OK/not-OK display
+    *     @defaultAction      (void)    -> Solely renders the default UserView
+    *     @editProfile        (void)    -> Renders a form to modify User's info
+    *     @logout             (void)    -> Stops the session (cf config.php) and head to the main page (no action)
+    *     @Creation           (void)    -> Renders a view in order to create a new game
+    *     @createGame         (void)    -> Creates the new game. If ok, goes to PlaygroundView, if not displays errors
+    *     @totalWipeOut       (void)    -> Deletes an account, and then stops the session
+    *     @updateProfile      (void)    -> Renders the editProfileView, with an OK/not-OK display
     *     @updatePassWord     (void)    -> Same idea for the password
-    *     @showGame           (void)    -> Display all the games currently on the server
-    *     @joinGame           (void)    -> Look if the user can join a particular game. If so, shows the playground, if not shows errors
-    *     @distributeCards    (void)    -> Randomize the hands and distribute Cards. Set view args for display cards
-    *     @playCard           (void)    -> Select a card. If each player have done so, play the round. If not, wait. If a card is already selected, don't move
+    *     @showGame           (void)    -> Displays all the games currently on the server
+    *     @joinGame           (void)    -> Looks if the user can join a particular game. If so, shows the playground, if not shows errors
+    *     @distributeCards    (void)    -> Randomizes the hands and distributes Cards. Set view args to display cards
+    *     @playCard           (void)    -> Selects a card. If each player has done so, plays the round. If not, waits. If a card is already selected, doesn't move
     *
     **/
 
@@ -137,7 +137,7 @@
       $psw= (isset($psw)?$psw:'');
       if(isset($id_plat)){
         if (Game::userIsallowed(unserialize($_SESSION['user'])->get_id(),$id_plat)) {
-          if(Game::psw_entrence($psw,$id_plat)){
+          if(Game::psw_entrance($psw,$id_plat)){
             $view= new PlaygroundView($this);
             $view->setIdPlat($id_plat);
             $view->setOwnController($this);
@@ -266,7 +266,7 @@
             Game::addHistorique($id_plat,$array_id_players, $numb_joueurs->nb_joueurs);
             // TODO showFinalScores ou TEMPLATE
             Game::showFinalScores($id_plat);
-            // TODO DELETEALL
+            // TODO TEST deleteAll
             Game::deleteAll($id_plat,$array_id_pile, $array_id_players, $numb_joueurs->nb_joueurs);
             //TODO Template win
           }
