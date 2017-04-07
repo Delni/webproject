@@ -1,7 +1,51 @@
 <?php
   class Game extends Model{
 
-    public static function psw_entrence($psw,$id_plat){
+    /**
+    *
+    *   UserController handle every actions a connected user can do.
+    *
+    *   Functions:
+    *   @psw_entrance         (boolean)     -> Checks if the game has a password. If so, verifies if the given password is OK.
+    *   @setLog               (void)        -> ???
+    *   @lesPiles             (array)       -> Returns an array containing the Id of every pile of the given game .
+    *   @getNbJoueurs         (int)         -> Returns the number of players for the giving game .
+    *   @distributeCards      (array)       -> Distributes cards in hands, in piles, sets scores for every player. Also returns array of array : array[x][0] = Player's Pseudo // array[x][1] = his cards in hand.
+    *   @estCommence          (int)         -> Returns -1 if the game isn't started yet, 0 if it has started and 1 if it is finished.
+    *   @userIsallowed        (boolean)     -> Returns true if the player is allowed to connect to this game, false if not.
+    *   @getIdMain            (string)      -> Returns given player's hand id.
+    *   @allSelectedCards     (array)       -> Returns array filled with every player of the given game's card that has been selected.
+    *   @getIdPlayers         (array)       -> Returns array filled with every player of the given game's id.
+    *   @getPilesId           (array)       -> Returns array filled with every pile of the given game's id.
+    *   @getCardsOfPile       (array)       -> Returns array filled with every pile of the given game's cards.
+    *   @numberOfCardsInPile  (int)         -> Returns the number of cards in the given pile.
+    *   @max_list             (int)         -> Returns max of the given list.
+    *   @minimizePiles        (int)         -> Returns id of the pile whose cards' sum of weight is the lowest
+    *   @deletePilePleine     (void)        -> Replace cards in given pile by the given card (first deleting previous cards, then adding the new one).
+    *   @indexOfClosest       (int)         -> Returns id of the pile where the selected card is supposed to go  (returns -1 if the card's value is lower than any pile's last card's value).
+    *   @relatedIndex         (int)         -> Returns index of the given pile within the array.
+    *   @addCardToPile        (void)        -> Adds every selected cardto the pile it's supposed to go. Takes care of : weither or not the pile if full (5 cards), weither or not the scores have to be changed (and does so if necessary).
+    *   @suppressCardsHand    (void)        -> Deletes the selected card in each player's hand.
+    *   @resetSelected        (void)        -> Resets selected card value in SQL to -1.
+    *   @numeroInHand         (string)      -> Returns "Id_Carte x" with x being the place of the given selected card in the hand of the given player.
+    *   @numberInHand         (int)         -> Returns the number of card in the hand of a given player for a given game.
+    *   @showScores           (void)        -> ???
+    *   @getScore             (string)      -> Returns the score of the given player according to the given game.
+    *   @getWinner            (string)      -> Returns the winner of the given game.
+    *   @getScoreWinner       (string)      -> Returns the winner of the given game's score.
+    *   @getNomPlat           (string)      -> Returns the name of the game.
+    *   @addHistorique        (void)        -> Adds the given game to the SQL table "historique" for every player in this game.
+    *   @showFinalScores      (???)         -> TODO OR ERASE FOR FRONTEND DEV.
+    *   @deleteEtreDans       (void)        -> Deletes every lignes in SQL table "etre_dans" related to the piles' id in the given array (assuming there are 4).
+    *   @deletePile           (void)        -> Deletes every lignes in SQL table "piles" related to the piles' id in the given array (assuming there are 4).
+    *   @deleteMain           (void)        -> Deletes every lignes in SQL table "main" related to the given game and players' id in the given array.
+    *   @deleteJouer          (void)        -> Deletes every lignes in SQL table "jouer" related to the given game and players' id in the given array.
+    *   @deleteScore          (void)        -> Deletes every lignes in SQL table "score" related to the given game and players' id in the given array.
+    *   @deletePlateau        (void)        -> Deletes the given game from SQL table "plateau.
+    *   @deleteAll            (void)        -> Uses all 6 previous deleting functions to delete a game.
+    **/
+
+    public static function psw_entrance($psw,$id_plat){
       $sql='SELECT Prive FROM Plateau WHERE id_plat="'.$id_plat.'"';
       $res_sql=DatabasePDO::getCurrentPDO()->query($sql);
       $data= $res_sql->fetch(DatabasePDO::FETCH_OBJ);
@@ -159,25 +203,6 @@
         return($res->Id_Main);
     }
 
-    public static function triCroissant($tab, $taille){
-        for($i=0;$i<$taille;$i++){
-          $k=0;
-          for($j=1;$j<$taille;$j++){
-            if($tab[$k]>$tab[$j]){
-              for($diff=0;$diff<$j-$k;$diff++){
-                $tmp=$tab[$k+$diff];
-                $tab[$k+$diff]=$tab[$k+$diff+1];
-                $tab[$k+$diff+1]=$tmp;
-              }
-            }
-          }
-        }
-        return($tab);
-      }
-
-      // TODO by FrontEndDev
-      // Because SQL should sort it by itself
-
     public static function allSelectedCards($id_plat){
       $sql_req='SELECT `Id_Selected_Card` FROM Main WHERE Id_Plat=:id_plat';
       $sql=DatabasePDO::getCurrentPDO()->prepare($sql_req);
@@ -330,8 +355,6 @@
         $numberInPile=0;
         $array_cards_pile = Game::getCardsOfPile($indexPile);
         $numberInPile = Game::numberOfCardsInPile($indexPile);
-        // TODO : Delete cards in pile
-        // And add the new first card in pile
         $sql_delete_piles='DELETE FROM `etre_dans` WHERE Id_Pile='.$indexPile.'';
         $sql_delete_piles=DatabasePDO::getCurrentPDO()->query($sql_delete_piles);
         $sql='INSERT INTO `etre_dans` (`Id_Pile`, `Id_Carte`) VALUES ('.$indexPile.', '.$selectedCard[0].')';
@@ -357,9 +380,7 @@
     public static function suppressCardsHand($selectedCard, $id_plat,$pseudo){
       $sql_delete_selected='UPDATE main SET Id_Selected_Card = -1 WHERE Id_Plat = '.$id_plat.' AND Pseudo ='.$pseudo.'';
       $sql_delete_selected=DatabasePDO::getCurrentPDO()->query($sql_delete_selected);
-      // TODO TEST : numeroInHand
       $numeroInHand=Game::numeroInHand($id_plat, $selectedCard);
-      // TODO TEST : numberInHand
       $numberInHand=static::numberInHand($pseudo,$id_plat);
       $sql_delete_card='UPDATE main SET '.$numeroInHand.' = NULL WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
       $sql_delete_card=DatabasePDO::getCurrentPDO()->query($sql_delete_card);
@@ -421,7 +442,6 @@
         ':id_plat' => $id_plat
       ));
       $res=$sql->fetchAll(DatabasePDO::FETCH_NUM);
-      var_dump($res);
       $html_content ='<div class="row">
         <div class="col-md-offset-1 col-md-10">
         <p class=log">Fin du tour !</p>
@@ -513,7 +533,9 @@
       }
     }
 
-    public static function showFinalScores($id_plat){}
+    public static function showFinalScores($id_plat){
+      // TODO
+    }
 
     public static function deleteEtreDans($array_id_pile){
       for($i=0;$i<4;$i++){
