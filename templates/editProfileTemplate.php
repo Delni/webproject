@@ -25,6 +25,7 @@
           <option value="be">Belgique</option>
           <option value="br">Brésil</option>
           <option value="ca">Canada</option>
+          <option value="cl">Chili</option>
           <option value="cn">Chine</option>
           <option value="_Scotland">Ecosse</option>
           <option value="es">Espagne</option>
