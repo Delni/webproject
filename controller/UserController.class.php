@@ -131,6 +131,11 @@
       $view->render($this);
     }
 
+    public function parties($resquest){
+      $view = new GameListCurrentView($this);
+      $view->render($this);
+    }
+
     public function joinGame($request){
       $id_plat=$request->read('id_plat');
       $psw = $request->read('psw_plat');
