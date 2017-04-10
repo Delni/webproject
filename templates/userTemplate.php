@@ -33,10 +33,6 @@
              <th class="text-center">Action</th>
            </tr>
          </thead>
-         <!-- TODO
-         Need to modify link : a href="index.php?action=rejoindre"
-         Thus need to create a new action for "rejoindre"
-         And to keep  the id_plateau in a variable... -->
          <tbody>
            <?php $this->getGameList($this->user->get_id()); ?>
          </tbody>
@@ -45,13 +41,14 @@
 
      <div class="tab-pane" id="hist">
        <h1>Historique </h1>
-       <table class="table">
+       <table class="table table-hover text-center">
          <thead>
            <tr>
-             <th>Nom Partie</th>
-             <th>Créateur</th>
-             <!--TODO: col <th>Vainqueur</th> -->
-             <th>Score</th>
+             <th class="text-center">Nom Partie</th>
+             <th class="text-center">Status</th>
+             <th class="text-center">Votre Score</th>
+             <th class="text-center">Vainqueur</th>
+             <th class="text-center">Score vainqueur</th>
            </tr>
          </thead>
          <tbody>

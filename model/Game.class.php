@@ -301,7 +301,7 @@
       $sql_score='UPDATE score SET Val_Score = '.$new.' WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
       static::setLog($id_plat,'<div class="row"><p class="log">'.$pseudo.' vient de se prendre <span class="badge">'.$somme.'</span> points dans la vue!</p></div><hr>');
       $sql_score=DatabasePDO::getCurrentPDO()->query($sql_score);
-      static::showScores($id_plat);
+      // static::showScores($id_plat); //-> Not readable
       return($res);
     }
 
@@ -452,7 +452,6 @@
       $res=$sql->fetchAll(DatabasePDO::FETCH_NUM);
       $html_content ='<div class="row">
         <div class="col-md-offset-1 col-md-10">
-        <p class=log">Fin du tour !</p>
         <p>
           <table class="table">
             <thead>
@@ -521,11 +520,27 @@
     }
 
     public static function addHistorique($id_plat,$array_id_players, $nb_joueurs){
-      $id_winner = Game::getWinner($id_plat,$array_id_players,$nb_joueurs);
-      $score_winner = Game::getScoreWinner($id_plat,$array_id_players, $nb_joueurs);
+      $score_winner = Game::getWinner($id_plat,$array_id_players,$nb_joueurs);
+      $id_winner = Game::getScoreWinner($id_plat,$array_id_players, $nb_joueurs);
       $nom_plat = Game::getNomPlat($id_plat);
       for($i=0;$i<$nb_joueurs;$i++){
         $current_id = $array_id_players[$i];
+        $ratio=Game::exec_sql('USER_GET_RATIO',array(
+          ':pseudo' => $current_id
+        ));
+        if($current_id==$id_winner){
+          Game::exec_sql('USER_SET_RATIO',array(
+            ':defaites' => $ratio->Perdues,
+            ':victoires' => $ratio->Gagnees +1,
+            ':pseudo' => $current_id
+          ));
+        } else {
+          Game::exec_sql('USER_SET_RATIO',array(
+            ':defaites' => $ratio->Perdues +1,
+            ':victoires' => $ratio->Gagnees,
+            ':pseudo' => $current_id
+          ));
+        }
         $current_score=Game::getScore($current_id,$id_plat);
         $sql_req=Game::exec_sql('GAME_ADD_HISTORIQUE',array(
           ':pseudo' => $current_id,

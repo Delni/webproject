@@ -9,7 +9,24 @@
     }
 
     public function showFinalScores(){
-      echo $this->args['winning_table'];
+      if(isset($this->args['winning_table'])){
+        $html_content = '<p>
+          <table class="table">
+            <thead>
+              <th>Classement</th>
+              <th>Joueur</th>
+              <th>Score</th>
+            </thead>
+            <tbody>'.
+            $this->args['winning_table']
+            .'</tbody>
+          </table>
+        </p>';
+      } else {
+        $html_content = '
+        <div class="alert alert-warning alert-dismissible"><strong>Erreur</strong>, cette partie n\'existe (déjà) <strong>plus</strong>!</div>';
+      }
+      echo $html_content;
     }
   }
 ?>

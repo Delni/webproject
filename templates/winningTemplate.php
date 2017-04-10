@@ -1,21 +1,10 @@
 <div class="jumbotron row playground" style="overflow-x : hidden">
   <div class="row text-center">
-    <h2>Fin de la partie !</h2>
+    <h1>Fin de la partie !</h1>
   </div>
   <div class="row">
     <div class="col-md-offset-1 col-md-10">
-      <p>
-        <table class="table">
-          <thead>
-            <th>Classement</th>
-            <th>Joueur</th>
-            <th>Score</th>
-          </thead>
-          <tbody>
             <?php $this->showFinalScores(); ?>
-          </tbody>
-        </table>
-      </p>
     </div>
   </div>
   <div class="row text-center">

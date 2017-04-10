@@ -1,6 +1,6 @@
 <div class="jumbotron" style="max-height:650px;">
   <div class="text-center">
-    <h2>Parties en cours sur le serveur</h2>
+    <h1>Parties en cours sur le serveur</h1>
   </div>
   <div class="col-lg-offset-1 col-lg-10">
     <table class="table">

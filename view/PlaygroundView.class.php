@@ -54,7 +54,7 @@
     }
 
     public function print_log(){
-      $sql_req='SELECT html FROM log WHERE id_plat="'.$this->id_plat.'" ORDER BY Id DESC';
+      $sql_req='SELECT html FROM log WHERE id_plat="'.$this->id_plat.'" ORDER BY Id';
       $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
       $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
       while(!empty($data)) {
@@ -71,6 +71,8 @@
     }
 
     public function lauchGame(){
+      $sql_req='DELETE FROM `log` WHERE Id_Plat='.$this->id_plat.' and HTML LIKE "%progress%" ';
+      DatabasePDO::getCurrentPDO()->query($sql_req);
       $sql_req='SELECT Createur, estCommence, COUNT(pseudo)AS nb_joueurs FROM Plateau LEFT JOIN jouer USING (Id_plat) WHERE id_plat='.$this->id_plat;
       $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
       $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
@@ -81,7 +83,7 @@
           echo '<div class="row alert alert-warning"><p class="log">Seul le createur de la partie peut lancer la partie ('.$data->nb_joueurs.'/10 joueurs)</p></div><hr>';
         }
       } else {
-        //echo '<div class="row"><p class="log">La partie est commencée </p></div><hr>';
+        42;
       }
     }
 

@@ -136,6 +136,12 @@
       $view->render($this);
     }
 
+    public function story()
+    {
+      $view = new StoryView($this);
+      $view->render($this);
+    }
+
     public function joinGame($request){
       $id_plat=$request->read('id_plat');
       $psw = $request->read('psw_plat');
@@ -263,7 +269,7 @@
                 $maxOfPiles=User::suppr($maxOfPile, $maxOfPile[$index_tab]);
               }
             }
-            Game::showScores($id_plat);
+            // Game::showScores($id_plat);
             //TODO : this test must be done before all ! If not, game try to reach unexisting objects and crash
             $numberInHand=Game::numberInHand($pseudo,$id_plat);
             if($numberInHand==0){
@@ -294,9 +300,11 @@
         }
       }
       else{
-        //winnerTable has to be defined thx to historique and not score here, cause scores have been deleted  
+        //winnerTable has to be defined thx to historique and not score here, cause scores have been deleted
         $view= new EndofGameView($this);
-        $view->setArg('winning_table',$winnerTable);
+        if(isset($winnerTable)) {
+          $view->setArg('winning_table',$winnerTable);
+        }
         $view->render($this);
       }
     }

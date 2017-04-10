@@ -55,7 +55,7 @@ h2, form{
   color: #f2f1d8;
 }
 
-h2 {
+h1, h2 {
 	font-family: 'Comfortaa';
 }
 
@@ -84,6 +84,11 @@ p{
 #create{
 	margin-top: 1em;
 }
+
+#createGame{
+	margin-top: 5%;
+}
+
 .easter-egg{
 	opacity: 0.25;
 }
@@ -210,6 +215,12 @@ p{
 
 .nav-tabs.nav-justified > li a:focus{
 	color:#f2f1d8;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+	background: url("img/Accueil.png") no-repeat fixed;
+	background-size: cover;
+	border-radius: 10px;
 }
 
 /*****************************************************************************/

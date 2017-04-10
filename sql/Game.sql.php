@@ -23,6 +23,12 @@
   Game::addSQLquerry('USER_SET_SCORE',
     'INSERT INTO `score` (`Pseudo`, `Id_Plat`, `Val_Score`) VALUES (:pseudo, :id_plat, 0)');
 
+  Game::addSQLquerry('USER_GET_RATIO',
+    'SELECT Perdues, Gagnees FROM joueur WHERE Pseudo=:pseudo');
+
+  Game::addSQLquerry('USER_SET_RATIO',
+    'UPDATE joueur SET Perdues=:defaites, Gagnees=:victoires WHERE Pseudo=:pseudo');
+
   Game::addSQLquerry('USER_DELETE',
     'DELETE FROM `joueur` WHERE `joueur`.`Pseudo` = :login');
  ?>

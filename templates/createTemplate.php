@@ -1,4 +1,4 @@
-<div class="well col-sm-offset-1 col-sm-10 edit">
+<div id="createGame" class="well col-sm-offset-1 col-sm-10 edit">
   <h2>Créer une partie</h2>
   <?php $this->error_handler_popup('danger','crErrorText'); ?>
   <form class="form-horizontal" action="index.php?action=createGame" method="post">
