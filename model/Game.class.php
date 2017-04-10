@@ -226,12 +226,20 @@
 
     public static function getPilesId($id_plat){
       $res=[];
-      $sql="SELECT Id_Pile FROM Pile WHERE id_plat='".$id_plat."'";
+      $sql="SELECT Id_Pile FROM Pile WHERE id_plat='.$id_plat.'";
       $sql=DatabasePDO::getCurrentPDO()->prepare($sql);
       $sql->execute();
-      for ($i=0;$i<4;$i++){
-        $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
-        $res[$i]=$res_req->Id_Pile;
+      $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
+      if(!empty($res_req)){
+        $res[0]=$res_req->Id_Pile;
+
+        for ($i=1;$i<4;$i++){
+          $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
+          $res[$i]=$res_req->Id_Pile;
+        }
+      }
+      else{
+        $res=-1;
       }
       return($res);
     }
@@ -562,23 +570,28 @@
 
     public static function deleteMain($id_plat, $array_id_players, $nb_joueurs){
       for($k=0;$k<$nb_joueurs;$k++){
-        $sql_delete_main='DELETE FROM `Main` WHERE Id_Plat='.$id_plat.' AND Pseudo = "'.$array_id_players[$k][0].'"';
+        $sql_delete_main='DELETE FROM `Main` WHERE Id_Plat='.$id_plat.' AND Pseudo = "'.$array_id_players[$k].'"';
         $sql_delete_main=DatabasePDO::getCurrentPDO()->query($sql_delete_main);
       }
     }
 
     public static function deleteJouer($id_plat, $array_id_players, $nb_joueurs){
       for($k=0;$k<$nb_joueurs;$k++){
-        $sql_delete_jouer='DELETE FROM `Jouer` WHERE Id_Plat='.$id_plat.' AND Pseudo = "'.$array_id_players[$k][0].'"';
+        $sql_delete_jouer='DELETE FROM `Jouer` WHERE Id_Plat='.$id_plat.' AND Pseudo = "'.$array_id_players[$k].'"';
         $sql_delete_jouer=DatabasePDO::getCurrentPDO()->query($sql_delete_jouer);
       }
     }
 
     public static function deleteScore($id_plat, $array_id_players, $nb_joueurs){
       for($k=0;$k<$nb_joueurs;$k++){
-        $sql_delete_score='DELETE FROM `Score` WHERE Id_Plat='.$id_plat.' AND Pseudo = "'.$array_id_players[$k][0].'"';
+        $sql_delete_score='DELETE FROM `Score` WHERE Id_Plat='.$id_plat.' AND Pseudo = "'.$array_id_players[$k].'"';
         $sql_delete_score=DatabasePDO::getCurrentPDO()->query($sql_delete_score);
       }
+    }
+
+    public static function deleteLog($id_plat){
+      $sql_delete_log='DELETE FROM `Log` WHERE Id_Plat='.$id_plat;
+      $sql_delete_log=DatabasePDO::getCurrentPDO()->query($sql_delete_log);
     }
 
     public static function deletePlateau($id_plat){
@@ -592,6 +605,7 @@
       Game::deleteMain($id_plat, $array_id_players, $nb_joueurs);
       Game::deleteJouer($id_plat, $array_id_players, $nb_joueurs);
       Game::deleteScore($id_plat, $array_id_players, $nb_joueurs);
+      Game::deleteLog($id_plat);
       Game::deletePlateau($id_plat);
     }
 
