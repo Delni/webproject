@@ -519,10 +519,6 @@
       for($i=0;$i<$nb_joueurs;$i++){
         $current_id = $array_id_players[$i];
         $current_score=Game::getScore($current_id,$id_plat);
-        var_dump($current_score);
-        var_dump($nom_plat);
-        var_dump($id_winner);
-        var_dump($score_winner);
         $sql_req=Game::exec_sql('GAME_ADD_HISTORIQUE',array(
           ':pseudo' => $current_id,
           ':score' => $current_score,
@@ -534,7 +530,20 @@
     }
 
     public static function showFinalScores($id_plat){
-      // TODO
+      $sql=DatabasePDO::getCurrentPDO()->prepare('SELECT Pseudo, Val_Score FROM Score WHERE Id_plat=:id_plat ORDER BY Val_score');
+      $sql->execute(array(
+        ':id_plat' => $id_plat
+      ));
+      $res=$sql->fetchAll(DatabasePDO::FETCH_NUM);
+      $html_content='';
+      for($i=0;$i<count($res);$i++){
+        $html_content=$html_content.'<tr>
+          <td>'.($i+1).'</td>
+          <td>'.$res[$i][0].'</td>
+          <td class="text-center"><span  class="badge">'.$res[$i][1].'</span></td>
+        </tr>';
+      }
+      return $html_content;
     }
 
     public static function deleteEtreDans($array_id_pile){

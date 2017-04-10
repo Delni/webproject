@@ -203,7 +203,6 @@
     // TODO : modify game list ? -> see getGameList in View.class.php
 
    public function playCard($request){
-
       $id_plat=($request->read('id_plat'));
       $all=true;
       $id_selected=($request->read('id_card'));
@@ -265,15 +264,19 @@
             }
           }
           Game::showScores($id_plat);
+          //TODO : this test must be done before all ! If not, game try to reach unexisting objects and crash
           $numberInHand=Game::numberInHand($pseudo,$id_plat);
           if($numberInHand==0){
             // TODO TEST addHistorique
             Game::addHistorique($id_plat,$array_id_players, $numb_joueurs->nb_joueurs);
             // TODO showFinalScores ou TEMPLATE
-            Game::showFinalScores($id_plat);
+            $winnerTable=Game::showFinalScores($id_plat);
             // TODO TEST deleteAll
             Game::deleteAll($id_plat,$array_id_pile, $array_id_players, $numb_joueurs->nb_joueurs);
             //TODO Template win
+            $view= new EndofGameView($this);
+            $view->setArg('winning_table',$winnerTable);
+            $view->render($this);
           }
           else{
             // TODO : handle the multi-select case

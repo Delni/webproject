@@ -54,7 +54,7 @@
     }
 
     public function print_log(){
-      $sql_req='SELECT html FROM log WHERE id_plat="'.$this->id_plat.'"';
+      $sql_req='SELECT html FROM log WHERE id_plat="'.$this->id_plat.'" ORDER BY Id DESC';
       $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
       $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
       while(!empty($data)) {
