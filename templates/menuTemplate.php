@@ -12,6 +12,12 @@
   }
 
 </style>
+<script>
+  function play(){
+       var audio = $("#listen")[0];
+       audio.play();
+  }
+</script>
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -30,7 +36,7 @@
         <li><a href="index.php?action=story">Historique</a></li>
         <li><a href="index.php?action=stats">Statistiques</a></li>
         <li><a href="index.php?action=creation">Créer une partie</a></li>
-        <li><a href="#" data-toggle="modal" data-target="#PopupHelp">Règles du jeu</a></li>
+        <li><a href="#" data-toggle="modal" data-target="#PopupHelp" onclick="play()">Règles du jeu</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li role="presentation" class="dropdown">
@@ -58,6 +64,9 @@
         <h3 class="modal-title" id="myModalLabel">Un peu d'aide...</h3>
       </div>
       <div class="modal-body">
+        <audio id="listen">
+          <source src="css/sounds/HeyListen.m4a" type="audio/mpeg">
+        </audio>
         <h3>Kézako ?</h3>
         <div>Le jeu 6 qui ramasse provient du jeu <i>6 nimmt!</i>, jeu de cartes d'origine allemande.
         Le but de ce jeu est de finir la partie avec le <strong>moins</strong> de points possibles!</div>

@@ -13,28 +13,20 @@ IdP varchar(250),
 Perdues int,
 Gagnees int,
 PRIMARY KEY (Pseudo)
-);
-
-CREATE TABLE Log(
-  Id int AUTO_INCREMENT,
-  Id_Plat int,
-  Html TEXT,
-  PRIMARY KEY (Id),
-  CONSTRAINT Fk_Id_Plat FOREIGN KEY (Id_Plat) REFERENCES Plateau(Id_Plat)
-);
+)ENGINE = InnoDB;
 
 CREATE TABLE Carte (
 Id_Carte int,
 Poids int,
 PRIMARY KEY (Id_Carte)
-);
+)ENGINE = InnoDB;
 
 CREATE TABLE Pile (
 Id_Pile int NOT NULL AUTO_INCREMENT,
 Id_Plat int,
 PRIMARY KEY (Id_Pile)
 -- Foreign Key for Id_Plat is at the very end, because Plateau has not been created yet!
-);
+)ENGINE = InnoDB;
 
 CREATE TABLE Etre_dans(
   Id_Pile int,
@@ -42,7 +34,7 @@ CREATE TABLE Etre_dans(
   PRIMARY KEY (Id_Pile,Id_Carte),
   CONSTRAINT Fk_Id_Pile FOREIGN KEY (Id_Pile) REFERENCES Pile(Id_Pile),
   CONSTRAINT Fk_Id_Carte FOREIGN KEY (Id_Carte) REFERENCES Carte(Id_Carte)
-);
+)ENGINE = InnoDB;
 
 CREATE TABLE Plateau (
 Id_Plat int NOT NULL AUTO_INCREMENT,
@@ -52,7 +44,7 @@ Prive varchar(50),
 estCommence int DEFAULT -1,
 PRIMARY KEY (Id_Plat),
 CONSTRAINT Fk_Createur FOREIGN KEY (Createur) REFERENCES Joueur(Pseudo)
-);
+)ENGINE = InnoDB;
 
 CREATE TABLE Jouer(
  Id_Plat int,
@@ -61,22 +53,24 @@ CREATE TABLE Jouer(
  PRIMARY KEY(Id_Plat, Pseudo),
  CONSTRAINT Fk_Id_Plat FOREIGN KEY (Id_Plat) REFERENCES Plateau(Id_Plat),
  CONSTRAINT Fk_Pseudo FOREIGN KEY (Pseudo) REFERENCES Joueur(Pseudo)
-);
+)ENGINE = InnoDB;
 
 CREATE TABLE Historique(
   Id_Historique int NOT NULL AUTO_INCREMENT,
   Pseudo varchar(50),
   Score int,
   Nom varchar(50),
+  Nom_Gagnant varchar(50),
+  Score_Gagnant varchar(50),
   PRIMARY KEY (Id_Historique),
-  CONSTRAINT Fk_Pseudo FOREIGN KEY (Pseudo) REFERENCES Joueur(Pseudo)
-);
+  CONSTRAINT Fk_Pseudo2 FOREIGN KEY (Pseudo) REFERENCES Joueur(Pseudo)
+)ENGINE = InnoDB;
 
 CREATE TABLE appartenir_(
   Id_Main int,
   Pseudo varchar(50),
   PRIMARY KEY(Id_Main, Pseudo)
-);
+)ENGINE = InnoDB;
 
 CREATE TABLE Main (
 Id_Main int NOT NULL AUTO_INCREMENT,
@@ -105,9 +99,9 @@ CONSTRAINT Fk_Id_Carte7 FOREIGN KEY (ID_Carte7) REFERENCES Carte(Id_Carte),
 CONSTRAINT Fk_Id_Carte8 FOREIGN KEY (ID_Carte8) REFERENCES Carte(Id_Carte),
 CONSTRAINT Fk_Id_Carte9 FOREIGN KEY (ID_Carte9) REFERENCES Carte(Id_Carte),
 CONSTRAINT Fk_Id_Carte10 FOREIGN KEY (ID_Carte10) REFERENCES Carte(Id_Carte),
-CONSTRAINT Fk_Id_Plat FOREIGN KEY (Id_Plat) REFERENCES Plateau(Id_Plat),
-CONSTRAINT Fk_Pseudo FOREIGN KEY (Pseudo) REFERENCES Joueur(Pseudo)
-);
+CONSTRAINT Fk_Id_Plat2 FOREIGN KEY (Id_Plat) REFERENCES Plateau(Id_Plat),
+CONSTRAINT Fk_Pseudo3 FOREIGN KEY (Pseudo) REFERENCES Joueur(Pseudo)
+)ENGINE = InnoDB;
 
 CREATE TABLE Score(
   Id_Score int NOT NULL AUTO_INCREMENT,
@@ -115,8 +109,16 @@ CREATE TABLE Score(
   Id_plat int,
   Val_score int,
   PRIMARY KEY (Id_Score),
-  CONSTRAINT Fk_Id_Plat FOREIGN KEY (Id_Plat) REFERENCES Plateau(Id_Plat),
-  CONSTRAINT Fk_Pseudo FOREIGN KEY (Pseudo) REFERENCES Joueur(Pseudo)
-);
+  CONSTRAINT Fk_Id_Plat3 FOREIGN KEY (Id_Plat) REFERENCES Plateau(Id_Plat),
+  CONSTRAINT Fk_Pseudo4 FOREIGN KEY (Pseudo) REFERENCES Joueur(Pseudo)
+)ENGINE = InnoDB;
 
-ALTER TABLE Pile ADD CONSTRAINT Fk_Id_Plat FOREIGN KEY (Id_Plat) REFERENCES Plateau(Id_Plat);
+CREATE TABLE Log(
+  Id int AUTO_INCREMENT,
+  Id_Plat int,
+  Html TEXT,
+  PRIMARY KEY (Id),
+  CONSTRAINT Fk_Id_Plat1 FOREIGN KEY (Id_Plat) REFERENCES Plateau(Id_Plat)
+)ENGINE = InnoDB;
+
+ALTER TABLE Pile ADD CONSTRAINT Fk_Id_Plat4 FOREIGN KEY (Id_Plat) REFERENCES Plateau(Id_Plat);

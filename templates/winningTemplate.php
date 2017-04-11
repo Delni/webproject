@@ -8,6 +8,9 @@
     </div>
   </div>
   <div class="row text-center">
+    <audio autoplay>
+      <source src="css/sounds/victorytheme.m4a" type="audio/mpeg">
+    </audio>
     <a href="index.php?action=creation" class="btn btn-primary">Revanche !</a>
     <a href="index.php" class="btn btn-warning">Retour</a>
   </div>

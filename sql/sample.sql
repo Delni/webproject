@@ -17,7 +17,7 @@ INSERT INTO Joueur VALUES ('CaptainAmerica', 'LoveBucky', 'Roger', 'Steve', NULL
 INSERT INTO Joueur VALUES ('Batman', 'RIPPapaMaman', 'Wayne', 'Bruce', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('Superman', 'KriptoPhobe', 'Kent', 'Clark', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('Blondie', 'Camstresse!!', 'Delory', 'Valentine', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('DelaLune', 'PetiteChieuse', 'LaCroix', 'Claire', NULL, NULL, NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('DelaLune', 'PetiteChieuse', 'Lacroix', 'Claire', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('Delni', 'Maniac', 'Delauney', 'Nicolas', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('BlazDark', 'Gamer4Life', 'Handjani', 'Adrien', NULL, NULL, NULL, NULL,0,0);
 INSERT INTO Joueur VALUES ('Lambassadrice', 'CougarTown', 'Amidala', 'Padmé', NULL, NULL, NULL, NULL,0,0);
@@ -190,7 +190,7 @@ INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row"><p class="log">Tazman
 INSERT INTO Jouer VALUES (4,'Hérissondu59',0);
 INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row"><p class="log">Hérissondu59 a rejoint la partie !</p></div><hr>');
 INSERT INTO Jouer VALUES (4,'PilleusedeTombes',0);
-INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row"><p class="log">PilleusedeTombes a rejoint la partie !</p></div><hr>');
+INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row"><p class="log">PilleusedeTombe a rejoint la partie !</p></div><hr>');
 INSERT INTO Jouer VALUES (4,'Delni',0);
 INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row"><p class="log">Delni a rejoint la partie !</p></div><hr>');
 INSERT INTO Jouer VALUES (4,'SourisElectrique',0);

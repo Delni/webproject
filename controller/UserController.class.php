@@ -304,6 +304,16 @@
               $view->setPileCartes($array_pile);
               $view->render($this);
             }
+          } else {
+            $view= new PlaygroundView($this);
+            $view->setIdPlat($id_plat);
+            $view->setOwnController($this);
+            $pseudo=unserialize($_SESSION['user'])->get_id();
+            $array=User::playgame($id_plat,$pseudo);
+            $view->setListeCartes($array);
+            $array_pile=Game::lesPiles($id_plat);
+            $view->setPileCartes($array_pile);
+            $view->render($this);
           }
         }
       }
