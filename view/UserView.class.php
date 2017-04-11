@@ -11,7 +11,10 @@
     public function get_flag(){
       $flag=$this->user->getX('PAYS');
       if($flag=="easter-egg"){
-        echo "<img src=\"css/img/parrot.gif\" alt=\"Yolo\">";
+        echo '<img src="css/img/parrot.gif" alt="Yolo">
+              <audio autoplay loop>
+                <source src="css/sounds/star.mp3" type="audio/mpeg">
+              </audio>';
       } else {
         echo "<img src=\"css/img/flags/flags_iso/24/".$flag.".png\" alt=\"".$flag."\">";
       }

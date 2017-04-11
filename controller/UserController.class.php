@@ -53,7 +53,7 @@
         $nom_plat=$request->read('crName');
         $mdp_prive=$request->read('crPass');
         if($nom_plat=='NyanCat'){
-          header('Location: http://www.nyan.cat');
+          header('Location: http://www.nyan.cat/original');
           return 0;
         }
         $id_plat=User::createGame($nom_plat,$mdp_prive,unserialize($_SESSION['user'])->get_id());
