@@ -28,6 +28,7 @@
         <li><a href="index.php?action=showGame">Jeux</a></li>
         <li><a href="index.php?action=parties">Mes Parties</a></li>
         <li><a href="index.php?action=story">Historique</a></li>
+        <li><a href="index.php?action=stats">Statistiques</a></li>
         <li><a href="index.php?action=creation">Créer une partie</a></li>
         <li><a href="#" data-toggle="modal" data-target="#PopupHelp">Règles du jeu</a></li>
       </ul>

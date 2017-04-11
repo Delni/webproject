@@ -136,9 +136,13 @@
       $view->render($this);
     }
 
-    public function story()
-    {
+    public function story(){
       $view = new StoryView($this);
+      $view->render($this);
+    }
+
+    public function stats(){
+      $view = new StatView($this);
       $view->render($this);
     }
 

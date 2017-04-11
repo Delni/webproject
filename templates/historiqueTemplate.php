@@ -19,6 +19,9 @@
         </tbody>
       </table>
     </div>
-
+    <div class="text-center">
+      <a href="index.php?action=creation" class="btn btn-primary">Créer une nouvelle partie</a>
+      <a href="index.php" class="btn btn-warning">Retour</a>
+    </div>
   </div>
 </div>
