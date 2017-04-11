@@ -3,7 +3,7 @@
 
     /**
     *
-    *   UserController handle every actions a connected user can do.
+    *   Game model is used to handle every action which are necessary for the game
     *
     *   Functions:
     *   @psw_entrance         (boolean)     -> Checks if the game has a password. If so, verifies if the given password is OK.
@@ -35,7 +35,7 @@
     *   @getScoreWinner       (string)      -> Returns the winner of the given game's score.
     *   @getNomPlat           (string)      -> Returns the name of the game.
     *   @addHistorique        (void)        -> Adds the given game to the SQL table "historique" for every player in this game.
-    *   @showFinalScores      (???)         -> TODO OR ERASE FOR FRONTEND DEV.
+    *   @showFinalScores      (string)      -> Give the table whith every and each final score
     *   @deleteEtreDans       (void)        -> Deletes every lignes in SQL table "etre_dans" related to the piles' id in the given array (assuming there are 4).
     *   @deletePile           (void)        -> Deletes every lignes in SQL table "piles" related to the piles' id in the given array (assuming there are 4).
     *   @deleteMain           (void)        -> Deletes every lignes in SQL table "main" related to the given game and players' id in the given array.
@@ -46,9 +46,9 @@
     **/
 
     public static function psw_entrance($psw,$id_plat){
-      $sql='SELECT Prive FROM Plateau WHERE id_plat="'.$id_plat.'"';
-      $res_sql=DatabasePDO::getCurrentPDO()->query($sql);
-      $data= $res_sql->fetch(DatabasePDO::FETCH_OBJ);
+      $data=static::exec_sql('GAME_GET_PASSWORD',array(
+        ':id_plat' => $id_plat
+      ));
       if($data->Prive==NULL){
         return true;
       } else {
@@ -57,23 +57,23 @@
     }
 
     public static function setLog($id_plat,$html_content){
-      $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO log(Id_plat, html) VALUES (:id,:html_content)');
-      $sql_req->bindParam(':id',$id_plat);
-      $sql_req->bindParam(':html_content',$html_content);
-      $sql_req->execute();
+      static::exec_sql('GAME_SET_LOG',array(
+        ':id_plat' => $id_plat,
+        ':html_content' => $html_content
+      ));
     }
 
     public static function lesPiles($id_plat){
-      $array;
-      $sql_req='SELECT Id_Pile FROM PILE WHERE id_plat="'.$id_plat.'"';
-      $sql_req=DatabasePDO::getCurrentPDO()->prepare($sql_req);
-      $sql_req->execute();
+      $array=array();
+      $sql_req=static::exec_sql_noFetch('GAME_GET_PILE',array(
+        ':id_plat' => $id_plat
+      ));
       for($i=0;$i<4;$i++){
         $res=$sql_req->fetch(DatabasePDO::FETCH_OBJ);
         $aux=intval($res->Id_Pile);
-        $sql_carte_pile='SELECT Id_Carte FROM etre_dans WHERE id_pile='.$aux.'';
-        $sql_carte_pile=DatabasePDO::getCurrentPDO()->prepare($sql_carte_pile);
-        $sql_carte_pile->execute();
+        $sql_carte_pile=static::exec_sql_noFetch('GAME_SELECT_CARD_IN_PILE',array(
+          ':id_pile' => $aux
+        ));
         $res_carte_pile=$sql_carte_pile->fetch(DatabasePDO::FETCH_OBJ);
         $k=0;
         $array_aux=[];
@@ -102,11 +102,10 @@
     for ($i=1;$i<105;$i++){
       $card_array[$i-1]=$i;;
       }
-    $count_j=static::exec_sql('USER_GET_nbJOUEURS',array(
-      ':id_plat'=>$id_plat
+    $count_j=static::getNbJoueurs($id_plat);
+    $res_sql=static::exec_sql_noFetch('GAME_GET_PSEUDO',array(
+      ':id_plat' => $id_plat
     ));
-    $sql_req='SELECT Pseudo FROM Jouer WHERE id_plat="'.$id_plat.'"';
-    $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
     $data = $res_sql->fetch(DatabasePDO::FETCH_OBJ);
     $compteur=0;
     $k=0;
@@ -116,9 +115,10 @@
         $res_array[$ligne][0]='';
         $res_array[$ligne][1]=Array();
     }
-    $sql_test="SELECT Id_Main FROM MAIN WHERE id_plat='".$id_plat."' AND Pseudo='".$data->Pseudo."'";
-    $res_sql_test=DataBasePDO::getCurrentPDO()->query($sql_test);
-    $testIf=$res_sql_test->fetch(DataBasePDO::FETCH_OBJ);
+    $testIf=static::exec_sql('GAME_GET_MAIN_TEST',array(
+      ':id_plat' => $id_plat,
+      ':pseudo'  => $data->Pseudo
+    ));
     if(!$testIf){
       while(($data!=null)&&($compteur<104)){
         static::exec_sql('USER_SET_HAND',array(
@@ -135,8 +135,11 @@
           $newarray[$k]=$aleat;
           $card_array = User::suppr($card_array,$aleat);
           $compteur++;
-          $sql_main=DataBasePDO::getCurrentPDO()->prepare('UPDATE main SET Id_Carte'.($k+1).' = "'.$aleat.'" WHERE Pseudo = "'.$data->Pseudo.'" AND Id_Plat =  "'.$id_plat.'"');
-          $sql_main->execute();
+          $sql_main=DataBasePDO::getCurrentPDO()->prepare('UPDATE main SET Id_Carte'.($k+1).' = "'.$aleat.'" WHERE Pseudo =:pseudo AND Id_Plat =:id_plat');
+          $sql_main->execute(array(
+            ':pseudo'  => $data->Pseudo,
+            ':id_plat' => $id_plat
+          ));
         }
           $res_array[$compt_num_j][0]=$data->Pseudo;
           $res_array[$compt_num_j][1]=$newarray;
@@ -145,46 +148,48 @@
         }
 
         //SQL TO REFACTOR
-        $sql_id_pile='SELECT Id_Pile FROM PILE WHERE Id_Plat ="'.$id_plat.'"';
-        $sql_id_pile=DatabasePDO::getCurrentPDO()->query($sql_id_pile);
+        $sql_id_pile=static::exec_sql_noFetch('GAME_GET_PILE',array(
+          ':id_plat' => $id_plat
+        ));
         for($k=0;$k<4;$k++){
           $id_pile = $sql_id_pile->fetch(DatabasePDO::FETCH_OBJ);
           $aleat = User::aleat($card_array);
           $newarray[$k]=$aleat;
           $card_array = User::suppr($card_array,$aleat);
-          $sql_pile_carte = 'INSERT INTO etre_dans VALUES ('.$id_pile->Id_Pile.','.$aleat.')';
-          DatabasePDO::getCurrentPDO()->query($sql_pile_carte);
+          static::exec_sql('GAME_SET_PILE',array(
+            ':id_pile' => $id_pile->Id_Pile,
+            ':num' => $aleat
+          ));
         }
-      return($res_array);
-    }
-  }
-
-    // SQL TO REFACTOR
-      public static function estCommence($id_plat){
-        $sql_req='SELECT estCommence FROM Plateau WHERE id_plat="'.$id_plat.'"';
-        $sql_req=DatabasePDO::getCurrentPDO()->prepare($sql_req);
-        $sql_req->execute();
-        $res=$sql_req->fetch(DatabasePDO::FETCH_OBJ);
-        return ($res->estCommence);
+        return($res_array);
       }
+    }
+
+    public static function estCommence($id_plat){
+      $res=static::exec_sql('GAME_GET_STATUS',array(
+        ':id_plat' => $id_plat
+      ));
+      return ($res->estCommence);
+    }
 
     public static function userIsallowed($login,$id_plat){
-      $sql="SELECT COUNT(PSEUDO)as nb_joueurs, estCommence FROM jouer LEFT JOIN Plateau USING (Id_plat) WHERE id_plat='".$id_plat."'";
-      $sql2="SELECT PSEUDO FROM jouer WHERE pseudo='".$login."' AND id_plat='".$id_plat."'";
-      $res_sql=DatabasePDO::getCurrentPDO()->query($sql);
-      $data= $res_sql->fetch(DatabasePDO::FETCH_OBJ);
-      $res_sql2=DatabasePDO::getCurrentPDO()->query($sql2);
-      $data2= $res_sql2->fetch(DatabasePDO::FETCH_OBJ);
+      $data=static::exec_sql('GAME_IS_OPEN',array(
+        ':id_plat' => $id_plat
+      ));
+      $data2=static::exec_sql('GAME_GET_PSEUDO_FROM_PSEUDO&PLAT',array(
+        ':pseudo' => $login,
+        ':id_plat'=> $id_plat
+      ));
       if(!empty($data2)){
         return true;
       }
       else{
         if($data->estCommence==-1){
           if($data->nb_joueurs<10){
-            $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO `jouer`(`ID_PLAT`,`PSEUDO`,`SCORE`) VALUES (:plat,:joueur,0)');
-            $sql_req->bindParam(':plat',$id_plat);
-            $sql_req->bindParam(':joueur',$login);
-            $sql_req->execute();
+            static::exec_sql('GAME_INSERT_NEW_PLAYER',array(
+              ':plat' => $id_plat,
+              ':joueur' => $login
+            ));
             static::setLog($id_plat,'<div class="row"><p class="log">'.$login.' a rejoint la partie !</p></div><hr>');
             return(true);
           }
@@ -196,21 +201,30 @@
     }
 
     public static function getIdMain($id_plat, $pseudo){
-        $sql="SELECT Id_Main FROM MAIN WHERE pseudo='".$pseudo."' AND id_plat='".$id_plat."'";
-        $sql=DatabasePDO::getCurrentPDO()->prepare($sql);
-        $sql->execute();
-        $res=$sql->fetch(DatabasePDO::FETCH_OBJ);
+        $res=static::exec_sql('GAME_GET_HAND_ID',array(
+          ':pseudo' => $pseudo,
+          ':id_plat'=> $id_plat
+        ));
         return($res->Id_Main);
     }
 
     public static function allSelectedCards($id_plat){
-      $sql_req='SELECT `Id_Selected_Card` FROM Main WHERE Id_Plat=:id_plat';
-      $sql=DatabasePDO::getCurrentPDO()->prepare($sql_req);
-      $sql->bindParam(':id_plat',$id_plat);
-      $sql->execute();
+      $sql=static::exec_sql_noFetch('GAME_GET_SELECTED_CARDS',array(
+        ':id_plat' => $id_plat
+      ));
       return $sql->fetchAll(DatabasePDO::FETCH_NUM);
 
     }
+
+    //
+    // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+    // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+    // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+    // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+    // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+    // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+    // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+    //
 
     public static function getIdPlayers($sortedArray,$id_plat, $nb_joueurs){
       $res=[];
