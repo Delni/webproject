@@ -42,6 +42,8 @@ Nom varchar(50),
 Createur varchar(50),
 Prive varchar(50),
 estCommence int DEFAULT -1,
+KonamiCode int DEFAULT -1,
+Suod varchar(50) DEFAULT 'Goku',
 PRIMARY KEY (Id_Plat),
 CONSTRAINT Fk_Createur FOREIGN KEY (Createur) REFERENCES Joueur(Pseudo)
 )ENGINE = InnoDB;
