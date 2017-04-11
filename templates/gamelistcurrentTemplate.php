@@ -9,7 +9,7 @@
           <th>Nom Partie</th>
           <th>Créateur</th>
           <th>Joueurs</th>
-          <th class="text-right">Action</th>
+          <th class="text-center">Action</th>
         </tr>
       </thead>
       <tbody>
