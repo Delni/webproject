@@ -41,6 +41,9 @@
   Game::addSQLquerry('GAME_GET_SELECTED_CARDS',
     'SELECT `Id_Selected_Card` FROM Main WHERE Id_Plat=:id_plat');
 
+  Game::addSQLquerry('GAME_GET_PSEUDO_FROM_HAND',
+    'SELECT Pseudo FROM MAIN WHERE id_plat=:id_plat AND Id_Selected_Card=:selected');
+
   Game::addSQLquerry('GAME_ADD_HISTORIQUE',
     'INSERT INTO historique(Pseudo, Score, Nom, Nom_Gagnant, Score_Gagnant) VALUES (:pseudo, :score, :nom, :nom_gagnant, :score_gagnant)');
 
