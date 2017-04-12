@@ -250,7 +250,7 @@
     public static function getCardsOfPile($id_pile){
       $res=[];
       $res_req=static::exec_sql('GAME_SELECT_CARD_IN_PILE',array(
-        ':id_pile' => $îd_pile
+        ':id_pile' => $id_pile
       ));
       $i=0;
       while(!empty($res_req)){
@@ -293,10 +293,6 @@
           $res=$array_id_pile[$i];
         }
       }
-      $sql_get_score='SELECT Val_Score FROM SCORE WHERE Pseudo = "'.$pseudo.'" AND Id_Plat ='.$id_plat;
-      $sql_get_score=DatabasePDO::getCurrentPDO()->prepare($sql_get_score);
-      $sql_get_score->execute();
-      $prec_score = $sql_get_score->fetch(DatabasePDO::FETCH_OBJ);
       $prec_score = static::exec_sql('USER_GET_SCORE',array(
         ':pseudo' => $pseudo,
         ':id_plat'=> $id_plat
@@ -313,8 +309,6 @@
     }
 
     public static function deletePilePleine($index_closest, $id_card){
-      $sql_delete_pile='DELETE FROM `etre_dans` WHERE Id_Pile='.$index_closest.'';
-      $sql_delete_pile=DatabasePDO::getCurrentPDO()->query($sql_delete_pile);
       static::exec_sql('GAME_EMPTY_PILE', array(
         ':id_pile' => $index_closest
       ));
@@ -413,8 +407,6 @@
       $sql_delete_card='UPDATE main SET '.$numeroInHand.' = NULL WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
       $sql_delete_card=DatabasePDO::getCurrentPDO()->query($sql_delete_card);
       $number_rest= $numberInHand-1;
-      $sql_number_hand='UPDATE main SET Nb_Carte_Main = '.$number_rest.' WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
-      $sql_number_hand=DatabasePDO::getCurrentPDO()->query($sql_number_hand);
       static::exec_sql('USER_UPDATE_HAND', array(
         ':num' => $number_rest,
         ':id_plat' => $id_plat,
@@ -428,17 +420,6 @@
         ':pseudo'  => $pseudo
       ));
     }
-
-    //
-    // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-    // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-    // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-    // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-    // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-    // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-    // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-    //
-
 
     public static function numeroInHand($id_plat, $selectedCard){
       $res=static::exec_sql('USER_GET_HAND',array(
@@ -512,7 +493,6 @@
     }
 
     public static function getScore($pseudo, $id_plat){
-      $sql_get_score=DatabasePDO::getCurrentPDO()->prepare('SELECT Val_Score FROM SCORE WHERE Pseudo=:pseudo AND Id_Plat=:id_plat');
       $sql_get_score=static::exec_sql_noFetch('USER_GET_SCORE',array(
         ':pseudo' => $pseudo,
         ':id_plat'=> $id_plat
