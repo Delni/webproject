@@ -654,12 +654,12 @@
       return($res_req->Sudo);
     }
 
-    public static function activationKonamiCode($pseudo, $id_plat, $string){
+    public static function activateKonamiCode($pseudo, $id_plat, $string){
       $test = Game::searchKonamiCode($id_plat);
       if($test==-1){
-        $code= Game::checkingKonamiCode($string)
+        $code= Game::checkingKonamiCode($string);
         if($code==0){
-          $id_main = getIdMain($id_plat, $pseudo);
+          $id_main = static::getIdMain($id_plat, $pseudo);
           $sql_update_code='UPDATE Plateau SET KonamiCode = '.$id_main.' WHERE Id_Plat = '.$id_plat;
           $sql_update_code=DatabasePDO::getCurrentPDO()->query($sql_update_code);
           $sql_update_cheater='UPDATE Plateau SET Sudo ="'.$pseudo.'" WHERE Id_Plat = '.$id_plat;
