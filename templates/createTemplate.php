@@ -16,6 +16,12 @@
           Rendre la partie privée avec un mot de passe
         </label>
       </div>
+      <div class="checkbox col-sm-offset-2">
+        <label>
+          <input type="checkbox" id="enable_konami" name="enable_konami" value="">
+          Lancer la directive 66 <i class="fa fa-empire"></i>
+        </label>
+      </div>
     </div>
     <div class="form-group row">
       <label class="col-sm-offset-1 col-sm-2 control-label" for="cPass">Mot de passe</label>

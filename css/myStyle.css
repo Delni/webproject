@@ -154,6 +154,31 @@ p{
 	display: none;
 }
 
+#KonamiCode{
+	position: relative;
+		top: -455px;
+		left : 97.55%;
+		z-index: 9999;
+		transition: all 2s ease;
+	opacity: 0.2;
+}
+
+#KonamiCode:hover{
+		left : 69%;
+		opacity: 0.75;
+}
+
+#KonamiCode input[type="text"]{
+	border: none;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #f2f1d8;
+}
+
+#KonamiCode span, #KonamiCode input[type="submit"]{
+	border: none;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
 /*****************************************************************************/
 /*                        BOOTSTRAP REDEFINITIONS                            */
 /*****************************************************************************/

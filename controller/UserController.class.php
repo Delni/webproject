@@ -209,13 +209,6 @@
       $view->render($this);
     }
 
-    // TODO : game in itself
-
-    // TODO : if game is ended? playCard do nothing and call winning template.
-    // TODO : change the request ? Maybe easier.
-    // TODO : look join game also.
-    // TODO : modify game list ? -> see getGameList in View.class.php
-
     public function playCard($request){
        $id_plat=($request->read('id_plat'));
        $all=true;

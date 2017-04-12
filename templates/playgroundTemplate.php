@@ -97,7 +97,17 @@
     </div>
   </div>
 </div>
-
+<form class="row form-horizontal" id="KonamiCode" action="index.html" method="post">
+  <div class="col-xs-3">
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1"><i class="fa fa-empire"></i></span>
+      <input id="KonamiString" type="text" class="form-control" placeholder="66mph" aria-describedby="basic-addon1">
+      <span class="input-group-btn">
+        <input type="submit" class="btn" value="Go">
+      </span>
+    </div>
+  </div>
+</form>
 <div class="jumbotron hand">
   <div class="card card__choosen">
     <?php $this->showCard(1); ?>
