@@ -230,9 +230,10 @@
 
     public static function getPilesId($id_plat){
       $res=[];
-      $res_req=static::exec_sql('GAME_GET_PILE',array(
+      $sql=static::exec_sql_noFetch('GAME_GET_PILE',array(
         ':id_plat' => $id_plat
       ));
+      $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
       if(!empty($res_req)){
         $res[0]=$res_req->Id_Pile;
 
@@ -249,9 +250,10 @@
 
     public static function getCardsOfPile($id_pile){
       $res=[];
-      $res_req=static::exec_sql('GAME_SELECT_CARD_IN_PILE',array(
+      $sql=static::exec_sql_noFetch('GAME_SELECT_CARD_IN_PILE',array(
         ':id_pile' => $id_pile
       ));
+      $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
       $i=0;
       while(!empty($res_req)){
         $res[$i]=$res_req->Id_Carte;
@@ -360,7 +362,7 @@
 
     public static function addCardToPile($selectedCard, $indexPile, $numberInPile, $id_plat, $pseudo){
       if($numberInPile<5){
-        static::exec_sql('GAME_SET_PILE', array(
+        static::exec_sql('GAME_FILL_PILE', array(
           ':id_pile' => $indexPile,
           ':id_card' => $selectedCard[0]
         ));
@@ -374,7 +376,7 @@
         $sql_delete_piles = static::exec_sql('GAME_EMPTY_PILE', array(
           ':id_pile' => $indexPile
         ));
-        static::exec_sql('GAME_SET_PILE', array(
+        static::exec_sql('GAME_FILL_PILE', array(
           ':id_pile' => $indexPile,
           ':id_card' => $selectedCard[0]
         ));
@@ -396,36 +398,33 @@
         ));
         static::setLog($id_plat,'<div class="row"><p class="log">'.$pseudo.' vient de se prendre <span class="badge">'.$somme.'</span> points dans la vue!</p></div><hr>');
         // static::showScores($id_plat);
-        $sql_score=DatabasePDO::getCurrentPDO()->query($sql_score);
       }
     }
 
+    //SQL REFACTOR mystery
     public static function suppressCardsHand($selectedCard, $id_plat,$pseudo){
-      static::resetSelected($id_plat,$pseudo);
+      $sql_delete_selected='UPDATE main SET Id_Selected_Card = -1 WHERE Id_Plat = '.$id_plat.' AND Pseudo ='.$pseudo.'';
+      $sql_delete_selected=DatabasePDO::getCurrentPDO()->query($sql_delete_selected);
       $numeroInHand=Game::numeroInHand($id_plat, $selectedCard);
       $numberInHand=static::numberInHand($pseudo,$id_plat);
       $sql_delete_card='UPDATE main SET '.$numeroInHand.' = NULL WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
       $sql_delete_card=DatabasePDO::getCurrentPDO()->query($sql_delete_card);
       $number_rest= $numberInHand-1;
-      static::exec_sql('USER_UPDATE_HAND', array(
-        ':num' => $number_rest,
-        ':id_plat' => $id_plat,
-        ':pseudo'  => $pseudo
-      ));
+      $sql_number_hand='UPDATE main SET Nb_Carte_Main = '.$number_rest.' WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
+      $sql_number_hand=DatabasePDO::getCurrentPDO()->query($sql_number_hand);
     }
 
     public static function resetSelected($id_plat,$pseudo){
-      static::exec_sql('GAME_RESET_SELECTED', array(
-        ':id_plat' => $id_plat,
-        ':pseudo'  => $pseudo
-      ));
+      $sql_delete_card='UPDATE main SET Id_Selected_Card = -1 WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
+      $sql_delete_card=DatabasePDO::getCurrentPDO()->query($sql_delete_card);
     }
 
     public static function numeroInHand($id_plat, $selectedCard){
-      $res=static::exec_sql('USER_GET_HAND',array(
+      $sql_req=static::exec_sql_noFetch('USER_GET_HAND',array(
         ':id_plat' => $id_plat,
         ':selected' => $selectedCard
       ));
+      $res=$sql_req->fetch(DatabasePDO::FETCH_ASSOC);
       unset($res['Id_Main']);
       unset($res['Id_plat']);
       $i=1;
@@ -488,7 +487,6 @@
         </div>
       </div>
       <hr>';
-      //TODO : display point in a table
       static::setLog($id_plat, $html_content);
     }
 
