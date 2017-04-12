@@ -275,10 +275,9 @@
 
     public static function numberOfCardsInPile($id_pile){
       $res=0;
-      $sql="SELECT COUNT(Id_Carte) as nb FROM etre_dans WHERE id_pile='".$id_pile."'";
-      $sql=DatabasePDO::getCurrentPDO()->prepare($sql);
-      $sql->execute();
-      $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
+      $res_req=static::exec_sql('GAME_GET_NB_CARDS',array(
+        ':id_pile' => $id_pile
+      ));
       $res=$res_req->nb;
       return ($res);
     }
@@ -297,33 +296,38 @@
       $somme=150;
       $res=0;
       for ($i=0;$i<4;$i++){
-        $sql_somme_poids="SELECT SUM(Poids) as Poids FROM Carte LEFT JOIN etre_dans ON Carte.Id_Carte = etre_dans.Id_Carte WHERE id_pile='.$array_id_pile[$i].'";
-        $sql_somme_poids=DatabasePDO::getCurrentPDO()->prepare($sql_somme_poids);
-        $sql_somme_poids->execute();
-        $res_req=$sql_somme_poids->fetch(DatabasePDO::FETCH_OBJ);
+        $res_req=static::exec_sql('GAME_GET_PILE_WEIGHT',array(
+          ':id_pile' => $array_id_pile[$i]
+        ));
         $aux=$res_req->Poids;
         if($aux<$somme){
           $somme=$aux;
           $res=$array_id_pile[$i];
         }
       }
-      $sql_get_score='SELECT Val_Score FROM SCORE WHERE Pseudo = "'.$pseudo.'" AND Id_Plat ='.$id_plat;
-      $sql_get_score=DatabasePDO::getCurrentPDO()->prepare($sql_get_score);
-      $sql_get_score->execute();
-      $prec_score = $sql_get_score->fetch(DatabasePDO::FETCH_OBJ);
+      $prec_score = static::exec_sql('USER_GET_SCORE',array(
+        ':pseudo' => $pseudo,
+        ':id_plat'=> $id_plat
+      ));
       $new = $somme+ $prec_score->Val_Score;
-      $sql_score='UPDATE score SET Val_Score = '.$new.' WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
       static::setLog($id_plat,'<div class="row"><p class="log">'.$pseudo.' vient de se prendre <span class="badge">'.$somme.'</span> points dans la vue!</p></div><hr>');
-      $sql_score=DatabasePDO::getCurrentPDO()->query($sql_score);
+      $sql_score = static::exec_sql('USER_UPDATE_SCORE', array(
+        ':score'  => $new,
+        ':id_plat'=> $id_plat,
+        ':pseudo' => $pseudo
+      ));
       // static::showScores($id_plat); //-> Not readable
       return($res);
     }
 
     public static function deletePilePleine($index_closest, $id_card){
-      $sql_delete_pile='DELETE FROM `etre_dans` WHERE Id_Pile='.$index_closest.'';
-      $sql_delete_pile=DatabasePDO::getCurrentPDO()->query($sql_delete_pile);
-      $sql_add_pile='INSERT INTO etre_dans (`Id_Pile`, `Id_Carte`) VALUES ('.$index_closest.', '.$id_card.')';
-      $sql_add_pile=DatabasePDO::getCurrentPDO()->query($sql_add_pile);
+      static::exec_sql('GAME_EMPTY_PILE', array(
+        ':id_pile' => $index_closest
+      ));
+      $sql_add_pile = static::exec_sql('GAME_FILL_PILE', array(
+        ':id_pile' => $index_closest,
+        ':id_card' => $id_card
+      ));
     }
 
     public static function indexOfClosest($selectedCard, $tabMaxPile,$id_plat, $array_id_pile){
@@ -342,10 +346,10 @@
         $res=-1;
       }
       else{
-        $sql='SELECT etre_dans.Id_Pile FROM etre_dans LEFT JOIN Pile ON etre_dans.Id_Pile=Pile.Id_Pile WHERE id_carte='.$aux.' AND Id_Plat='.$id_plat;
-        $sql=DatabasePDO::getCurrentPDO()->prepare($sql);
-        $sql->execute();
-        $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
+        $res_req = static::exec_sql('GAME_SELECT_PILE', array(
+          ':id_card' => $aux,
+          ':id_plat' => $id_plat
+        ));
         $res=$res_req->Id_Pile;
       }
       return($res);
@@ -368,8 +372,10 @@
 
     public static function addCardToPile($selectedCard, $indexPile, $numberInPile, $id_plat, $pseudo){
       if($numberInPile<5){
-        $sql='INSERT INTO `etre_dans` (`Id_Pile`, `Id_Carte`) VALUES ('.$indexPile.', '.$selectedCard[0].')';
-        $sql=DatabasePDO::getCurrentPDO()->query($sql);
+        static::exec_sql('GAME_FILL_PILE', array(
+          ':id_pile' => $indexPile,
+          ':id_card' => $selectedCard[0]
+        ));
       }
       else{
         $somme=0;
@@ -377,28 +383,35 @@
         $numberInPile=0;
         $array_cards_pile = Game::getCardsOfPile($indexPile);
         $numberInPile = Game::numberOfCardsInPile($indexPile);
-        $sql_delete_piles='DELETE FROM `etre_dans` WHERE Id_Pile='.$indexPile.'';
-        $sql_delete_piles=DatabasePDO::getCurrentPDO()->query($sql_delete_piles);
-        $sql='INSERT INTO `etre_dans` (`Id_Pile`, `Id_Carte`) VALUES ('.$indexPile.', '.$selectedCard[0].')';
-        $sql=DatabasePDO::getCurrentPDO()->query($sql);
+        $sql_delete_piles = static::exec_sql('GAME_EMPTY_PILE', array(
+          ':id_pile' => $indexPile
+        ));
+        static::exec_sql('GAME_FILL_PILE', array(
+          ':id_pile' => $indexPile,
+          ':id_card' => $selectedCard[0]
+        ));
         for($i=0;$i<$numberInPile;$i++){
-          $sql='SELECT Poids FROM Carte WHERE Id_Carte='.$array_cards_pile[$i];
-          $sql=DatabasePDO::getCurrentPDO()->query($sql);
-          $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
+          $res_req = static::exec_sql('GAME_GET_CARD_WEIGHT', array(
+            ':id_card' => $array_cards_pile[$i]
+          ));
           $somme+=$res_req->Poids;
         }
-        $sql_get_score='SELECT Val_Score FROM SCORE WHERE Pseudo = "'.$pseudo.'" AND Id_Plat ='.$id_plat;
-        $sql_get_score=DatabasePDO::getCurrentPDO()->prepare($sql_get_score);
-        $sql_get_score->execute();
-        $prec_score = $sql_get_score->fetch(DatabasePDO::FETCH_OBJ);
+        $prec_score = static::exec_sql('USER_GET_SCORE', array(
+          ':pseudo' => $pseudo,
+          ':id_plat'=> $id_plat
+        ));
         $new = $somme+ $prec_score->Val_Score;
-        $sql_score='UPDATE score SET Val_Score = '.$new.' WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
+        static::exec_sql('USER_UPDATE_SCORE', array(
+          ':score'  => $new,
+          ':id_plat'=> $id_plat,
+          ':pseudo' => $pseudo
+        ));
         static::setLog($id_plat,'<div class="row"><p class="log">'.$pseudo.' vient de se prendre <span class="badge">'.$somme.'</span> points dans la vue!</p></div><hr>');
-        static::showScores($id_plat);
-        $sql_score=DatabasePDO::getCurrentPDO()->query($sql_score);
+        // static::showScores($id_plat);
       }
     }
 
+    //SQL REFACTOR mystery
     public static function suppressCardsHand($selectedCard, $id_plat,$pseudo){
       $sql_delete_selected='UPDATE main SET Id_Selected_Card = -1 WHERE Id_Plat = '.$id_plat.' AND Pseudo ='.$pseudo.'';
       $sql_delete_selected=DatabasePDO::getCurrentPDO()->query($sql_delete_selected);
@@ -417,8 +430,7 @@
     }
 
     public static function numeroInHand($id_plat, $selectedCard){
-      $sql_req=DatabasePDO::getCurrentPDO()->prepare('SELECT * FROM main WHERE Id_Plat=:id_plat && Id_Selected_Card=:selected');
-      $sql_req->execute(array(
+      $sql_req=static::exec_sql_noFetch('USER_GET_HAND',array(
         ':id_plat' => $id_plat,
         ':selected' => $selectedCard
       ));
@@ -440,8 +452,7 @@
     }
 
     public static function numberInHand($pseudo,$id_plat){
-      $sql_req=DatabasePDO::getCurrentPDO()->prepare('SELECT * FROM main WHERE Id_Plat=:id_plat && Pseudo=:pseudo');
-      $sql_req->execute(array(
+      $sql_req=static::exec_sql_noFetch('USER_GET_HAND_BY_PSEUDO',array(
         ':id_plat' => $id_plat,
         ':pseudo' => $pseudo
       ));
@@ -459,8 +470,7 @@
     }
 
     public static function showScores($id_plat){
-      $sql=DatabasePDO::getCurrentPDO()->prepare('SELECT Pseudo, Val_Score FROM Score WHERE Id_plat=:id_plat ORDER BY Val_score');
-      $sql->execute(array(
+      $sql=static::exec_sql_noFetch('USER_SHOW_SCORE',array(
         ':id_plat' => $id_plat
       ));
       $res=$sql->fetchAll(DatabasePDO::FETCH_NUM);
@@ -487,13 +497,11 @@
         </div>
       </div>
       <hr>';
-      //TODO : display point in a table
       static::setLog($id_plat, $html_content);
     }
 
     public static function getScore($pseudo, $id_plat){
-      $sql_get_score=DatabasePDO::getCurrentPDO()->prepare('SELECT Val_Score FROM SCORE WHERE Pseudo=:pseudo AND Id_Plat=:id_plat');
-      $sql_get_score->execute(array(
+      $sql_get_score=static::exec_sql_noFetch('USER_GET_SCORE',array(
         ':pseudo' => $pseudo,
         ':id_plat'=> $id_plat
       ));
@@ -526,10 +534,9 @@
     }
 
     public static function getNomPlat($id_plat){
-      $sql_get_nom='SELECT Nom FROM Plateau WHERE Id_Plat = '.$id_plat;
-      $sql_get_nom=DatabasePDO::getCurrentPDO()->prepare($sql_get_nom);
-      $sql_get_nom->execute();
-      $res=$sql_get_nom->fetch(DatabasePDO::FETCH_OBJ);
+      $res = static::exec_sql('GAME_GET_NAME', array(
+        ':id_plat' => $id_plat
+      ));
       return($res->Nom);
     }
 
@@ -567,8 +574,7 @@
     }
 
     public static function showFinalScores($id_plat){
-      $sql=DatabasePDO::getCurrentPDO()->prepare('SELECT Pseudo, Val_Score FROM Score WHERE Id_plat=:id_plat ORDER BY Val_score');
-      $sql->execute(array(
+      $sql=static::exec_sql_noFetch('USER_SHOW_SCORE',array(
         ':id_plat' => $id_plat
       ));
       $res=$sql->fetchAll(DatabasePDO::FETCH_NUM);
@@ -585,47 +591,57 @@
 
     public static function deleteEtreDans($array_id_pile){
       for($i=0;$i<4;$i++){
-        $sql_delete_etre_dans='DELETE FROM `etre_dans` WHERE Id_Pile='.$array_id_pile[$i].'';
-        $sql_delete_etre_dans=DatabasePDO::getCurrentPDO()->query($sql_delete_etre_dans);
+        static::exec_sql('GAME_EMPTY_PILE', array(
+          ':id_pile' => $array_id_pile[$i]
+        ));
       }
     }
 
     public static function deletePile($array_id_pile){
       for($i=0;$i<4;$i++){
-        $sql_delete_pile='DELETE FROM `Pile` WHERE Id_Pile='.$array_id_pile[$i].'';
-        $sql_delete_pile=DatabasePDO::getCurrentPDO()->query($sql_delete_pile);
+        static::exec_sql('GAME_DELETE_PILE', array(
+          ':id_pile' => $array_id_pile[$i]
+        ));
       }
     }
 
     public static function deleteMain($id_plat, $array_id_players, $nb_joueurs){
       for($k=0;$k<$nb_joueurs;$k++){
-        $sql_delete_main='DELETE FROM `Main` WHERE Id_Plat='.$id_plat.' AND Pseudo = "'.$array_id_players[$k].'"';
-        $sql_delete_main=DatabasePDO::getCurrentPDO()->query($sql_delete_main);
+        static::exec_sql('GAME_DELETE_HAND', array(
+          ':id_plat' => $id_plat,
+          ':pseudo'  => $array_id_players[$k]
+        ));
       }
     }
 
     public static function deleteJouer($id_plat, $array_id_players, $nb_joueurs){
       for($k=0;$k<$nb_joueurs;$k++){
-        $sql_delete_jouer='DELETE FROM `Jouer` WHERE Id_Plat='.$id_plat.' AND Pseudo = "'.$array_id_players[$k].'"';
-        $sql_delete_jouer=DatabasePDO::getCurrentPDO()->query($sql_delete_jouer);
+        static::exec_sql('GAME_EMPTY_PLAT', array(
+          ':id_plat' => $id_plat,
+          ':pseudo'  => $array_id_players[$k]
+        ));
       }
     }
 
     public static function deleteScore($id_plat, $array_id_players, $nb_joueurs){
       for($k=0;$k<$nb_joueurs;$k++){
-        $sql_delete_score='DELETE FROM `Score` WHERE Id_Plat='.$id_plat.' AND Pseudo = "'.$array_id_players[$k].'"';
-        $sql_delete_score=DatabasePDO::getCurrentPDO()->query($sql_delete_score);
+        static::exec_sql('GAME_DELETE_SCORE', array(
+          ':id_plat' => $id_plat,
+          ':pseudo'  => $array_id_players[$k]
+        ));
       }
     }
 
     public static function deleteLog($id_plat){
-      $sql_delete_log='DELETE FROM `Log` WHERE Id_Plat='.$id_plat;
-      $sql_delete_log=DatabasePDO::getCurrentPDO()->query($sql_delete_log);
+      static::exec_sql('GAME_DELETE_LOG', array(
+        ':id_plat' => $id_plat
+      ));
     }
 
     public static function deletePlateau($id_plat){
-      $sql_delete_plateau='DELETE FROM `Plateau` WHERE Id_Plat='.$id_plat;
-      $sql_delete_plateau=DatabasePDO::getCurrentPDO()->query($sql_delete_plateau);
+      static::exec_sql('CLOSE_GAME', array(
+        ':id_plat' => $id_plat
+      ));
     }
 
     public static function deleteAll($id_plat, $array_id_pile, $array_id_players, $nb_joueurs){
