@@ -638,6 +638,52 @@
       Game::deletePlateau($id_plat);
     }
 
-  }
+    public static function getSudo($id_plat){
+      $sql_sudo='SELECT Sudo FROM Plateau WHERE Id_Plat='.$id_plat;
+      $sql_sudo=DatabasePDO::getCurrentPDO()->prepare($sql_sudo);
+      $sql_sudo->execute();
+      $res_req=$sql_sudo->fetch(DatabasePDO::FETCH_OBJ);
+      return($res_req->Sudo);
+    }
+
+    public static function activationKonamiCode($pseudo, $id_plat, $string){
+      $test = Game::searchKonamiCode($id_plat);
+      if($test==-1){
+        $code= Game::checkingKonamiCode($string)
+        if($code==0){
+          $id_main = getIdMain($id_plat, $pseudo);
+          $sql_update_code='UPDATE Plateau SET KonamiCode = '.$id_main.' WHERE Id_Plat = '.$id_plat;
+          $sql_update_code=DatabasePDO::getCurrentPDO()->query($sql_update_code);
+          $sql_update_cheater='UPDATE Plateau SET Sudo ="'.$pseudo.'" WHERE Id_Plat = '.$id_plat;
+          $sql_update_cheater=DatabasePDO::getCurrentPDO()->query($sql_update_cheater);
+          return(0);
+        }
+        else{
+          return(1);
+        }
+      }
+      else{
+      return(2);
+      }
+    }
+
+    public static function searchKonamiCode($id_plat){
+      $sql_check_code='SELECT KonamiCode FROM Plateau WHERE Id_Plat='.$id_plat;
+      $sql_check_code=DatabasePDO::getCurrentPDO()->prepare($sql_check_code);
+      $sql_check_code->execute();
+      $res_req=$sql_check_code->fetch(DatabasePDO::FETCH_OBJ);
+      return($res_req->KonamiCode);
+    }
+
+    public static function checkingKonamiCode($string){
+      if($string = "Make Londor whole..."){
+        return (0);
+      }
+      else{
+        return (-1);
+      }
+    }
+
+   }
     require_once('sql/Game.sql.php');
  ?>
