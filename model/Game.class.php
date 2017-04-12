@@ -240,9 +240,9 @@
 
     public static function getPilesId($id_plat){
       $res=[];
-      $sql="SELECT Id_Pile FROM Pile WHERE id_plat='.$id_plat.'";
-      $sql=DatabasePDO::getCurrentPDO()->prepare($sql);
-      $sql->execute();
+      $sql=static::exec_sql_noFetch('GAME_GET_PILE',array(
+        ':id_plat' => $id_plat
+      ));
       $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
       if(!empty($res_req)){
         $res[0]=$res_req->Id_Pile;
@@ -260,9 +260,9 @@
 
     public static function getCardsOfPile($id_pile){
       $res=[];
-      $sql="SELECT Id_Carte FROM etre_dans WHERE id_pile='".$id_pile."'";
-      $sql=DatabasePDO::getCurrentPDO()->prepare($sql);
-      $sql->execute();
+      $sql=static::exec_sql_noFetch('GAME_SELECT_CARD_IN_PILE',array(
+        ':id_pile' => $id_pile
+      ));
       $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
       $i=0;
       while(!empty($res_req)){
