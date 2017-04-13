@@ -230,7 +230,8 @@
        // TODO
        // TODO
        // TODO
-       $codeWritten = ($request->read('code'));
+       $codeWritten = ($request->read('KonamiCode'));
+       var_dump($codeWritten);
        $resultatCode = Game::activateKonamiCode($pseudo,$id_plat,$codeWritten);
        $existing = Game::searchKonamiCode($id_plat);
        if($resultatCode==1){
