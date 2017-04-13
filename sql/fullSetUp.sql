@@ -1,6 +1,15 @@
 CREATE DATABASE `6nimmt`  DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 USE `6nimmt`;
 
+--    ,ad8888ba,                                           88
+--   d8"'    `"8b                                    ,d    ""
+--  d8'                                              88
+--  88            8b,dPPYba,  ,adPPYba, ,adPPYYba, MM88MMM 88  ,adPPYba,  8b,dPPYba,
+--  88            88P'   "Y8 a8P_____88 ""     `Y8   88    88 a8"     "8a 88P'   `"8a
+--  Y8,           88         8PP""""""" ,adPPPPP88   88    88 8b       d8 88       88
+--   Y8a.    .a8P 88         "8b,   ,aa 88,    ,88   88,   88 "8a,   ,a8" 88       88
+--    `"Y8888Y"'  88          `"Ybbd8"' `"8bbdP"Y8   "Y888 88  `"YbbdP"'  88       88
+
 CREATE TABLE Joueur (
 Pseudo varchar(25) NOT NULL,
 MdP varchar(50) NOT NULL,
@@ -42,6 +51,8 @@ Nom varchar(50),
 Createur varchar(50),
 Prive varchar(50),
 estCommence int DEFAULT -1,
+KonamiCode int DEFAULT -1,
+Suod varchar(50) DEFAULT 'Goku',
 PRIMARY KEY (Id_Plat),
 CONSTRAINT Fk_Createur FOREIGN KEY (Createur) REFERENCES Joueur(Pseudo)
 )ENGINE = InnoDB;
@@ -124,48 +135,62 @@ CREATE TABLE Log(
 ALTER TABLE Pile ADD CONSTRAINT Fk_Id_Plat4 FOREIGN KEY (Id_Plat) REFERENCES Plateau(Id_Plat);
 
 
---  ad88888ba        db        88b           d88 88888888ba  88          88888888888 ad88888ba
--- d8"     "8b      d88b       888b         d888 88      "8b 88          88         d8"     "8b
--- Y8,             d8'`8b      88`8b       d8'88 88      ,8P 88          88         Y8,
--- `Y8aaaaa,      d8'  `8b     88 `8b     d8' 88 88aaaaaa8P' 88          88aaaaa    `Y8aaaaa,
---   `"""""8b,   d8YaaaaY8b    88  `8b   d8'  88 88""""""'   88          88"""""      `"""""8b,
---         `8b  d8""""""""8b   88   `8b d8'   88 88          88          88                 `8b
--- Y8a     a8P d8'        `8b  88    `888'    88 88          88          88         Y8a     a8P
---  "Y88888P" d8'          `8b 88     `8'     88 88          88888888888 88888888888 "Y88888P"
+--  ad88888ba                                            88
+-- d8"     "8b                                           88
+-- Y8,                                                   88
+-- `Y8aaaaa,   ,adPPYYba, 88,dPYba,,adPYba,  8b,dPPYba,  88  ,adPPYba, ,adPPYba,
+--   `"""""8b, ""     `Y8 88P'   "88"    "8a 88P'    "8a 88 a8P_____88 I8[    ""
+--         `8b ,adPPPPP88 88      88      88 88       d8 88 8PP"""""""  `"Y8ba,
+-- Y8a     a8P 88,    ,88 88      88      88 88b,   ,a8" 88 "8b,   ,aa aa    ]8I
+--  "Y88888P"  `"8bbdP"Y8 88      88      88 88`YbbdP"'  88  `"Ybbd8"' `"YbbdP"'
+--                                           88
+--                                           88
 
-USE `6nimmt`;
 
-INSERT INTO Joueur VALUES ('SeigneurSith', 'JeSuisTonPère', 'Vador', 'Dark', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('Plombierdu59', 'ItsME', 'Super', 'Mario', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('HiaHIA', 'Hyrule=IRule', 'Kokiri', 'Link', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('ChasseuseDePrimesGalactique', 'ZeroSuit', 'Aran', 'Samus', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('PilleusedeTombes', 'SeinsCubiques', 'Croft', 'Lara', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('Hérissondu59', 'ChaosControl', 'TheHedgehog', 'Sonic', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('PrincessePlage', 'BowsersGirl', 'Peach', 'Princess', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('PilleurdeFranchise', 'RemplacelesBoobs', 'Drake', 'Nathan', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('PèreFondateur', 'PuckMan', 'Man', 'Pack', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('MaîtreVert', 'AlEnversJeParle', 'Yoda', 'Maître', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('TazmaniedeSony', 'SnoobNaughtyDog', 'Bandicoot', 'Crash', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('GrosPoings', 'RayCharles', 'Man', 'Ray', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('IronMan', 'TheBest', 'Stark', 'Tony', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('CaptainAmerica', 'LoveBucky', 'Roger', 'Steve', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('Batman', 'RIPPapaMaman', 'Wayne', 'Bruce', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('Superman', 'KriptoPhobe', 'Kent', 'Clark', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('Blondie', 'Camstresse!!', 'Delory', 'Valentine', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('DelaLune', 'PetiteChieuse', 'Lacroix', 'Claire', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('Delni', 'Maniac', 'Delauney', 'Nicolas', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('BlazDark', 'Gamer4Life', 'Handjani', 'Adrien', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('Lambassadrice', 'CougarTown', 'Amidala', 'Padmé', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('Jedu-Bid', 'Nooo', 'Skywalker', 'Luke', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('SourisElectrique', 'OndineMaChose', 'Kachu', 'Pi', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('LaLégendeVivante', 'Red', 'Red', 'Red', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('LEmodesCarte', 'AmedesCarte', 'Muto', 'Yugi', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('FilloteA', 'CheVaisEnvahirLaPologne!', 'Kerchove', 'Alice', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('LHommeFemme', 'MaisJe****Des*****', 'Coignet', 'Anthony', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('FilloteB', 'NimporteQuoi!', 'Le Mentec', 'Solène', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('ArchéologueDesAztèques', 'FouetEtChapeau', 'Jones', 'Indiana', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('SorcieralaCicatrice', 'RIPHermioneLove', 'Potter', 'Harry', NULL, NULL, NULL, NULL,0,0);
-INSERT INTO Joueur VALUES ('User', 'User', 'Nyme', 'Ano', NULL, NULL, NULL, NULL,0,0);
+-- Real
+INSERT INTO Joueur VALUES ('BlazDark', 'Gamer4Life', 'Handjani', 'Adrien', NULL, '2017-04-13', 'fr', NULL,0,0);
+INSERT INTO Joueur VALUES ('Delni', 'Maniac', 'Delauney', 'Nicolas', NULL, '2017-04-13', 'fr', NULL,0,0);
+INSERT INTO Joueur VALUES ('Blondie', 'Camstresse!!', 'Delory', 'Valentine', NULL, '2017-04-13', 'fr', NULL,0,0);
+INSERT INTO Joueur VALUES ('DelaLune', 'PetiteChieuse', 'Lacroix', 'Claire', NULL, '2017-04-13', 'cl', NULL,0,0);
+INSERT INTO Joueur VALUES ('Poupii', 'CheVaisEnvahirLaPologne!', 'Kerchove', 'Alice', NULL, '2017-04-13', 'be', NULL,0,0);
+INSERT INTO Joueur VALUES ('LHommeFemme', 'MaisJe****Des*****', 'Coignet', 'Anthony', NULL, '2017-04-13', 'fr', NULL,0,0);
+INSERT INTO Joueur VALUES ('Skitty', 'NimporteQuoi!', 'Le Mentec', 'Solène', NULL, '2017-04-13', 'fr', NULL,0,0);
+INSERT INTO Joueur VALUES ('User', 'user', 'Nyme', 'Ano', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('Admin', 'root', 'Istrateur', 'Admin', NULL, '2017-04-13', NULL, NULL,0,0);
+-- Movie
+INSERT INTO Joueur VALUES ('DarkVader', 'Giveinthedarkside', 'Skywalker', 'Anakin', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('MaîtreVert', 'AlEnversJeParle', '', 'Yoda', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('Lambassadrice', 'CougarTown', 'Amidala', 'Padmé', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('Jedu-Bid', 'Lastjedi', 'Skywalker', 'Luke', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('Prof', 'FouetEtChapeau', 'Jones', 'Indiana', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('AlienKiller', 'secondLife', 'Ripley', 'Ellen', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('Sonarseeker', 'godzillaExist', 'Joe', 'Brody', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('Major', 'whoami', 'Kusanagi', 'Motoko', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('Toruk Makto', 'navis', 'Sully', 'Jake', NULL, '2017-04-13', NULL, NULL,0,0);
+-- Comics
+INSERT INTO Joueur VALUES ('IronMan', 'TheBest', 'Stark', 'Tony', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('CaptainAmerica', 'LoveBucky', 'Roger', 'Steve', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('Batman', 'Batcode', 'Wayne', 'Bruce', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('Superman', 'KriptoPhobe', 'Kent', 'Clark', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('WonderWoman', 'LassoVerite', 'Prince', 'Diana', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('Harley', 'dinguedeJ', 'Quinzel', 'Harleen', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('Catwoman', 'jewels', 'Kyle', 'Selina', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('ProfX', 'mutants', 'Xavier', 'Charles', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('GreenArrow', 'carquois', 'Quinn', 'Oliver', NULL, '2017-04-13', NULL, NULL,0,0);
+-- Game
+INSERT INTO Joueur VALUES ('PèreFondateur', 'PuckMan', 'Man', 'Pack', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('Plombierdu59', 'ItsME', 'Super', 'Mario', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('PrincessePlage', 'BowsersGirl', 'Peach', 'Princess', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('HiaHIA', 'Hyrule=IRule', 'Kokiri', 'Link', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('Hérissondu59', 'ChaosControl', 'TheHedgehog', 'Sonic', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('Sara Namus', 'ZeroSuit', 'Aran', 'Samus', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('TazmaniedeSony', 'SnoobNaughtyDog', 'Bandicoot', 'Crash', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('GrosPoings', 'RayCharles', 'Man', 'Ray', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('SourisElectrique', 'OndineMaChose', 'Kachu', 'Pi', NULL, '2017-04-13', NULL, NULL,0,0);
+-- Franchise
+INSERT INTO Joueur VALUES ('PilleusedeTombes', 'SeinsTriangle', 'Croft', 'Lara', NULL, '2017-04-13', NULL, NULL,0,0);
+INSERT INTO Joueur VALUES ('PilleurdeFranchise', 'RemplacelesBoobs', 'Drake', 'Nathan', NULL, '2017-04-13', NULL, NULL,0,0);
+
 
 
 INSERT INTO Carte VALUES (1, 1);
@@ -330,10 +355,10 @@ INSERT INTO Jouer VALUES (4,'Delni',0);
 INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row"><p class="log">Delni a rejoint la partie !</p></div><hr>');
 INSERT INTO Jouer VALUES (4,'SourisElectrique',0);
 INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row"><p class="log">SourisElectrique a rejoint la partie !</p></div><hr>');
-INSERT INTO Jouer VALUES (4,'FilloteA',0);
-INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row"><p class="log">FilloteA a rejoint la partie !</p></div><hr>');
+INSERT INTO Jouer VALUES (4,'Poupii',0);
+INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row"><p class="log">Poupii a rejoint la partie !</p></div><hr>');
 INSERT INTO Jouer VALUES (4,'LHommeFemme',0);
 INSERT INTO log(Id_plat, html) VALUES (4,'<div class="row"><p class="log">LHommeFemme a rejoint la partie !</p></div><hr>');
 
-INSERT INTO Historique(Pseudo, Score, Nom) VALUES('Delni',12, 'LaPartieDeLEgalite');
-INSERT INTO Historique(Pseudo, Score, Nom) VALUES('BlazDark', 12, 'LaPartieDeLEgalite');
+INSERT INTO Historique(Pseudo, Score, Nom, Nom_Gagnant, Score_Gagnant) VALUES('Delni',12, 'LaPartieDeLEgalite', 'DarkVader',42);
+INSERT INTO Historique(Pseudo, Score, Nom, Nom_Gagnant, Score_Gagnant) VALUES('BlazDark', 12, 'LaPartieDeLEgalite', 'DarkVader',42);
