@@ -101,7 +101,7 @@
   <div class="col-xs-3">
     <div class="input-group">
       <span class="input-group-addon" id="basic-addon1"><i class="fa fa-empire"></i></span>
-      <input id="KonamiString" type="text" class="form-control" placeholder="66mph" aria-describedby="basic-addon1">
+      <input id="KonamiString" name="KonamiString" type="text" class="form-control" placeholder="88mph" aria-describedby="basic-addon1">
       <span class="input-group-btn">
         <input type="submit" class="btn" value="Go">
       </span>
