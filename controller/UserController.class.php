@@ -60,6 +60,7 @@
         if($id_plat!=NULL){
           $view= new PlaygroundView($this);
           $view->setIdPlat($id_plat);
+          $request->write('id_plat',$id_plat);
           Game::setLog($id_plat,'<div class="row text-center"><h2> -- Création de la partie --</h2></div>');
           Game::setLog($id_plat,'<div class="row text-center"><p>Créée par '.unserialize($_SESSION['user'])->get_id().'<p></div><hr>');
 

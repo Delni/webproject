@@ -95,6 +95,8 @@
     }
 
     public static function distributeCards($id_plat){
+    $sql_req='DELETE FROM `log` WHERE Id_Plat='.$id_plat.' and HTML LIKE "%progress%" ';
+    DatabasePDO::getCurrentPDO()->query($sql_req);
     $data=static::exec_sql('USER_START_GAME',array(
       ':id_plat'=>$id_plat
     ));
