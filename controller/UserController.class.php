@@ -220,20 +220,7 @@
                  ':id_plat'=>$id_plat,
                  ':pseudo'=>$pseudo
        ));
-       // TODO
-       // TODO
-       // TODO
-       // TODO
-       // TODO
-       // TODO il faut inscrire dans la request la string entrer dans le chp caché du code!!!
-       // TODO
-       // TODO
-       // TODO
-       // TODO
-       // TODO
        $codeWritten = ($request->read('KonamiString'));
-       var_dump($codeWritten);
-       var_dump('--------------'.$id_plat);
        $resultatCode = Game::activateKonamiCode($pseudo,$id_plat,$codeWritten);
        $existing = Game::searchKonamiCode($id_plat);
        if($resultatCode==1){
@@ -355,11 +342,14 @@
        else{
          $Sudo = Game::getSudo($id_plat);
          if($pseudo==$sudo){
-           // TODO
-           // TODO AFFICHER LE TEMPLATE DE WIN CHEATER
-           // TODO
+           $view= new EndofGameView($this);
+           $view->render($this);
+           echo'------VIROZUGBNORS-------';
          }
          else{
+           $view= new EndofGameView($this);
+           $view->render($this);
+           echo'------BONSOIR-------------';
            // TODO
            // TODO AFFICHER LE TEMPLATE DE LOSE CAR CHEATER
            // TODO
