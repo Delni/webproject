@@ -653,6 +653,7 @@
     }
 
     public static function activateKonamiCode($pseudo, $id_plat, $string){
+      var_dump($id_plat);
       $test = Game::searchKonamiCode($id_plat);
       if($test==-1){
         $code= Game::checkingKonamiCode($string);
@@ -674,10 +675,13 @@
     }
 
     public static function searchKonamiCode($id_plat){
+      var_dump($id_plat);
       $sql_check_code='SELECT KonamiCode FROM Plateau WHERE Id_Plat='.$id_plat;
       $sql_check_code=DatabasePDO::getCurrentPDO()->prepare($sql_check_code);
       $sql_check_code->execute();
+      var_dump($sql_check_code);
       $res_req=$sql_check_code->fetch(DatabasePDO::FETCH_OBJ);
+      var_dump($res_req);
       return($res_req->KonamiCode);
     }
 
