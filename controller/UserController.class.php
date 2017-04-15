@@ -222,8 +222,8 @@
        ));
        $codeWritten = ($request->read('KonamiString'));
        $resultatCode = Game::activateKonamiCode($pseudo,$id_plat,$codeWritten);
-       $existing = Game::searchKonamiCode($id_plat);
-       if($resultatCode==1){
+       //$existing = Game::searchKonamiCode($id_plat);
+       if($resultatCode==1 || $resultatCode==2){
          // TODO
          // TODO DOIT AFFICHER UN MSG POUR DIRE QUE LE CODE EST FAUX (msg moqueur?)
          // TODO
@@ -237,7 +237,23 @@
          $view->setPileCartes($array_pile);
          $view->render($this);
        }
-       else if($existing=-1){
+       else if($resultatCode==0){
+         $Sudo = Game::getSudo($id_plat);
+         if($pseudo==$sudo){
+           $view= new EndofGameView($this);
+           $view->render($this);
+           echo'------VIROZUGBNORS-------';
+         }
+         else{
+           $view= new EndofGameView($this);
+           $view->render($this);
+           echo'------BONSOIR-------------';
+           // TODO
+           // TODO AFFICHER LE TEMPLATE DE LOSE CAR CHEATER
+           // TODO
+         }
+       }
+       else{
          if(!empty($id_pre_selected)){
            if($id_pre_selected->Id_Selected_Card==-1){
              User::selectCard(unserialize($_SESSION['user'])->get_id(), $id_plat, $id_selected);
@@ -339,27 +355,16 @@
            $view->render($this);
          }
        }
-       else{
-         $Sudo = Game::getSudo($id_plat);
-         if($pseudo==$sudo){
-           $view= new EndofGameView($this);
-           $view->render($this);
-           echo'------VIROZUGBNORS-------';
-         }
-         else{
-           $view= new EndofGameView($this);
-           $view->render($this);
-           echo'------BONSOIR-------------';
-           // TODO
-           // TODO AFFICHER LE TEMPLATE DE LOSE CAR CHEATER
-           // TODO
-         }
-       }
      }
 
     // TODO :
     // Almost DONE Fin de la partie
     // DONE Historique
     // Javascript
+    // Cas d'égalité au niveau de l'Historique
+    // refactoring
+    // KonamiCode
+    // Mailing
+    // virer appartenir de la BdD
 
   }

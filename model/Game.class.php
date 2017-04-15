@@ -655,7 +655,9 @@
     }
 
     public static function activateKonamiCode($pseudo, $id_plat, $string){
-      var_dump($id_plat);
+      if($string==''){
+        return(-1);
+      }
       $test = Game::searchKonamiCode($id_plat);
       if($test==-1){
         $code= Game::checkingKonamiCode($string);
@@ -681,11 +683,16 @@
       $sql_check_code=DatabasePDO::getCurrentPDO()->prepare($sql_check_code);
       $sql_check_code->execute();
       $res_req=$sql_check_code->fetch(DatabasePDO::FETCH_OBJ);
-      return($res_req->KonamiCode);
+      if($res_req->KonamiCode==-1){
+        return(-1);
+      }
+      else{
+        return(0);
+      }
     }
 
     public static function checkingKonamiCode($string){
-      if($string = "Make Londor whole..."){
+      if($string == "MakeLondorwhole..."){
         return (0);
       }
       else{
