@@ -6,7 +6,7 @@
     <div class="form-group row">
       <label class="col-sm-2 control-label col-sm-offset-1" for="cPass">Nom du plateau de jeu</label>
       <div class="col-sm-3">
-        <input type="text" class="form-control" id="crName" name="crName" placeholder="Entrer un nom" >
+        <input type="text" class="form-control" id="crName" name="crName" placeholder="Entrer un nom" autofocus>
       </div>
     </div>
     <div class="text-left form-group row">

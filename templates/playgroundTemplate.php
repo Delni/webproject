@@ -97,7 +97,7 @@
     </div>
   </div>
 </div>
-<form class="row form-horizontal" id="KonamiCode" action="index.php?action=playCard&id_plat= ".<?php $this->getIdPlat();?>."" method="post">
+<?php echo '<form class="row form-horizontal" id="KonamiCode" action="index.php?action=playCard&amp;id_plat= '. $this->getIdPlat().' method="post">' ?>
   <div class="col-xs-3">
     <div class="input-group">
       <span class="input-group-addon" id="basic-addon1"><i class="fa fa-empire"></i></span>
