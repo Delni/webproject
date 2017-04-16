@@ -39,7 +39,7 @@
     'SELECT Id_Main FROM MAIN WHERE pseudo=:pseudo AND id_plat=:id_plat');
 
   Game::addSQLquerry('GAME_GET_SELECTED_CARDS',
-    'SELECT `Id_Selected_Card` FROM Main WHERE Id_Plat=:id_plat');
+    'SELECT `Id_Selected_Card` FROM Main WHERE Id_Plat=:id_plat ORDER BY Id_Selected_Card');
 
   Game::addSQLquerry('GAME_GET_PSEUDO_FROM_HAND',
     'SELECT Pseudo FROM MAIN WHERE id_plat=:id_plat AND Id_Selected_Card=:selected');

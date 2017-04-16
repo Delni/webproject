@@ -184,6 +184,19 @@
         return($res);
       }
 
+      public static function replace($array, $element, $elementtoAdd){
+        $edge = User::position($array,$element);
+        $res=array();
+        for($i=0;$i<$edge;$i++){
+          array_push($res,$array[$i]);
+        }
+        $res[$edge]=$elementtoAdd;
+        for($k=$edge+1;$k<count($array);$k++){
+          array_push($res,$array[$k]);
+        }
+        return($res);
+      }
+
   // SQL TO REFACTOR
     public static function playgame($id_plat, $pseudo){
       $array=[];
