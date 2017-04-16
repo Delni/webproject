@@ -277,7 +277,7 @@
                 Game::addCardToPile($array_selected_cards[$l],$index_closest,$numberInAimedPile, $id_plat, $array_id_players[$l]);
                 // Erase card with value $array[$l] and selectedCard
                 Game::resetSelected($id_plat, $array_id_players[$l]);
-                $maxOfPiles=User::suppr($maxOfPiles, $maxOfPiles[$index_tab]);
+                $maxOfPiles=User::replace($maxOfPiles, $maxOfPiles[$index_tab], $array_selected_cards[$l][0]);
               }
             }
             // Game::showScores($id_plat);
