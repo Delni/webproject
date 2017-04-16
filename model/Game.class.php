@@ -95,6 +95,9 @@
     }
 
     public static function distributeCards($id_plat){
+    $delete = static::exec_sql('GAME_DELETE_PROGRESS', array(
+      ':id_plat' => $id_plat
+    ));
     $data=static::exec_sql('USER_START_GAME',array(
       ':id_plat'=>$id_plat
     ));

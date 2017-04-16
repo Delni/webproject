@@ -1,4 +1,7 @@
 <?php
+  Game::addSQLquerry('GAME_DELETE_PROGRESS',
+    'DELETE FROM `log` WHERE Id_Plat=:id_plat and HTML LIKE "%progress%" ');
+
   Game::addSQLquerry('USER_START_GAME',
     'UPDATE plateau SET estCommence = 0 WHERE Id_Plat = :id_plat');
 
