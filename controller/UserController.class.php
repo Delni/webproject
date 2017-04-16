@@ -257,7 +257,6 @@
             //Game::minimizePiles($array_id_pile)
             $nb_joueurs=Game::getNbJoueurs($id_plat);
             for ($l=0;$l<$nb_joueurs->nb_joueurs;$l++){
-              var_dump('Index l : '.$l.' <--> Nb_joueurs'.$nb_joueurs->nb_joueurs);
               // Returns the number of the pile where the card is to be added
               $index_closest = Game::indexOfClosest($array_selected_cards[$l][0],$maxOfPiles, $id_plat, $array_id_pile);
               if($index_closest==-1){
