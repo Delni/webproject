@@ -38,7 +38,7 @@
       //$fourth_col = ($hist)? '' : '<td><div class="row"><a class="btn btn-success">Rejoindre</a><input class="form-control" type="password" placeholder="MdP" disabled="" /></div></td>';
       while(!empty($data)) {
         if($hist){
-          $status=($data->Nom_Gagnant == $id)? '<span class="label label-success">Victoire !</span>': '<span class="label label-warning">Défaite...</span>';
+          $status=($data->Score_Gagnant == $data->Score)? '<span class="label label-success">Victoire !</span>': '<span class="label label-warning">Défaite...</span>';
         } else {
           $placeholder=($data->prive==NULL)?'Pas de mot de passe':'Entrez le mot de passe';
           $isPrivate=($data->prive==NULL)?'disabled="true"':'required';

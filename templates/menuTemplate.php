@@ -67,6 +67,10 @@
         <audio id="listen">
           <source src="css/sounds/HeyListen.m4a" type="audio/mpeg">
         </audio>
+        <script type="text/javascript">
+          var vid = document.getElementById("listen");
+          vid.volume = 0.1;
+        </script>
         <h3>Kézako ?</h3>
         <div>Le jeu 6 qui ramasse provient du jeu <i>6 nimmt!</i>, jeu de cartes d'origine allemande.
         Le but de ce jeu est de finir la partie avec le <strong>moins</strong> de points possibles!</div>

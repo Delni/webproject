@@ -224,9 +224,6 @@
        $resultatCode = Game::activateKonamiCode($pseudo,$id_plat,$codeWritten);
        //$existing = Game::searchKonamiCode($id_plat);
        if($resultatCode==1 || $resultatCode==2){
-         // TODO
-         // TODO DOIT AFFICHER UN MSG POUR DIRE QUE LE CODE EST FAUX (msg moqueur?)
-         // TODO
          $view= new PlaygroundView($this);
          $view->setIdPlat($id_plat);
          $view->setOwnController($this);
