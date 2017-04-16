@@ -210,149 +210,7 @@
       $view->render($this);
     }
 
-  /*  public function playCard($request){
-       $id_plat=($request->read('id_plat'));
-       $all=true;
-       $id_selected=($request->read('id_card'));
-       $pseudo=unserialize($_SESSION['user'])->get_id();
-       // Gotta return all the selected cards
-       $id_pre_selected = User::exec_sql('USER_GET_SELECTED',array(
-                 ':id_plat'=>$id_plat,
-                 ':pseudo'=>$pseudo
-       ));
-       $codeWritten = ($request->read('KonamiString'));
-       $resultatCode = Game::activateKonamiCode($pseudo,$id_plat,$codeWritten);
-       //$existing = Game::searchKonamiCode($id_plat);
-       if($resultatCode==1 || $resultatCode==2){
-         $view= new PlaygroundView($this);
-         $view->setIdPlat($id_plat);
-         $view->setOwnController($this);
-         $pseudo=unserialize($_SESSION['user'])->get_id();
-         $array=User::playgame($id_plat,$pseudo);
-         $view->setListeCartes($array);
-         $array_pile=Game::lesPiles($id_plat);
-         $view->setPileCartes($array_pile);
-         $view->render($this);
-       }
-       else if($resultatCode==0){
-         $Sudo = Game::getSudo($id_plat);
-         if($pseudo==$sudo){
-           $view= new EndofGameView($this);
-           $view->render($this);
-           echo'------VIROZUGBNORS-------';
-         }
-         else{
-           $view= new EndofGameView($this);
-           $view->render($this);
-           echo'------BONSOIR-------------';
-           // TODO
-           // TODO AFFICHER LE TEMPLATE DE LOSE CAR CHEATER
-           // TODO
-         }
-       }
-       else{
-         if(!empty($id_pre_selected)){
-           if($id_pre_selected->Id_Selected_Card==-1){
-             User::selectCard(unserialize($_SESSION['user'])->get_id(), $id_plat, $id_selected);
-             Game::suppressCardsHand($id_selected,$id_plat,$pseudo);
-             $i=0;
-             $array_selected_cards=Game::allSelectedCards($id_plat);
-             $numb_joueurs = User::exec_sql('USER_GET_nbJOUEURS',array(
-                       ':id_plat'=>$id_plat
-                     ));
-             while($i<$numb_joueurs->nb_joueurs && $all){
-               if($array_selected_cards[$i][0]==-1){
-                 $all=false;
-               }
-               $i++;
-             }
-             if($all){
-               // Returns array with Id of Players according to sortedArray
-               $array_id_players = Game::getIdPlayers($array_selected_cards,$id_plat, $numb_joueurs->nb_joueurs);
-               $array_id_pile = Game::getPilesId($id_plat);
-               $maxOfPile=[];
-               for ($k=0;$k<4;$k++){
-                 $array_cards_pile=[];
-                 $array_cards_pile = Game::getCardsOfPile($array_id_pile[$k]);
-                 $numberInPile = Game::numberOfCardsInPile($array_id_pile[$k]);
-                 $maxOfPile[$k]=$array_cards_pile[count($array_cards_pile)-1];
-               }
-               //Game::minimizePiles($array_id_pile)
-               $nb_joueurs=Game::getNbJoueurs($id_plat);
-               for ($l=0;$l<$nb_joueurs->nb_joueurs;$l++){
-                 // Returns the number of the pile where the card is to be added
-                 $index_closest = Game::indexOfClosest($array_selected_cards[$l][0],$maxOfPile, $id_plat, $array_id_pile);
-                 if($index_closest==-1){
-                   $index_closest=Game::minimizePiles($array_id_pile, $id_plat, $pseudo);
-                   $index_tab = Game::relatedIndex($array_selected_cards[$l][0],$maxOfPile,4-$l);
-                   Game::deletePilePleine($index_closest,$id_selected);
-                   Game::resetSelected($id_plat, $array_id_players[$l]);
-                   $maxOfPiles=User::suppr($maxOfPile, $maxOfPile[$index_tab]);
-                 }
-                 else{
-                   // Returns the index of the pile where the card is to be added
-                   // According to $maxOfPile and not according to SQL
-                   $index_tab = Game::relatedIndex($array_selected_cards[$l][0],$maxOfPile,4-$l);
-                   // Beware : this function has to take care of the number of Cards
-                   // In each pile, and update scores if necessary
-                   $numberInAimedPile = Game::numberOfCardsInPile($index_closest);
-                   Game::addCardToPile($array_selected_cards[$l],$index_closest,$numberInAimedPile, $id_plat, $array_id_players[$l]);
-                   // Erase card with value $array[$l] and selectedCard
-                   Game::resetSelected($id_plat, $array_id_players[$l]);
-                   $maxOfPiles=User::suppr($maxOfPile, $maxOfPile[$index_tab]);
-                 }
-               }
-               // Game::showScores($id_plat);
-               //TODO : this test must be done before all ! If not, game try to reach unexisting objects and crash
-               $numberInHand=Game::numberInHand($pseudo,$id_plat);
-               if($numberInHand==0){
-                 // TODO TEST addHistorique
-                 Game::addHistorique($id_plat,$array_id_players, $numb_joueurs->nb_joueurs);
-                 // TODO showFinalScores ou TEMPLATE
-                 $winnerTable=Game::showFinalScores($id_plat);
-                 // TODO TEST deleteAll
-                 Game::deleteAll($id_plat,$array_id_pile, $array_id_players, $numb_joueurs->nb_joueurs);
-                 //TODO Template win
-                 $view= new EndofGameView($this);
-                 $view->setArg('winning_table',$winnerTable);
-                 $view->render($this);
-               }
-               else{
-                 // TODO : handle the multi-select case
-                 $view= new PlaygroundView($this);
-                 $view->setIdPlat($id_plat);
-                 $view->setOwnController($this);
-                 $pseudo=unserialize($_SESSION['user'])->get_id();
-                 $array=User::playgame($id_plat,$pseudo);
-                 $view->setListeCartes($array);
-                 $array_pile=Game::lesPiles($id_plat);
-                 $view->setPileCartes($array_pile);
-                 $view->render($this);
-               }
-             }
-             else {
-               $view= new PlaygroundView($this);
-               $view->setIdPlat($id_plat);
-               $view->setOwnController($this);
-               $pseudo=unserialize($_SESSION['user'])->get_id();
-               $array=User::playgame($id_plat,$pseudo);
-               $view->setListeCartes($array);
-               $array_pile=Game::lesPiles($id_plat);
-               $view->setPileCartes($array_pile);
-               $view->render($this);
-             }
-           }
-         }
-         else{
-           //winnerTable has to be defined thx to historique and not score here, cause scores have been deleted
-           $view= new EndofGameView($this);
-           if(isset($winnerTable)) {
-             $view->setArg('winning_table',$winnerTable);
-           }
-           $view->render($this);
-         }
-       }
-     }*/
+
     // TODO : game in itself
 
     // TODO : if game is ended? playCard do nothing and call winning template.
@@ -399,19 +257,15 @@
             //Game::minimizePiles($array_id_pile)
             $nb_joueurs=Game::getNbJoueurs($id_plat);
             for ($l=0;$l<$nb_joueurs->nb_joueurs;$l++){
+              var_dump('Index l : '.$l.' <--> Nb_joueurs'.$nb_joueurs->nb_joueurs);
               // Returns the number of the pile where the card is to be added
-              var_dump($array_selected_cards[$l][0]);
               $index_closest = Game::indexOfClosest($array_selected_cards[$l][0],$maxOfPiles, $id_plat, $array_id_pile);
-              var_dump($index_closest);
               if($index_closest==-1){
                 $index_closest=Game::minimizePiles($array_id_pile, $id_plat, $pseudo);
                 $index_tab = Game::relatedIndex($array_selected_cards[$l][0],$maxOfPiles,4-$l);
-                var_dump($index_closest);
-                var_dump($index_tab);
                 Game::deletePilePleine($index_closest,$array_selected_cards[$l][0]);
                 Game::resetSelected($id_plat, $array_id_players[$l]);
                 $maxOfPiles=User::replace($maxOfPiles, $maxOfPiles[$index_tab],$array_selected_cards[$l][0]);
-                var_dump($maxOfPiles);
               }
               else{
                 // Returns the index of the pile where the card is to be added

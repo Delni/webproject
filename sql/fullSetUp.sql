@@ -77,12 +77,6 @@ CREATE TABLE Historique(
   CONSTRAINT Fk_Pseudo2 FOREIGN KEY (Pseudo) REFERENCES Joueur(Pseudo)
 )ENGINE = InnoDB;
 
-CREATE TABLE appartenir_(
-  Id_Main int,
-  Pseudo varchar(50),
-  PRIMARY KEY(Id_Main, Pseudo)
-)ENGINE = InnoDB;
-
 CREATE TABLE Main (
 Id_Main int NOT NULL AUTO_INCREMENT,
 Pseudo varchar(50),

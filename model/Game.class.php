@@ -325,6 +325,7 @@
     public static function indexOfClosest($selectedCard, $tabMaxPile,$id_plat, $array_id_pile){
       $aux=-1;
       $last=1500;
+      var_dump($tabMaxPile);
       for($i=0;$i<4;$i++){
         if($selectedCard>$tabMaxPile[$i]){
           $diff=$selectedCard-($tabMaxPile[$i]);
