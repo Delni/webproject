@@ -63,13 +63,6 @@
       }
     }
 
-    public function setLog($id_plat,$html_content){
-      $sql_req=DataBasePDO::getCurrentPDO()->prepare('INSERT INTO log(Id_plat, html) VALUES (:id,:html_content)');
-      $sql_req->bindParam(':id',$id_plat);
-      $sql_req->bindParam(':html_content',$html_content);
-      $sql_req->execute();
-    }
-
     public function lauchGame(){
       $sql_req='SELECT Createur, estCommence, COUNT(pseudo)AS nb_joueurs FROM Plateau LEFT JOIN jouer USING (Id_plat) WHERE id_plat='.$this->id_plat;
       $res_sql=DatabasePDO::getCurrentPDO()->query($sql_req);
