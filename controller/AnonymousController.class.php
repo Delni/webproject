@@ -194,14 +194,15 @@
             ':mdp'=>$mdp,
             'mail'=>$destinataire
           ));
+          $view->setArg('RecoverText','Un e-mail avec vos identifiants a été envoyé !');
         }
         else{
           $view = new ConnectionView($this);
-          $view->setArg('conErrorText','Une erreur a été détectée, veuillez reessayer');
+          $view->setArg('conErrorText','Une erreur a été détectée, veuillez reessayer ! Problème depuis la migration du serveur');
         }
+        var_dump($mail);
         $mail->SmtpClose();
         unset($mail);
-        $view->setArg('RecoverText','Un e-mail avec vos identifiants a été envoyé !');
         $view->render($this);
       }
       else {

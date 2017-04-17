@@ -31,7 +31,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-left">
         <li><a href="index.php">Accueil</a></li>
-        <li><a href="index.php?action=showGame">Jeux</a></li>
+        <li><a href="index.php?action=showGame">Toutes les parties</a></li>
         <li><a href="index.php?action=parties">Mes Parties</a></li>
         <li><a href="index.php?action=story">Historique</a></li>
         <li><a href="index.php?action=stats">Statistiques</a></li>
