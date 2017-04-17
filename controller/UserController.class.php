@@ -60,6 +60,7 @@
         if($id_plat!=NULL){
           $view= new PlaygroundView($this);
           $view->setIdPlat($id_plat);
+          $request->write('id_plat',$id_plat);
           Game::setLog($id_plat,'<div class="row text-center"><h2> -- Création de la partie --</h2></div>');
           Game::setLog($id_plat,'<div class="row text-center"><p>Créée par '.unserialize($_SESSION['user'])->get_id().'<p></div><hr>');
 
@@ -209,6 +210,7 @@
       $view->render($this);
     }
 
+
     // TODO : game in itself
 
     // TODO : if game is ended? playCard do nothing and call winning template.
@@ -245,40 +247,39 @@
             // Returns array with Id of Players according to sortedArray
             $array_id_players = Game::getIdPlayers($array_selected_cards,$id_plat, $numb_joueurs->nb_joueurs);
             $array_id_pile = Game::getPilesId($id_plat);
-            $maxOfPile=[];
+            $maxOfPiles=[];
             for ($k=0;$k<4;$k++){
               $array_cards_pile=[];
               $array_cards_pile = Game::getCardsOfPile($array_id_pile[$k]);
               $numberInPile = Game::numberOfCardsInPile($array_id_pile[$k]);
-              $maxOfPile[$k]=$array_cards_pile[count($array_cards_pile)-1];
+              $maxOfPiles[$k]=$array_cards_pile[count($array_cards_pile)-1];
             }
             //Game::minimizePiles($array_id_pile)
             $nb_joueurs=Game::getNbJoueurs($id_plat);
             for ($l=0;$l<$nb_joueurs->nb_joueurs;$l++){
               // Returns the number of the pile where the card is to be added
-              $index_closest = Game::indexOfClosest($array_selected_cards[$l][0],$maxOfPile, $id_plat, $array_id_pile);
+              $index_closest = Game::indexOfClosest($array_selected_cards[$l][0],$maxOfPiles, $id_plat, $array_id_pile);
               if($index_closest==-1){
                 $index_closest=Game::minimizePiles($array_id_pile, $id_plat, $pseudo);
-                $index_tab = Game::relatedIndex($array_selected_cards[$l][0],$maxOfPile,4-$l);
-                Game::deletePilePleine($index_closest,$id_selected);
+                $index_tab = Game::relatedIndex($array_selected_cards[$l][0],$maxOfPiles,4-$l);
+                Game::deletePilePleine($index_closest,$array_selected_cards[$l][0]);
                 Game::resetSelected($id_plat, $array_id_players[$l]);
-                $maxOfPiles=User::suppr($maxOfPile, $maxOfPile[$index_tab]);
+                $maxOfPiles=User::replace($maxOfPiles, $maxOfPiles[$index_tab],$array_selected_cards[$l][0]);
               }
               else{
                 // Returns the index of the pile where the card is to be added
-                // According to $maxOfPile and not according to SQL
-                $index_tab = Game::relatedIndex($array_selected_cards[$l][0],$maxOfPile,4-$l);
+                // According to $maxOfPiles and not according to SQL
+                $index_tab = Game::relatedIndex($array_selected_cards[$l][0],$maxOfPiles,4-$l);
                 // Beware : this function has to take care of the number of Cards
                 // In each pile, and update scores if necessary
                 $numberInAimedPile = Game::numberOfCardsInPile($index_closest);
                 Game::addCardToPile($array_selected_cards[$l],$index_closest,$numberInAimedPile, $id_plat, $array_id_players[$l]);
                 // Erase card with value $array[$l] and selectedCard
                 Game::resetSelected($id_plat, $array_id_players[$l]);
-                $maxOfPiles=User::suppr($maxOfPile, $maxOfPile[$index_tab]);
+                $maxOfPiles=User::replace($maxOfPiles, $maxOfPiles[$index_tab], $array_selected_cards[$l][0]);
               }
             }
             // Game::showScores($id_plat);
-            //TODO : this test must be done before all ! If not, game try to reach unexisting objects and crash
             $numberInHand=Game::numberInHand($pseudo,$id_plat);
             if($numberInHand==0){
               // TODO TEST addHistorique
@@ -304,7 +305,8 @@
               $view->setPileCartes($array_pile);
               $view->render($this);
             }
-          } else {
+          }
+          else {
             $view= new PlaygroundView($this);
             $view->setIdPlat($id_plat);
             $view->setOwnController($this);
@@ -328,8 +330,8 @@
     }
 
     // TODO :
-    // Almost DONE Fin de la partie
-    // DONE Historique
     // Javascript
+    // refactoring
+    // Mailing
 
   }
