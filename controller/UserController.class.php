@@ -330,13 +330,8 @@
     }
 
     // TODO :
-    // Almost DONE Fin de la partie
-    // DONE Historique
     // Javascript
-    // Cas d'égalité au niveau de l'Historique
     // refactoring
-    // KonamiCode
     // Mailing
-    // virer appartenir de la BdD
 
   }
