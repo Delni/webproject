@@ -75,12 +75,6 @@ CREATE TABLE Historique(
   CONSTRAINT Fk_Pseudo2 FOREIGN KEY (Pseudo) REFERENCES Joueur(Pseudo)
 )ENGINE = InnoDB;
 
-CREATE TABLE appartenir_(
-  Id_Main int,
-  Pseudo varchar(50),
-  PRIMARY KEY(Id_Main, Pseudo)
-)ENGINE = InnoDB;
-
 CREATE TABLE Main (
 Id_Main int NOT NULL AUTO_INCREMENT,
 Pseudo varchar(50),
@@ -298,7 +292,7 @@ INSERT INTO Carte VALUES (104, 1);
 
 INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des Devs', 'BlazDark', 'LesBoss', -1);
 INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des Blondes', 'Blondie', 'Codouches', -1);
-INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des 4', 'Delni', 'LeMini2', -1);
+INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des 4', 'Delni', '', -1);
 INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie Full NonCom', 'BlazDark', 'FullNonCom', -1);
 
 
