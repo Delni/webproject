@@ -47,7 +47,14 @@
     <div class="form-group">
         <label class="col-md-offset-3 col-md-2 control-label" for="InputFile">Image de profil</label>
       <div class="col-md-3">
-          <input type="file" class="form-control" id="InputFile">
+          <select id="InputFile" class="form-control col-md-2" name="InputFile">
+            <option value="">-- Default --</option>
+            <option value="1"> Avatar Fleur </option>
+            <option value="2"> Avatar Creeper </option>
+            <option value="3"> Avatar Invader </option>
+            <option value="4"> Avatar Target </option>
+            <option value="5"> Avatar Grenade </option>
+          </select>
       </div>
     </div>
     <div class="form-group">

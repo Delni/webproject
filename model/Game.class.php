@@ -7,7 +7,7 @@
     *
     *   Functions:
     *   @psw_entrance         (boolean)     -> Checks if the game has a password. If so, verifies if the given password is OK.
-    *   @setLog               (void)        -> ???
+    *   @setLog               (void)        -> Set the full html string into the Database
     *   @lesPiles             (array)       -> Returns an array containing the Id of every pile of the given game .
     *   @getNbJoueurs         (int)         -> Returns the number of players for the giving game .
     *   @distributeCards      (array)       -> Distributes cards in hands, in piles, sets scores for every player. Also returns array of array : array[x][0] = Player's Pseudo // array[x][1] = his cards in hand.
@@ -29,7 +29,7 @@
     *   @resetSelected        (void)        -> Resets selected card value in SQL to -1.
     *   @numeroInHand         (string)      -> Returns "Id_Carte x" with x being the place of the given selected card in the hand of the given player.
     *   @numberInHand         (int)         -> Returns the number of card in the hand of a given player for a given game.
-    *   @showScores           (void)        -> ???
+    *   @showScores           (void)        -> echo a html table with the rank, score and pseudo of every player
     *   @getScore             (string)      -> Returns the score of the given player according to the given game.
     *   @getWinner            (string)      -> Returns the winner of the given game.
     *   @getScoreWinner       (string)      -> Returns the winner of the given game's score.

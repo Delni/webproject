@@ -35,6 +35,9 @@
   User::addSQLquerry('USER_UPDATE_COUNTRY',
     'UPDATE joueur SET Pays = :pays WHERE Pseudo=:id');
 
+  User::addSQLquerry('USER_UPDATE_IMAGE',
+    'UPDATE joueur SET IdP = :img WHERE Pseudo=:id');
+
   User::addSQLquerry('USER_UPDATE_PASSWORD_BY_ID',
     'UPDATE joueur SET MdP = :mdp WHERE Pseudo=:id');
 

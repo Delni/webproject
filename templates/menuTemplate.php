@@ -30,13 +30,13 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-left">
-        <li><a href="index.php">Accueil</a></li>
-        <li><a href="index.php?action=showGame">Jeux</a></li>
-        <li><a href="index.php?action=parties">Mes Parties</a></li>
-        <li><a href="index.php?action=story">Historique</a></li>
-        <li><a href="index.php?action=stats">Statistiques</a></li>
-        <li><a href="index.php?action=creation">Créer une partie</a></li>
-        <li><a href="#" data-toggle="modal" data-target="#PopupHelp" onclick="play()">Règles du jeu</a></li>
+        <li><a href="index.php"><i class="fa fa-home"></i> Accueil</a></li>
+        <li><a href="index.php?action=showGame"><i class="fa fa-list fa-flip-horizontal"></i> Toutes les parties</a></li>
+        <li><a href="index.php?action=parties"><i class="fa fa-gamepad"></i> Mes Parties</a></li>
+        <li><a href="index.php?action=story"><i class="fa fa-trophy"></i> Historique</a></li>
+        <li><a href="index.php?action=stats"><i class="fa fa-pie-chart"></i> Statistiques</a></li>
+        <li><a href="index.php?action=creation"><i class="fa fa-flag-checkered"></i> Créer une partie</a></li>
+        <li><a href="#" data-toggle="modal" data-target="#PopupHelp" onclick="play()"><i class="fa fa-question-circle"></i> Règles du jeu</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li role="presentation" class="dropdown">
@@ -49,7 +49,7 @@
             <li><a href="index.php?action=logout"><i class="fa fa-power-off fa-fw"></i> Déconnexion</a></li>
           </ul>
         </li>
-        <li><a href="#" data-toggle="modal" data-target="#PopupCredits"><i class="fa fa-info-circle"></i></a></li>
+        <li><a href="#" data-toggle="modal" data-target="#PopupCredits"><i class="fa fa-creative-commons"></i></a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -67,6 +67,10 @@
         <audio id="listen">
           <source src="css/sounds/HeyListen.m4a" type="audio/mpeg">
         </audio>
+        <script type="text/javascript">
+          var vid = document.getElementById("listen");
+          vid.volume = 0.1;
+        </script>
         <h3>Kézako ?</h3>
         <div>Le jeu 6 qui ramasse provient du jeu <i>6 nimmt!</i>, jeu de cartes d'origine allemande.
         Le but de ce jeu est de finir la partie avec le <strong>moins</strong> de points possibles!</div>
@@ -103,7 +107,7 @@
         <button type="button" class="close" data-dismiss="modal">
         <span aria-hidden="true">&times;</span>
         <span class="sr-only">Fermer</span></button>
-        <h3 class="modal-title" id="myModalLabel">Crédits</h3>
+        <h3 class="modal-title" id="myModalLabel">Crédits <i class="fa fa-creative-commons"></i></h3>
       </div>
       <div class="modal-body">
         Application Web développée dans le cadre d'un projet transverse d'<abbr title="Ingénierie des Systèmes d'Information et de Communication">ISIC</abbr>

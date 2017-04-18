@@ -2,7 +2,7 @@
   <div class="head_user">
     <span class="user-icon__mask"></span>
     <div class="user-icon">
-      <i class="fa fa-user-o"></i>
+      <?php echo '<img src="css/img/avatars/avatar-'.$this->user->getX('IdP').'.png" alt="" style="width:110px; margin-left:7px;margin-top: -50px;">' ?> <i class="fa fa-user-o"></i>
     </div>
     <div class="user-pseudo">
       <p>Bonjour <?php echo $this->user->get_id(); ?> ! <a class="hasinfo" href="index.php?action=editProfile"><i class="fa fa-pencil"></i><span class="infobulle">Editer votre profil</span></a></p>

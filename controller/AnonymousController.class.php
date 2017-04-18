@@ -92,7 +92,7 @@
         $user= new User($login);
         if($user->getX('MDP')==$password){
           SessionStart();
-          $_SESSION['user']=serialize($user);
+          $_SESSION['user']=serialize($user); // unserialize($_SESSION['user'])
           $newRequest = new Request();
           $newRequest->write('controller','user');
           $newRequest->write('user',$user->get_id());
