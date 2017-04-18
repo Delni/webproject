@@ -155,15 +155,20 @@
         require "/PHPMailer/class.phpmailer.php";
         require '/PHPMailer/PHPMailerAutoload.php';
 
-        $mail = new PHPmailer();
+        $mail = new PHPmailer(true);
         $mail->IsSMTP();
-        $mail->SMTPAuth   = false;
+        $mail->SMTPDebug = 1;
+        $mail->SMTPAuth   = true;
+        $mail->SMTPSecure = 'ssl';
+        $mail->Host='smtp.gmail.com';
+        $mail->Port = 465;
         $mail->IsHTML(true);
-        $mail->Host='smtp.free.fr';
-        $mail->From='adrien.handjani@minesdedouai.fr';
+        $mail->Username = "6nimmt.projet.web@gmail.com";
+        $mail->Password = "PHPMAILERCESTNUL";
+        $mail->From='6nimmt.projet.web@gmail.com';
         $mail->FromName='6nimmt Contact';
         $mail->AddAddress($destinataire);
-        $mail->AddReplyTo('adrien.handjani@minesdedouai.fr');
+        $mail->AddReplyTo('6nimmt.projet.web@gmail.com');
         $mail->CharSet = 'UTF-8';
         $mail->Subject='Vos identifiants -- 6nimmt';
         $mail->Body='<html>';
