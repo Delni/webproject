@@ -69,12 +69,12 @@
           ':pays'=>$pays,
           ':id' =>$id
         ));
+      }
       if($img != NULL){
         $data=static::exec_sql('USER_UPDATE_IMAGE',array(
           ':img' => $img,
           ':id' =>$id
         ));
-      }
       }
     }
 
