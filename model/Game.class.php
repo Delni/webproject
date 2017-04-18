@@ -6,61 +6,208 @@
     *   Game model is used to handle every action which are necessary for the game
     *
     *   Functions:
-    *   @psw_entrance         (boolean)     -> Checks if the game has a password. If so, verifies if the given password is OK.
-    *   @setLog               (void)        -> ???
-    *   @lesPiles             (array)       -> Returns an array containing the Id of every pile of the given game .
+
+
+    *    ,ad8888ba,
+    *   d8"'    `"8b                ,d       ,d
+    *  d8'                          88       88
+    *  88              ,adPPYba,  MM88MMM  MM88MMM  ,adPPYba,  8b,dPPYba,  ,adPPYba,
+    *  88      88888  a8P_____88    88       88    a8P_____88  88P'   "Y8  I8[    ""
+    *  Y8,        88  8PP"""""""    88       88    8PP"""""""  88           `"Y8ba,
+    *   Y8a.    .a88  "8b,   ,aa    88,      88,   "8b,   ,aa  88          aa    ]8I
+    *    `"Y88888P"    `"Ybbd8"'    "Y888    "Y888  `"Ybbd8"'  88          `"YbbdP"'
+
+
     *   @getNbJoueurs         (int)         -> Returns the number of players for the giving game .
-    *   @distributeCards      (array)       -> Distributes cards in hands, in piles, sets scores for every player. Also returns array of array : array[x][0] = Player's Pseudo // array[x][1] = his cards in hand.
-    *   @estCommence          (int)         -> Returns -1 if the game isn't started yet, 0 if it has started and 1 if it is finished.
-    *   @userIsallowed        (boolean)     -> Returns true if the player is allowed to connect to this game, false if not.
     *   @getIdMain            (string)      -> Returns given player's hand id.
-    *   @allSelectedCards     (array)       -> Returns array filled with every player of the given game's card that has been selected.
     *   @getIdPlayers         (array)       -> Returns array filled with every player of the given game's id.
     *   @getPilesId           (array)       -> Returns array filled with every pile of the given game's id.
     *   @getCardsOfPile       (array)       -> Returns array filled with every pile of the given game's cards.
-    *   @numberOfCardsInPile  (int)         -> Returns the number of cards in the given pile.
-    *   @max_list             (int)         -> Returns max of the given list.
-    *   @minimizePiles        (int)         -> Returns id of the pile whose cards' sum of weight is the lowest
-    *   @deletePilePleine     (void)        -> Replace cards in given pile by the given card (first deleting previous cards, then adding the new one).
-    *   @indexOfClosest       (int)         -> Returns id of the pile where the selected card is supposed to go  (returns -1 if the card's value is lower than any pile's last card's value).
-    *   @relatedIndex         (int)         -> Returns index of the given pile within the array.
-    *   @addCardToPile        (void)        -> Adds every selected cardto the pile it's supposed to go. Takes care of : weither or not the pile if full (5 cards), weither or not the scores have to be changed (and does so if necessary).
-    *   @suppressCardsHand    (void)        -> Deletes the selected card in each player's hand.
-    *   @resetSelected        (void)        -> Resets selected card value in SQL to -1.
-    *   @numeroInHand         (string)      -> Returns "Id_Carte x" with x being the place of the given selected card in the hand of the given player.
-    *   @numberInHand         (int)         -> Returns the number of card in the hand of a given player for a given game.
-    *   @showScores           (void)        -> ???
     *   @getScore             (string)      -> Returns the score of the given player according to the given game.
     *   @getWinner            (string)      -> Returns the winner of the given game.
     *   @getScoreWinner       (string)      -> Returns the winner of the given game's score.
     *   @getNomPlat           (string)      -> Returns the name of the game.
-    *   @addHistorique        (void)        -> Adds the given game to the SQL table "historique" for every player in this game.
+    *   @lesPiles             (array)       -> Returns an array containing the Id of every pile of the given game.
+
+
+    * 8888888888888888
+    *        88                           ,d
+    *        88                           88
+    *        88   ,adPPYba,  ,adPPYba,  MM88MMM  ,adPPYba,  8b,dPPYba,  ,adPPYba,
+    *        88  a8P_____88  I8[    ""    88    a8P_____88  88P'   "Y8  I8[    ""
+    *        88  8PP"""""""   `"Y8ba,     88    8PP"""""""  88           `"Y8ba,
+    *        88  "8b,   ,aa  aa    ]8I    88,   "8b,   ,aa  88          aa    ]8I
+    *        88   `"Ybbd8"'  `"YbbdP"'    "Y888  `"Ybbd8"'  88          `"YbbdP"'
+
+
+    *   @psw_entrance         (boolean)     -> Checks if the game has a password. If so, verifies if the given password is OK.
+    *   @userIsallowed        (boolean)     -> Returns true if the player is allowed to connect to this game, false if not.
+    *   @estCommence          (int)         -> Returns -1 if the game isn't started yet, 0 if it has started and 1 if it is finished.
+
+
+    *   88b           d88  88
+    *   888b         d888  ""
+    *   88`8b       d8'88
+    *   88 `8b     d8' 88  88  ,adPPYba,   ,adPPYba,
+    *   88  `8b   d8'  88  88  I8[    ""  a8"     ""
+    *   88   `8b d8'   88  88   `"Y8ba,   8b
+    *   88    `888'    88  88  aa    ]8I  "8a,   ,aa
+    *   88     `8'     88  88  `"YbbdP"'   `"Ybbd8"'
+
+
+    *   @max_list             (int)         -> Returns max of the given list.
+    *   @setLog               (void)        -> ???
+
+
+    *   88888888ba   88
+    *   88      "8b  88
+    *   88      ,8P  88
+    *   88aaaaaa8P'  88  ,adPPYYba,  8b       d8
+    *   88""""""'    88  ""     `Y8  `8b     d8'
+    *   88           88  ,adPPPPP88   `8b   d8'
+    *   88           88  88,    ,88    `8b,d8'
+    *   88           88  `"8bbdP"Y8      Y88'
+    *                                    d8'
+    *                                   d8'
+
+
+    *   @indexOfClosest       (int)         -> Returns id of the pile where the selected card is supposed to go  (returns -1 if the card's value is lower than any pile's last card's value).
+    *   @minimizePiles        (int)         -> Returns id of the pile whose cards' sum of weight is the lowest
+    *   @numberInHand         (int)         -> Returns the number of card in the hand of a given player for a given game.
+    *   @numberOfCardsInPile  (int)         -> Returns the number of cards in the given pile.
+    *   @relatedIndex         (int)         -> Returns index of the given pile within the array.
+    *   @allSelectedCards     (array)       -> Returns array filled with every player of the given game's card that has been selected.
+    *   @distributeCards      (array)       -> Distributes cards in hands, in piles, sets scores for every player. Also returns array of array : array[x][0] = Player's Pseudo // array[x][1] = his cards in hand.
+    *   @numeroInHand         (string)      -> Returns "Id_Carte x" with x being the place of the given selected card in the hand of the given player.
     *   @showFinalScores      (string)      -> Give the table whith every and each final score
+    *   @addCardToPile        (void)        -> Adds every selected cardto the pile it's supposed to go. Takes care of : weither or not the pile if full (5 cards), weither or not the scores have to be changed (and does so if necessary).
+    *   @addHistorique        (void)        -> Adds the given game to the SQL table "historique" for every player in this game.
     *   @deleteEtreDans       (void)        -> Deletes every lignes in SQL table "etre_dans" related to the piles' id in the given array (assuming there are 4).
     *   @deletePile           (void)        -> Deletes every lignes in SQL table "piles" related to the piles' id in the given array (assuming there are 4).
     *   @deleteMain           (void)        -> Deletes every lignes in SQL table "main" related to the given game and players' id in the given array.
     *   @deleteJouer          (void)        -> Deletes every lignes in SQL table "jouer" related to the given game and players' id in the given array.
     *   @deleteScore          (void)        -> Deletes every lignes in SQL table "score" related to the given game and players' id in the given array.
-    *   @deletePlateau        (void)        -> Deletes the given game from SQL table "plateau.
+    *   @deleteLog            (void)        -> Deletes every lignes in SQL table "log" related to the given game.
+    *   @deletePlateau        (void)        -> Deletes the given game from SQL table "plateau".
     *   @deleteAll            (void)        -> Uses all 6 previous deleting functions to delete a game.
+    *   @deletePilePleine     (void)        -> Replace cards in given pile by the given card (first deleting previous cards, then adding the new one).
+    *   @resetSelected        (void)        -> Resets selected card value in SQL to -1.
+    *   @showScores           (void)        -> ???
+    *   @suppressCardsHand    (void)        -> Deletes the selected card in each player's hand.
     **/
 
-    public static function psw_entrance($psw,$id_plat){
-      $data=static::exec_sql('GAME_GET_PASSWORD',array(
-        ':id_plat' => $id_plat
+
+/*
+*    ,ad8888ba,
+*   d8"'    `"8b                ,d       ,d
+*  d8'                          88       88
+*  88              ,adPPYba,  MM88MMM  MM88MMM  ,adPPYba,  8b,dPPYba,  ,adPPYba,
+*  88      88888  a8P_____88    88       88    a8P_____88  88P'   "Y8  I8[    ""
+*  Y8,        88  8PP"""""""    88       88    8PP"""""""  88           `"Y8ba,
+*   Y8a.    .a88  "8b,   ,aa    88,      88,   "8b,   ,aa  88          aa    ]8I
+*    `"Y88888P"    `"Ybbd8"'    "Y888    "Y888  `"Ybbd8"'  88          `"YbbdP
+*/
+
+    public static function getNbJoueurs($id_plat){
+      $count_j=static::exec_sql('USER_GET_nbJOUEURS',array(
+        ':id_plat'=>$id_plat
       ));
-      if($data->Prive==NULL){
-        return true;
-      } else {
-        return ($psw==$data->Prive);
-      }
+      return($count_j);
     }
 
-    public static function setLog($id_plat,$html_content){
-      static::exec_sql('GAME_SET_LOG',array(
-        ':id_plat' => $id_plat,
-        ':html_content' => $html_content
+    public static function getIdMain($id_plat, $pseudo){
+        $res=static::exec_sql('GAME_GET_HAND_ID',array(
+          ':pseudo' => $pseudo,
+          ':id_plat'=> $id_plat
+        ));
+        return($res->Id_Main);
+    }
+
+    public static function getIdPlayers($sortedArray,$id_plat, $nb_joueurs){
+      $res=[];
+      for ($i=0;$i<$nb_joueurs;$i++){
+        $res_sql=static::exec_sql('GAME_GET_PSEUDO_FROM_HAND',array(
+          ':id_plat' => $id_plat,
+          ':selected'=> $sortedArray[$i][0]
+        ));
+        $res[$i]=$res_sql->Pseudo;
+      }
+      return($res);
+    }
+
+    public static function getPilesId($id_plat){
+      $res=[];
+      $sql=static::exec_sql_noFetch('GAME_GET_PILE',array(
+        ':id_plat' => $id_plat
       ));
+      $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
+      if(!empty($res_req)){
+        $res[0]=$res_req->Id_Pile;
+
+        for ($i=1;$i<4;$i++){
+          $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
+          $res[$i]=$res_req->Id_Pile;
+        }
+      }
+      else{
+        $res=-1;
+      }
+      return($res);
+    }
+
+    public static function getCardsOfPile($id_pile){
+      $res=[];
+      $sql=static::exec_sql_noFetch('GAME_SELECT_CARD_IN_PILE',array(
+        ':id_pile' => $id_pile
+      ));
+      $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
+      $i=0;
+      while(!empty($res_req)){
+        $res[$i]=$res_req->Id_Carte;
+        $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
+        $i++;
+      }
+      return($res);
+    }
+
+    public static function getScore($pseudo, $id_plat){
+      $sql_get_score=static::exec_sql_noFetch('USER_GET_SCORE',array(
+        ':pseudo' => $pseudo,
+        ':id_plat'=> $id_plat
+      ));
+      $res=$sql_get_score->fetch(DatabasePDO::FETCH_NUM);
+      return($res[0]);
+    }
+
+    public static function getWinner($id_plat,$array_id_players, $nb_joueurs){
+      $res=250;
+      for($i=0;$i<$nb_joueurs;$i++){
+        $score=Game::getScore($array_id_players[$i],$id_plat);
+        if($score<$res){
+          $res=$score;
+        }
+      }
+      return($res);
+    }
+
+    public static function getScoreWinner($id_plat,$array_id_players, $nb_joueurs){
+      $aux=250;
+      $res='';
+      for($i=0;$i<$nb_joueurs;$i++){
+        $score=Game::getScore($array_id_players[$i], $id_plat);
+        if($score<$aux){
+          $aux=$score;
+          $res=$array_id_players[$i];
+        }
+      }
+      return($res);
+    }
+
+    public static function getNomPlat($id_plat){
+      $res = static::exec_sql('GAME_GET_NAME', array(
+        ':id_plat' => $id_plat
+      ));
+      return($res->Nom);
     }
 
     public static function lesPiles($id_plat){
@@ -87,11 +234,204 @@
       return($array);
     }
 
-    public static function getNbJoueurs($id_plat){
-      $count_j=static::exec_sql('USER_GET_nbJOUEURS',array(
-        ':id_plat'=>$id_plat
+/*
+* 8888888888888888
+*        88                           ,d
+*        88                           88
+*        88   ,adPPYba,  ,adPPYba,  MM88MMM  ,adPPYba,  8b,dPPYba,  ,adPPYba,
+*        88  a8P_____88  I8[    ""    88    a8P_____88  88P'   "Y8  I8[    ""
+*        88  8PP"""""""   `"Y8ba,     88    8PP"""""""  88           `"Y8ba,
+*        88  "8b,   ,aa  aa    ]8I    88,   "8b,   ,aa  88          aa    ]8I
+*        88   `"Ybbd8"'  `"YbbdP"'    "Y888  `"Ybbd8"'  88          `"YbbdP"'
+*/
+
+    public static function psw_entrance($psw,$id_plat){
+      $data=static::exec_sql('GAME_GET_PASSWORD',array(
+        ':id_plat' => $id_plat
       ));
-      return($count_j);
+      if($data->Prive==NULL){
+        return true;
+      } else {
+        return ($psw==$data->Prive);
+      }
+    }
+
+    public static function userIsallowed($login,$id_plat){
+      $data=static::exec_sql('GAME_IS_OPEN',array(
+        ':id_plat' => $id_plat
+      ));
+      $data2=static::exec_sql('GAME_GET_PSEUDO_FROM_PSEUDO&PLAT',array(
+        ':pseudo' => $login,
+        ':id_plat'=> $id_plat
+      ));
+      if(!empty($data2)){
+        return true;
+      }
+      else{
+        if($data->estCommence==-1){
+          if($data->nb_joueurs<10){
+            static::exec_sql('GAME_INSERT_NEW_PLAYER',array(
+              ':plat' => $id_plat,
+              ':joueur' => $login
+            ));
+            static::setLog($id_plat,'<div class="row"><p class="log">'.$login.' a rejoint la partie !</p></div><hr>');
+            return(true);
+          }
+        }
+      else {
+        return(false);
+        }
+      }
+    }
+
+    public static function estCommence($id_plat){
+      $res=static::exec_sql('GAME_GET_STATUS',array(
+        ':id_plat' => $id_plat
+      ));
+      return ($res->estCommence);
+    }
+
+    /*
+    *   88b           d88  88
+    *   888b         d888  ""
+    *   88`8b       d8'88
+    *   88 `8b     d8' 88  88  ,adPPYba,   ,adPPYba,
+    *   88  `8b   d8'  88  88  I8[    ""  a8"     ""
+    *   88   `8b d8'   88  88   `"Y8ba,   8b
+    *   88    `888'    88  88  aa    ]8I  "8a,   ,aa
+    *   88     `8'     88  88  `"YbbdP"'   `"Ybbd8"'
+    */
+
+    public static function max_list($array, $nbOfCards){
+      $res=0;
+      for($i=0;$i<$nbOfCards;$i++){
+        if($array[$i]>$res){
+          $res=$array[$i];
+        }
+      }
+      return ($res);
+    }
+
+    public static function setLog($id_plat,$html_content){
+      static::exec_sql('GAME_SET_LOG',array(
+        ':id_plat' => $id_plat,
+        ':html_content' => $html_content
+      ));
+    }
+
+    /*
+    *   88888888ba   88
+    *   88      "8b  88
+    *   88      ,8P  88
+    *   88aaaaaa8P'  88  ,adPPYYba,  8b       d8
+    *   88""""""'    88  ""     `Y8  `8b     d8'
+    *   88           88  ,adPPPPP88   `8b   d8'
+    *   88           88  88,    ,88    `8b,d8'
+    *   88           88  `"8bbdP"Y8      Y88'
+    *                                    d8'
+    *                                   d8'
+    */
+
+    public static function indexOfClosest($selectedCard, $tabMaxPile,$id_plat, $array_id_pile){
+      $aux=-1;
+      $last=1500;
+      for($i=0;$i<4;$i++){
+        if($selectedCard>$tabMaxPile[$i]){
+          $diff=$selectedCard-($tabMaxPile[$i]);
+          if($diff<$last){
+            $aux=$tabMaxPile[$i];
+            $last=$diff;
+          }
+        }
+      }
+      if($aux==-1){
+        $res=-1;
+      }
+      else{
+        $res_req = static::exec_sql('GAME_SELECT_PILE', array(
+          ':id_card' => $aux,
+          ':id_plat' => $id_plat
+        ));
+        $res=$res_req->Id_Pile;
+      }
+      return($res);
+    }
+
+    public static function minimizePiles($array_id_pile, $id_plat, $pseudo){
+      $somme=150;
+      $res=0;
+      for ($i=0;$i<4;$i++){
+        $res_req=static::exec_sql('GAME_GET_PILE_WEIGHT',array(
+          ':id_pile' => $array_id_pile[$i]
+        ));
+        $aux=$res_req->Poids;
+        if($aux<$somme){
+          $somme=$aux;
+          $res=$array_id_pile[$i];
+        }
+      }
+      $prec_score = static::exec_sql('USER_GET_SCORE',array(
+        ':pseudo' => $pseudo,
+        ':id_plat'=> $id_plat
+      ));
+      $new = $somme+ $prec_score->Val_Score;
+      static::setLog($id_plat,'<div class="row"><p class="log">'.$pseudo.' vient de se prendre <span class="badge">'.$somme.'</span> points dans la vue!</p></div><hr>');
+      $sql_score = static::exec_sql('USER_UPDATE_SCORE', array(
+        ':score'  => $new,
+        ':id_plat'=> $id_plat,
+        ':pseudo' => $pseudo
+      ));
+      return($res);
+    }
+
+    public static function numberInHand($pseudo,$id_plat){
+      $sql_req=static::exec_sql_noFetch('USER_GET_HAND_BY_PSEUDO',array(
+        ':id_plat' => $id_plat,
+        ':pseudo' => $pseudo
+      ));
+      $res=$sql_req->fetch(DatabasePDO::FETCH_ASSOC);
+      unset($res['Id_Main']);
+      unset($res['Id_Plat']);
+      unset($res['Pseudo']);
+      unset($res['Nb_Carte_main']);
+      unset($res['Id_Selected_Card']);
+      $i=0;
+      foreach ($res as $card) {
+        $i= ($card==NULL)? $i:$i+1;
+      }
+      return $i;
+    }
+
+    public static function numberOfCardsInPile($id_pile){
+      $res=0;
+      $res_req=static::exec_sql('GAME_GET_NB_CARDS',array(
+        ':id_pile' => $id_pile
+      ));
+      $res=$res_req->nb;
+      return ($res);
+    }
+
+    public static function relatedIndex($selectedCard, $tabMaxPile, $taille){
+      $res=0;
+      $last=150;
+      for($i=0;$i<$taille;$i++){
+        if($selectedCard>$tabMaxPile[$i]){
+          $diff=$selectedCard-$tabMaxPile[$i];
+          if($diff<$last){
+            $res=$i;
+            $last=$diff;
+          }
+        }
+      }
+      return($res);
+    }
+
+    public static function allSelectedCards($id_plat){
+      $sql=static::exec_sql_noFetch('GAME_GET_SELECTED_CARDS',array(
+        ':id_plat' => $id_plat
+      ));
+      return $sql->fetchAll(DatabasePDO::FETCH_NUM);
+
     }
 
     public static function distributeCards($id_plat){
@@ -149,7 +489,6 @@
           $compt_num_j++;
         }
 
-        //SQL TO REFACTOR
         $sql_id_pile=static::exec_sql_noFetch('GAME_GET_PILE',array(
           ':id_plat' => $id_plat
         ));
@@ -167,199 +506,41 @@
       }
     }
 
-    public static function estCommence($id_plat){
-      $res=static::exec_sql('GAME_GET_STATUS',array(
-        ':id_plat' => $id_plat
+    public static function numeroInHand($id_plat, $selectedCard){
+      $sql_req=static::exec_sql_noFetch('USER_GET_HAND',array(
+        ':id_plat' => $id_plat,
+        ':selected' => $selectedCard
       ));
-      return ($res->estCommence);
-    }
-
-    public static function userIsallowed($login,$id_plat){
-      $data=static::exec_sql('GAME_IS_OPEN',array(
-        ':id_plat' => $id_plat
-      ));
-      $data2=static::exec_sql('GAME_GET_PSEUDO_FROM_PSEUDO&PLAT',array(
-        ':pseudo' => $login,
-        ':id_plat'=> $id_plat
-      ));
-      if(!empty($data2)){
-        return true;
-      }
-      else{
-        if($data->estCommence==-1){
-          if($data->nb_joueurs<10){
-            static::exec_sql('GAME_INSERT_NEW_PLAYER',array(
-              ':plat' => $id_plat,
-              ':joueur' => $login
-            ));
-            static::setLog($id_plat,'<div class="row"><p class="log">'.$login.' a rejoint la partie !</p></div><hr>');
-            return(true);
-          }
+      $res=$sql_req->fetch(DatabasePDO::FETCH_ASSOC);
+      unset($res['Id_Main']);
+      unset($res['Id_plat']);
+      $i=1;
+      $find=false;
+      $numeroInHand=-1;
+      while($i<11 && !$find){
+        if($selectedCard==$res['Id_Carte'.$i]){
+          $numeroInHand=$i;
+          $find=true;
         }
-      else {
-        return(false);
-        }
-      }
-    }
-
-    public static function getIdMain($id_plat, $pseudo){
-        $res=static::exec_sql('GAME_GET_HAND_ID',array(
-          ':pseudo' => $pseudo,
-          ':id_plat'=> $id_plat
-        ));
-        return($res->Id_Main);
-    }
-
-    public static function allSelectedCards($id_plat){
-      $sql=static::exec_sql_noFetch('GAME_GET_SELECTED_CARDS',array(
-        ':id_plat' => $id_plat
-      ));
-      return $sql->fetchAll(DatabasePDO::FETCH_NUM);
-
-    }
-
-    public static function getIdPlayers($sortedArray,$id_plat, $nb_joueurs){
-      $res=[];
-      for ($i=0;$i<$nb_joueurs;$i++){
-        $res_sql=static::exec_sql('GAME_GET_PSEUDO_FROM_HAND',array(
-          ':id_plat' => $id_plat,
-          ':selected'=> $sortedArray[$i][0]
-        ));
-        $res[$i]=$res_sql->Pseudo;
-      }
-      return($res);
-    }
-
-    public static function getPilesId($id_plat){
-      $res=[];
-      $sql=static::exec_sql_noFetch('GAME_GET_PILE',array(
-        ':id_plat' => $id_plat
-      ));
-      $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
-      if(!empty($res_req)){
-        $res[0]=$res_req->Id_Pile;
-
-        for ($i=1;$i<4;$i++){
-          $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
-          $res[$i]=$res_req->Id_Pile;
-        }
-      }
-      else{
-        $res=-1;
-      }
-      return($res);
-    }
-
-    public static function getCardsOfPile($id_pile){
-      $res=[];
-      $sql=static::exec_sql_noFetch('GAME_SELECT_CARD_IN_PILE',array(
-        ':id_pile' => $id_pile
-      ));
-      $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
-      $i=0;
-      while(!empty($res_req)){
-        $res[$i]=$res_req->Id_Carte;
-        $res_req=$sql->fetch(DatabasePDO::FETCH_OBJ);
         $i++;
-      }
-      return($res);
-    }
-
-    public static function numberOfCardsInPile($id_pile){
-      $res=0;
-      $res_req=static::exec_sql('GAME_GET_NB_CARDS',array(
-        ':id_pile' => $id_pile
-      ));
-      $res=$res_req->nb;
-      return ($res);
-    }
-
-    public static function max_list($array, $nbOfCards){
-      $res=0;
-      for($i=0;$i<$nbOfCards;$i++){
-        if($array[$i]>$res){
-          $res=$array[$i];
         }
-      }
-      return ($res);
+      return 'Id_Carte'.$numeroInHand;
     }
 
-    public static function minimizePiles($array_id_pile, $id_plat, $pseudo){
-      $somme=150;
-      $res=0;
-      for ($i=0;$i<4;$i++){
-        $res_req=static::exec_sql('GAME_GET_PILE_WEIGHT',array(
-          ':id_pile' => $array_id_pile[$i]
-        ));
-        $aux=$res_req->Poids;
-        if($aux<$somme){
-          $somme=$aux;
-          $res=$array_id_pile[$i];
-        }
-      }
-      $prec_score = static::exec_sql('USER_GET_SCORE',array(
-        ':pseudo' => $pseudo,
-        ':id_plat'=> $id_plat
+    public static function showFinalScores($id_plat){
+      $sql=static::exec_sql_noFetch('USER_SHOW_SCORE',array(
+        ':id_plat' => $id_plat
       ));
-      $new = $somme+ $prec_score->Val_Score;
-      static::setLog($id_plat,'<div class="row"><p class="log">'.$pseudo.' vient de se prendre <span class="badge">'.$somme.'</span> points dans la vue!</p></div><hr>');
-      $sql_score = static::exec_sql('USER_UPDATE_SCORE', array(
-        ':score'  => $new,
-        ':id_plat'=> $id_plat,
-        ':pseudo' => $pseudo
-      ));
-      // static::showScores($id_plat); //-> Not readable
-      return($res);
-    }
-
-    public static function deletePilePleine($index_closest, $id_card){
-      static::exec_sql('GAME_EMPTY_PILE', array(
-        ':id_pile' => $index_closest
-      ));
-      $sql_add_pile = static::exec_sql('GAME_FILL_PILE', array(
-        ':id_pile' => $index_closest,
-        ':id_card' => $id_card
-      ));
-    }
-
-    public static function indexOfClosest($selectedCard, $tabMaxPile,$id_plat, $array_id_pile){
-      $aux=-1;
-      $last=1500;
-      for($i=0;$i<4;$i++){
-        if($selectedCard>$tabMaxPile[$i]){
-          $diff=$selectedCard-($tabMaxPile[$i]);
-          if($diff<$last){
-            $aux=$tabMaxPile[$i];
-            $last=$diff;
-          }
-        }
+      $res=$sql->fetchAll(DatabasePDO::FETCH_NUM);
+      $html_content='';
+      for($i=0;$i<count($res);$i++){
+        $html_content=$html_content.'<tr>
+          <td>'.($i+1).'</td>
+          <td>'.$res[$i][0].'</td>
+          <td class="text-center"><span  class="badge">'.$res[$i][1].'</span></td>
+        </tr>';
       }
-      if($aux==-1){
-        $res=-1;
-      }
-      else{
-        $res_req = static::exec_sql('GAME_SELECT_PILE', array(
-          ':id_card' => $aux,
-          ':id_plat' => $id_plat
-        ));
-        $res=$res_req->Id_Pile;
-      }
-      return($res);
-    }
-
-    public static function relatedIndex($selectedCard, $tabMaxPile, $taille){
-      $res=0;
-      $last=150;
-      for($i=0;$i<$taille;$i++){
-        if($selectedCard>$tabMaxPile[$i]){
-          $diff=$selectedCard-$tabMaxPile[$i];
-          if($diff<$last){
-            $res=$i;
-            $last=$diff;
-          }
-        }
-      }
-      return($res);
+      return $html_content;
     }
 
     public static function addCardToPile($selectedCard, $indexPile, $numberInPile, $id_plat, $pseudo){
@@ -399,137 +580,7 @@
           ':pseudo' => $pseudo
         ));
         static::setLog($id_plat,'<div class="row"><p class="log">'.$pseudo.' vient de se prendre <span class="badge">'.$somme.'</span> points dans la vue!</p></div><hr>');
-        // static::showScores($id_plat);
       }
-    }
-
-    //SQL REFACTOR mystery
-    public static function suppressCardsHand($selectedCard, $id_plat,$pseudo){
-      $sql_delete_selected='UPDATE main SET Id_Selected_Card = -1 WHERE Id_Plat = '.$id_plat.' AND Pseudo ='.$pseudo.'';
-      $sql_delete_selected=DatabasePDO::getCurrentPDO()->query($sql_delete_selected);
-      $numeroInHand=Game::numeroInHand($id_plat, $selectedCard);
-      $numberInHand=static::numberInHand($pseudo,$id_plat);
-      $sql_delete_card='UPDATE main SET '.$numeroInHand.' = NULL WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
-      $sql_delete_card=DatabasePDO::getCurrentPDO()->query($sql_delete_card);
-      $number_rest= $numberInHand-1;
-      $sql_number_hand='UPDATE main SET Nb_Carte_Main = '.$number_rest.' WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
-      $sql_number_hand=DatabasePDO::getCurrentPDO()->query($sql_number_hand);
-    }
-
-    public static function resetSelected($id_plat,$pseudo){
-      $sql_delete_card='UPDATE main SET Id_Selected_Card = -1 WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
-      $sql_delete_card=DatabasePDO::getCurrentPDO()->query($sql_delete_card);
-    }
-
-    public static function numeroInHand($id_plat, $selectedCard){
-      $sql_req=static::exec_sql_noFetch('USER_GET_HAND',array(
-        ':id_plat' => $id_plat,
-        ':selected' => $selectedCard
-      ));
-      $res=$sql_req->fetch(DatabasePDO::FETCH_ASSOC);
-      unset($res['Id_Main']);
-      unset($res['Id_plat']);
-      $i=1;
-      $find=false;
-      $numeroInHand=-1;
-      while($i<11 && !$find){
-        if($selectedCard==$res['Id_Carte'.$i]){
-          $numeroInHand=$i;
-          $find=true;
-        }
-        $i++;
-        //$numeroInHand=array_search($res['Id_Carte'.$i],$res);
-        }
-      return 'Id_Carte'.$numeroInHand;
-    }
-
-    public static function numberInHand($pseudo,$id_plat){
-      $sql_req=static::exec_sql_noFetch('USER_GET_HAND_BY_PSEUDO',array(
-        ':id_plat' => $id_plat,
-        ':pseudo' => $pseudo
-      ));
-      $res=$sql_req->fetch(DatabasePDO::FETCH_ASSOC);
-      unset($res['Id_Main']);
-      unset($res['Id_Plat']);
-      unset($res['Pseudo']);
-      unset($res['Nb_Carte_main']);
-      unset($res['Id_Selected_Card']);
-      $i=0;
-      foreach ($res as $card) {
-        $i= ($card==NULL)? $i:$i+1;
-      }
-      return $i;
-    }
-
-    public static function showScores($id_plat){
-      $sql=static::exec_sql_noFetch('USER_SHOW_SCORE',array(
-        ':id_plat' => $id_plat
-      ));
-      $res=$sql->fetchAll(DatabasePDO::FETCH_NUM);
-      $html_content ='<div class="row">
-        <div class="col-md-offset-1 col-md-10">
-        <p>
-          <table class="table">
-            <thead>
-              <th>Classement</th>
-              <th>Joueur</th>
-              <th>Score</th>
-            </thead>
-            <tbody>';
-      for($i=0;$i<count($res);$i++){
-        $html_content=$html_content.'<tr>
-          <td>'.($i+1).'</td>
-          <td>'.$res[$i][0].'</td>
-          <td class="text-center"><span  class="badge">'.$res[$i][1].'</span></td>
-        </tr>';
-      }
-      $html_content=$html_content.'</tbody>
-          </table>
-        </p>
-        </div>
-      </div>
-      <hr>';
-      static::setLog($id_plat, $html_content);
-    }
-
-    public static function getScore($pseudo, $id_plat){
-      $sql_get_score=static::exec_sql_noFetch('USER_GET_SCORE',array(
-        ':pseudo' => $pseudo,
-        ':id_plat'=> $id_plat
-      ));
-      $res=$sql_get_score->fetch(DatabasePDO::FETCH_NUM);
-      return($res[0]);
-    }
-
-    public static function getWinner($id_plat,$array_id_players, $nb_joueurs){
-      $res=250;
-      for($i=0;$i<$nb_joueurs;$i++){
-        $score=Game::getScore($array_id_players[$i],$id_plat);
-        if($score<$res){
-          $res=$score;
-        }
-      }
-      return($res);
-    }
-
-    public static function getScoreWinner($id_plat,$array_id_players, $nb_joueurs){
-      $aux=250;
-      $res='';
-      for($i=0;$i<$nb_joueurs;$i++){
-        $score=Game::getScore($array_id_players[$i], $id_plat);
-        if($score<$aux){
-          $aux=$score;
-          $res=$array_id_players[$i];
-        }
-      }
-      return($res);
-    }
-
-    public static function getNomPlat($id_plat){
-      $res = static::exec_sql('GAME_GET_NAME', array(
-        ':id_plat' => $id_plat
-      ));
-      return($res->Nom);
     }
 
     public static function addHistorique($id_plat,$array_id_players, $nb_joueurs){
@@ -563,22 +614,6 @@
           ':score_gagnant' => $score_winner
         ));
       }
-    }
-
-    public static function showFinalScores($id_plat){
-      $sql=static::exec_sql_noFetch('USER_SHOW_SCORE',array(
-        ':id_plat' => $id_plat
-      ));
-      $res=$sql->fetchAll(DatabasePDO::FETCH_NUM);
-      $html_content='';
-      for($i=0;$i<count($res);$i++){
-        $html_content=$html_content.'<tr>
-          <td>'.($i+1).'</td>
-          <td>'.$res[$i][0].'</td>
-          <td class="text-center"><span  class="badge">'.$res[$i][1].'</span></td>
-        </tr>';
-      }
-      return $html_content;
     }
 
     public static function deleteEtreDans($array_id_pile){
@@ -646,58 +681,62 @@
       Game::deletePlateau($id_plat);
     }
 
-    public static function getSudo($id_plat){
-      $sql_sudo='SELECT Sudo FROM Plateau WHERE Id_Plat='.$id_plat;
-      $sql_sudo=DatabasePDO::getCurrentPDO()->prepare($sql_sudo);
-      $sql_sudo->execute();
-      $res_req=$sql_sudo->fetch(DatabasePDO::FETCH_OBJ);
-      return($res_req->Sudo);
+    public static function deletePilePleine($index_closest, $id_card){
+      static::exec_sql('GAME_EMPTY_PILE', array(
+        ':id_pile' => $index_closest
+      ));
+      $sql_add_pile = static::exec_sql('GAME_FILL_PILE', array(
+        ':id_pile' => $index_closest,
+        ':id_card' => $id_card
+      ));
     }
 
-    public static function activateKonamiCode($pseudo, $id_plat, $string){
-      if($string==''){
-        return(-1);
-      }
-      $test = Game::searchKonamiCode($id_plat);
-      if($test==-1){
-        $code= Game::checkingKonamiCode($string);
-        if($code==0){
-          $id_main = static::getIdMain($id_plat, $pseudo);
-          $sql_update_code='UPDATE Plateau SET KonamiCode = '.$id_main.' WHERE Id_Plat = '.$id_plat;
-          $sql_update_code=DatabasePDO::getCurrentPDO()->query($sql_update_code);
-          $sql_update_cheater='UPDATE Plateau SET Sudo ="'.$pseudo.'" WHERE Id_Plat = '.$id_plat;
-          $sql_update_cheater=DatabasePDO::getCurrentPDO()->query($sql_update_cheater);
-          return(0);
-        }
-        else{
-          return(1);
-        }
-      }
-      else{
-      return(2);
-      }
+    public static function resetSelected($id_plat,$pseudo){
+      $sql_delete_card='UPDATE main SET Id_Selected_Card = -1 WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
+      $sql_delete_card=DatabasePDO::getCurrentPDO()->query($sql_delete_card);
     }
 
-    public static function searchKonamiCode($id_plat){
-      $sql_check_code='SELECT KonamiCode FROM Plateau WHERE Id_Plat='.$id_plat;
-      $sql_check_code=DatabasePDO::getCurrentPDO()->prepare($sql_check_code);
-      $sql_check_code->execute();
-      $res_req=$sql_check_code->fetch(DatabasePDO::FETCH_OBJ);
-      if($res_req->KonamiCode==-1){
-        return(-1);
+    public static function showScores($id_plat){
+      $sql=static::exec_sql_noFetch('USER_SHOW_SCORE',array(
+        ':id_plat' => $id_plat
+      ));
+      $res=$sql->fetchAll(DatabasePDO::FETCH_NUM);
+      $html_content ='<div class="row">
+        <div class="col-md-offset-1 col-md-10">
+        <p>
+          <table class="table">
+            <thead>
+              <th>Classement</th>
+              <th>Joueur</th>
+              <th>Score</th>
+            </thead>
+            <tbody>';
+      for($i=0;$i<count($res);$i++){
+        $html_content=$html_content.'<tr>
+          <td>'.($i+1).'</td>
+          <td>'.$res[$i][0].'</td>
+          <td class="text-center"><span  class="badge">'.$res[$i][1].'</span></td>
+        </tr>';
       }
-      else{
-        return(0);
-      }
+      $html_content=$html_content.'</tbody>
+          </table>
+        </p>
+        </div>
+      </div>
+      <hr>';
+      static::setLog($id_plat, $html_content);
     }
 
-    public static function checkingKonamiCode($string){
-      if($string == "MakeLondorwhole..."){
-        return (0);
-      }
-      else{
-        return (-1);
-      }
+    public static function suppressCardsHand($selectedCard, $id_plat,$pseudo){
+      $sql_delete_selected='UPDATE main SET Id_Selected_Card = -1 WHERE Id_Plat = '.$id_plat.' AND Pseudo ='.$pseudo.'';
+      $sql_delete_selected=DatabasePDO::getCurrentPDO()->query($sql_delete_selected);
+      $numeroInHand=Game::numeroInHand($id_plat, $selectedCard);
+      $numberInHand=static::numberInHand($pseudo,$id_plat);
+      $sql_delete_card='UPDATE main SET '.$numeroInHand.' = NULL WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
+      $sql_delete_card=DatabasePDO::getCurrentPDO()->query($sql_delete_card);
+      $number_rest= $numberInHand-1;
+      $sql_number_hand='UPDATE main SET Nb_Carte_Main = '.$number_rest.' WHERE Id_Plat = '.$id_plat.' AND Pseudo ="'.$pseudo.'"';
+      $sql_number_hand=DatabasePDO::getCurrentPDO()->query($sql_number_hand);
     }
 
    }

@@ -51,8 +51,6 @@ Nom varchar(50),
 Createur varchar(50),
 Prive varchar(50),
 estCommence int DEFAULT -1,
-KonamiCode int DEFAULT -1,
-Suod varchar(50) DEFAULT 'Goku',
 PRIMARY KEY (Id_Plat),
 CONSTRAINT Fk_Createur FOREIGN KEY (Createur) REFERENCES Joueur(Pseudo)
 )ENGINE = InnoDB;
@@ -294,7 +292,7 @@ INSERT INTO Carte VALUES (104, 1);
 
 INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des Devs', 'BlazDark', 'LesBoss', -1);
 INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des Blondes', 'Blondie', 'Codouches', -1);
-INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des 4', 'Delni', 'LeMini2', -1);
+INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie des 4', 'Delni', '', -1);
 INSERT INTO Plateau(Nom, Createur, Prive, estCommence) VALUES('Partie Full NonCom', 'BlazDark', 'FullNonCom', -1);
 
 

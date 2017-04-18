@@ -62,17 +62,20 @@
         $view = new InscriptionView($this);
         $view->setArg('inscErrorText','This login is already used');
         $view->render($this);
-      } else {
+      }
+      else {
         $password = $args->read('inscPassword');
         $nom = $args->read('inscName');
         $prenom = $args->read('inscFirstName');
         $mail = $args->read('inscMail');
         $user = User::create($login, $password,$mail,$nom,$prenom);
+        $this->creationMailing($login, $mail);
         if(!isset($user)) {
           $view = new View($this,'inscription');
           $view->setArg('inscErrorText', 'Cannot complete inscription');
           $view->render($this);
-        } else {
+        }
+        else {
           SessionStart();
           $_SESSION['user']=serialize($user);
           $newRequest = new Request();
@@ -98,12 +101,14 @@
           $newRequest->write('user',$user->get_id());
           $contoller = Dispatcher::getCurrentDispatcher()->dispatch($newRequest);
           $contoller->execute();
-        } else {
+        }
+        else {
           $view = new ConnectionView($this);
           $view->setArg('conErrorText','Your login and your password didn\'t match.');
           $view->render($this);
         }
-      } else {
+      }
+      else {
         $view = new ConnectionView($this);
         $view->setArg('conErrorText','Unknown login');
         $view->render($this);
@@ -145,6 +150,44 @@
       return ($aleat_Password);
     }
 
+public function creationMailing($login, $email){
+  date_default_timezone_set ('Europe/Paris');
+  if(User::eMailexist($email)){
+    $view = new ConnectionView($this);
+    $mdp = $this->mdpGenerator();
+    $destinataire = $email;
+    require "/PHPMailer/class.phpmailer.php";
+    require '/PHPMailer/PHPMailerAutoload.php';
+    $mail = new PHPmailer(true);
+    $mail->IsSMTP();
+    $mail->SMTPAuth   = true;
+    $mail->SMTPSecure = 'ssl';
+    $mail->Host='smtp.gmail.com';
+    $mail->Port = 465;
+    $mail->IsHTML(true);
+    $mail->Username = "6nimmt.projet.web@gmail.com";
+    $mail->Password = "PHPMAILERCESTNUL";
+    $mail->From='6nimmt.projet.web@gmail.com';
+    $mail->FromName='6nimmt Contact';
+    $mail->AddAddress($destinataire);
+    $mail->AddReplyTo('6nimmt.projet.web@gmail.com');
+    $mail->CharSet = 'UTF-8';
+    $mail->Subject='Vos identifiants -- 6nimmt';
+    $mail->Body='<html>';
+    $mail->Body.='    <head>';
+    $mail->Body.='      <meta charset="utf-8">';
+    $mail->Body.='<style>body{color: #3A405A}</style>';
+    $mail->Body.='    </head>';
+    $mail->Body.='      <body><h2>Création d\'un compte</h2>';
+    $mail->Body.='      <p>Vous avez créé un compte sur notre site 6 qui ramasse sous le pseudo '.$login.'.</p>';
+    $mail->Body.='      <p>Si vous n\'êtes pas à l\'origine de cette action, répondez à ce mail, nous traiterons votre demande au plus vite!</p>';
+    $mail->Body.='  </body>';
+    $mail->Body.='</html>';
+    $mail->MsgHTML($mail->Body);
+    $mail->Send();
+  }
+}
+
     public function validateRecovery($args){
       date_default_timezone_set ('Europe/Paris');
       $email=$args->read('recoPsw');
@@ -154,10 +197,8 @@
         $destinataire = $email;
         require "/PHPMailer/class.phpmailer.php";
         require '/PHPMailer/PHPMailerAutoload.php';
-
         $mail = new PHPmailer(true);
         $mail->IsSMTP();
-        $mail->SMTPDebug = 1;
         $mail->SMTPAuth   = true;
         $mail->SMTPSecure = 'ssl';
         $mail->Host='smtp.gmail.com';
