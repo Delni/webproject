@@ -49,11 +49,16 @@
       <div class="col-md-3">
           <select id="InputFile" class="form-control col-md-2" name="InputFile">
             <option value="">-- Default --</option>
-            <option value="1"> Avatar Fleur </option>
-            <option value="2"> Avatar Creeper </option>
-            <option value="3"> Avatar Invader </option>
-            <option value="4"> Avatar Target </option>
-            <option value="5"> Avatar Grenade </option>
+            <option value="1"> Flower </option>
+            <option value="2"> Creeper </option>
+            <option value="3"> Invader </option>
+            <option value="4"> Target </option>
+            <option value="5"> Grenade </option>
+            <option value="6"> Canvas </option>
+            <option value="7"> Coin </option>
+            <option value="8"> Smiling </option>
+            <option value="9"> Picasso </option>
+            <option value="10"> OneUp </option>
           </select>
       </div>
     </div>
