@@ -8,11 +8,11 @@
     </div>
   </div>
   <div class="row text-center">
-    <audio id="myAudio" autoplay>
+    <audio id="audio" autoplay>
       <source src="css/sounds/victorytheme.m4a" type="audio/mpeg">
     </audio>
     <script type="text/javascript">
-      var vid = document.getElementById("myAudio");
+      var vid = document.getElementById("audio");
       vid.volume = 0.1;
     </script>
     <a href="index.php?action=creation" class="btn btn-primary">Revanche !</a>

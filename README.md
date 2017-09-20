@@ -19,8 +19,6 @@ Dashboard principal
 Une partie en cours
 
 ## How-to
-:warning: La dernière version du site se trouve sur la branche `release`! :warning:  
-
 Le site n'est malheureusement pas hébergé en ligne. Pour pouvoir tester le site, il vous faut un serveur local (WAMP, MAMP, UAMP,...).
 
 Ouvrez un terminal :

@@ -12,9 +12,13 @@
       $flag=$this->user->getX('PAYS');
       if($flag=="easter-egg"){
         echo '<img src="css/img/parrot.gif" alt="Yolo">
-              <audio autoplay loop>
+              <audio id="nyan" autoplay loop>
                 <source src="css/sounds/star.mp3" type="audio/mpeg">
-              </audio>';
+              </audio>
+              <script type="text/javascript">
+                var vid = document.getElementById("nyan");
+                vid.volume = 0.42;
+              </script>';
       } else {
         echo "<img src=\"css/img/flags/flags_iso/24/".$flag.".png\" alt=\"".$flag."\">";
       }

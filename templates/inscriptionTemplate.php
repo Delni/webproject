@@ -44,7 +44,7 @@
         <span class="input input--yoko">
           <input class="input__field input__field--yoko" type="email" name="inscMail" id="input-6" required/>
           <label class="input__label input__label--yoko" for="input-2">
-            <span class="input__label-content input__label-content--yoko"><i class="fa fa-envelope"></i> E-mail <span class="obligatoire">*</span></span>
+            <span class="hasinfo input__label-content input__label-content--yoko"><i class="fa fa-envelope"></i> E-mail <span class="obligatoire">*</span><span class="infobulle">Nous n'utiliserons votre email qu'uniquement <br>pour vous aider à récuperer votre compte si vous oubliez vos identifiants <br>et confirmer votre inscription!</span></span>
           </label>
         </span>
       </div>
