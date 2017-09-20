@@ -2,7 +2,7 @@
 ![6nimmt](css/img/6nimmt.png)
 
 ## Le projet
-La majeure ISIC (__I__ngénierie des __S__ystèmes d'__I__nformation et de __C__ommunication) de l'école des Mines de Douai demande à chaque promotion de réaliser un projet web de bout en bout.
+La majeure ISIC (Ingénierie des Systèmes d'Information et de Communication) de l'école des Mines de Douai demande à chaque promotion de réaliser un projet web de bout en bout.
 
 Le sujet de la promotion 2018 fut de recréer le jeu de carte __6nimmt!__ ([wiki](https://fr.wikipedia.org/wiki/6_qui_prend_!)), permettant des parties de 2 à 10 joueurs, et le présent projet est celui réalisé par N. Delauney et A. Handjani
 
