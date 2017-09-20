@@ -163,7 +163,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <a href="index?action=totalWipeOut" class="btn btn-danger pull-right" >Non je me barre</a>
+        <a href="index.php?action=totalWipeOut" class="btn btn-danger pull-right" >Non je me barre</a>
         <button type="button" class="btn btn-primary pull-left" data-dismiss="modal">Bon aller...</button>
       </div>
     </div>
